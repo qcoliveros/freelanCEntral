@@ -9,14 +9,14 @@ graduates or even mid-career professionals who need to gain experience for a car
 upgrade or switch. This model also eliminates the need to observe legislative
 requirements and draft formal employment contracts.
 
-## Installation
+## Installation using Terminal
 
 1. Clone the repository locally.
 ```
 git clone https://github.com/qcoliveros/freelanCEntral.git freelanCEntral
 cd freelanCEntral
 ```
-2. Install PHP dependencies. Open a terminal and execute the following:
+2. Install PHP dependencies.
 ```
 composer install
 ```
