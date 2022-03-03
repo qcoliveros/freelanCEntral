@@ -16,7 +16,7 @@ requirements and draft formal employment contracts.
 git clone https://github.com/qcoliveros/freelanCEntral.git freelanCEntral
 cd freelanCEntral
 ```
-2. Install PHP dependencies.
+2. Install PHP dependencies. Open a terminal and execute the following:
 ```
 composer install
 ```
