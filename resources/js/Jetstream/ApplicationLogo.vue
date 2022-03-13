@@ -1,6 +1,5 @@
 <template>
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-         viewBox="0 0 392.566 392.566" style="enable-background:new 0 0 392.566 392.566;" xml:space="preserve" width="54px" height="54px">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 392.566 392.566" xml:space="preserve">
         <path style="fill:#56ACE0;" d="M311.857,285.43h-73.374c-17.39,29.737-31.547,51.523-33.099,53.915
             c-4.331,6.659-13.964,6.659-18.295,0c-1.552-2.392-15.709-24.178-33.099-53.915H80.681l-50.618,85.333h332.412L311.857,285.43z"/>
         <path style="fill:#FFFFFF;" d="M102.855,115.216c2.78,49.907,79.968,176.485,93.414,197.948
