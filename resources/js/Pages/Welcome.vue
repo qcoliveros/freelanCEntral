@@ -24,7 +24,7 @@
             <div class="mt-8 bg-white overflow-hidden shadow sm:rounded-lg">
                 <div class="grid grid-cols-1 md:grid-cols-2">
                     <div class="flex items-center justify-center mt-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-15 h-15" viewBox="0 0 504.123 504.123">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="block h-16 w-auto" viewBox="0 0 504.123 504.123">
                             <path style="fill:#2A5263;" d="M391.106,417.477c0,8.696-7.058,15.754-15.754,15.754h-44.631c-8.704,0-15.754-7.058-15.754-15.754
                                 V294.069c0-8.696,7.05-15.754,15.754-15.754h44.631c8.696,0,15.754,7.058,15.754,15.754V417.477z"/>
                             <path style="fill:#1A3944;" d="M353.674,417.477c0,8.696-7.058,15.754-15.754,15.754H293.29c-8.696,0-15.754-7.058-15.754-15.754
@@ -92,7 +92,7 @@
                         </svg>
                     </div>
                     <div class="flex items-center justify-center mt-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-15 h-15" viewBox="0 0 504.123 504.123">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="block h-16 w-auto" viewBox="0 0 504.123 504.123">
                             <g>
                                 <path style="fill:#232728;" d="M351.705,315.242c0,126.33-44.599,84.259-99.643,84.259c-55.028,0-99.643,42.071-99.643-84.259
                                     c0-72.231,44.631-130.788,99.643-130.788C307.09,184.462,351.705,243.019,351.705,315.242z"/>
