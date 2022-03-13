@@ -19,9 +19,15 @@ Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
     ]);
+});
+
+Route::get('/gigMasterTips', function () {
+    return Inertia::render('GigMasterTips');
+});
+
+Route::get('/engagementRules', function () {
+    return Inertia::render('EngagementRules');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
