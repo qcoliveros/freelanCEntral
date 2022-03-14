@@ -24,7 +24,7 @@
                                 <Link v-if="$page.props.user" :href="route('dashboard')" class="text-sm underline">Dashboard</Link>
 
                                 <template v-else>
-                                    <Link :href="route('login')" class="text-sm underline">Login</Link>
+                                    <Link :href="route('login')" class="text-sm underline" as="button">Login</Link>
                                     <Link v-if="canRegister" :href="route('register')" class="ml-4 text-sm underline">Register</Link>
                                 </template>
                             </div>
