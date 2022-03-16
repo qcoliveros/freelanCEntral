@@ -20,6 +20,11 @@
             </div>
 
             <div class="mt-4">
+                <jet-label for="role_id" value="Role" />
+                <Multiselect id="role_id" v-model="form.role_id" :options="{2: 'Gigger', 3: 'Gig Host'}" required />
+            </div>
+
+            <div class="mt-4">
                 <jet-label for="password" value="Password" />
                 <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="new-password" />
             </div>
@@ -56,26 +61,28 @@
 
 <script>
     import { defineComponent } from 'vue'
-    import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue'
+    import { Head, Link } from '@inertiajs/inertia-vue3';
     import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue'
     import JetButton from '@/Jetstream/Button.vue'
     import JetInput from '@/Jetstream/Input.vue'
     import JetCheckbox from '@/Jetstream/Checkbox.vue'
     import JetLabel from '@/Jetstream/Label.vue'
     import JetValidationErrors from '@/Jetstream/ValidationErrors.vue'
-    import { Head, Link } from '@inertiajs/inertia-vue3';
+    import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue'
+    import Multiselect from '@vueform/multiselect'
 
     export default defineComponent({
         components: {
             Head,
-            JetAuthenticationCard,
+            Link,
             JetAuthenticationCardLogo,
             JetButton,
             JetInput,
             JetCheckbox,
             JetLabel,
             JetValidationErrors,
-            Link,
+            JetAuthenticationCard,
+            Multiselect,
         },
 
         data() {
@@ -85,6 +92,7 @@
                     email: '',
                     password: '',
                     password_confirmation: '',
+                    role_id: '',
                     terms: false,
                 })
             }
