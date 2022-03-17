@@ -9,7 +9,7 @@ graduates or even mid-career professionals who need to gain experience for a car
 upgrade or switch. This model also eliminates the need to observe legislative
 requirements and draft formal employment contracts.
 
-## Installation using Terminal
+## Installation
 
 1. Clone the repository locally.
 ```
@@ -46,7 +46,11 @@ DB_PASSWORD=
 php artisan make:database
 php artisan migrate
 ```
-9. Run the dev server (the output will give the address).
+9. Create a symbolic link in public directory to allow your user profile's images.
+```
+php artisan storage:link
+```
+10. Run the dev server (the output will give the address).
 ```
 php artisan serve
 ```
