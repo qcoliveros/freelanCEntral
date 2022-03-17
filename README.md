@@ -46,7 +46,7 @@ DB_PASSWORD=
 php artisan make:database
 php artisan migrate
 ```
-9. Create a symbolic link in public directory to allow your user profile's images.
+9. Create a symbolic link in public directory to allow user profile's images.
 ```
 php artisan storage:link
 ```
