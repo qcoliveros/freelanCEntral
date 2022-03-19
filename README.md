@@ -44,7 +44,7 @@ DB_PASSWORD=
 8. Run database migrations.
 ```
 php artisan make:database
-php artisan migrate
+php artisan migrate:fresh --seed
 ```
 9. Create a symbolic link in public directory to allow user profile's images.
 ```
