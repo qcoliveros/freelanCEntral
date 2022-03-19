@@ -4,19 +4,19 @@
             <jet-validation-errors class="mb-4" />
 
             <form @submit.prevent="submit">
+                <div class="mt-4">
+                    <jet-label for="role_id" value="Join As" />
+                    <Multiselect id="role_id" v-model="form.role_id" :options="{2: 'Gigger', 3: 'Gig Host'}" required />
+                </div>
+
                 <div>
                     <jet-label for="name" value="Name" />
-                    <jet-input id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus autocomplete="name" />
+                    <jet-input id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autocomplete="name" />
                 </div>
 
                 <div class="mt-4">
                     <jet-label for="email" value="Email" />
                     <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required />
-                </div>
-
-                <div class="mt-4">
-                    <jet-label for="role_id" value="Role" />
-                    <Multiselect id="role_id" v-model="form.role_id" :options="{2: 'Gigger', 3: 'Gig Host'}" required />
                 </div>
 
                 <div class="mt-4">

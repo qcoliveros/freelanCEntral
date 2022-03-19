@@ -3,6 +3,13 @@
 @import 'tailwindcss/utilities';
 @import "@vueform/multiselect/themes/default.css";
 
+:root {
+  --ms-ring-color: rgb(187 247 208);
+  --ms-group-label-bg-selected: rgb(209,213,219);
+  --ms-option-bg-selected: rgb(209,213,219);
+  --ms-option-bg-selected-pointed: rgb(209,213,219);
+}
+
 .full-h-screen {
-  min-height: 71vh;
+  min-height: 72vh;
 }
