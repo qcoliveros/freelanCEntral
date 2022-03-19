@@ -22,14 +22,18 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/gigMasterTips', function () {
-    return Inertia::render('GigMasterTips');
-});
-
-Route::get('/engagementRules', function () {
-    return Inertia::render('EngagementRules');
-});
-
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+Route::get('/giggerEngagementRules', function () {
+    return Inertia::render('GiggerEngagementRules');
+});
+
+Route::get('/gigHostEngagementRules', function () {
+    return Inertia::render('GigHostEngagementRules');
+});
+
+Route::get('/gigMasterTips', function () {
+    return Inertia::render('GigMasterTips');
+});

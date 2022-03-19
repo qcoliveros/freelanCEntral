@@ -1,7 +1,7 @@
 <template>
     <welcome-layout title="Welcome" canLogin="canLogin" canRegister="canRegister">
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="full-h-screen max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="flex items-center justify-center mt-4">
@@ -171,7 +171,7 @@
                             </div>
                         </div>
                         <div class="p-6">
-                            <Link :href="'engagementRules'">
+                            <Link :href="'giggerEngagementRules'">
                                 <div class="mt-3 flex items-center text-sm font-semibold text-green-700">
                                     <div>Rules of Engagement</div>
 
@@ -182,9 +182,9 @@
                             </Link>
                         </div>
                         <div class="p-6">
-                            <Link :href="'gigMasterTips'">
+                            <Link :href="'gigHostEngagementRules'">
                                 <div class="mt-3 flex items-center text-sm font-semibold text-green-700">
-                                    <div>Tips from the GigMaster</div>
+                                    <div>Rules of Engagement</div>
 
                                     <div class="ml-1">
                                         <svg viewBox="0 0 20 20" fill="green" class="w-4 h-4"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -194,7 +194,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-4 text-sm sm:ml-0 text-right">© 2022</div>
             </div>
         </div>
     </welcome-layout>

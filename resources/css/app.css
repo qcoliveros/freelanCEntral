@@ -2,3 +2,7 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 @import "@vueform/multiselect/themes/default.css";
+
+.full-h-screen {
+  min-height: 71vh;
+}

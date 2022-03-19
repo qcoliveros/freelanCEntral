@@ -2,7 +2,16 @@
     <div>
         <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
             <div class="mt-2 text-2xl">
-                Welcome!
+                Welcome! {{ $page.props.user.name }}
+                <span v-if="1 == $page.props.user.role_id">
+                Admin
+                </span>
+                <span v-if="2 == $page.props.user.role_id">
+                Gigger
+                </span>
+                <span v-if="3 == $page.props.user.role_id">
+                Gig Host
+                </span>
             </div>
 
             <div class="mt-6 text-gray-500">
