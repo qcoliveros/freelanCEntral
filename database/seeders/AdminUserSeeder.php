@@ -23,9 +23,7 @@ class AdminUserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('P@44w0rd')
         ]);
-
-        $adminRole = Role::where('name', 'Administrator')->get();
-        $user->assignRole($adminRole);
+        $user->assignRole('Administrator');
 
         return $user;
     }
