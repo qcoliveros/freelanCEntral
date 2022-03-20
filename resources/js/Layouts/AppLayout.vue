@@ -22,6 +22,15 @@
                                 <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </jet-nav-link>
+                                <!--jet-nav-link :href="route('admin.userList.index')" :active="route().current('admin.userList.index')">
+                                    Manage Users
+                                </jet-nav-link>
+                                <jet-nav-link :href="route('gigger.gigList.index')" :active="route().current('gigger.gigList.index')">
+                                    My Gigs
+                                </jet-nav-link>
+                                <jet-nav-link :href="route('gigHost.gigList.index')" :active="route().current('gigHost.gigList.index')">
+                                    My Gigs
+                                </jet-nav-link-->
                             </div>
                         </div>
 

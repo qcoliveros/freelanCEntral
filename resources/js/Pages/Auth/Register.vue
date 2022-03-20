@@ -4,12 +4,12 @@
             <jet-validation-errors class="mb-4" />
 
             <form @submit.prevent="submit">
-                <div class="mt-4">
+                <div>
                     <jet-label for="role" value="Join As" />
-                    <Multiselect id="role" v-model="form.role" :options="['Gigger', 'Gig Host']" required />
+                    <Multiselect id="role" v-model="form.role" :options="['Gigger', 'Gig Host']" class="mt-1 mb-6 block w-full" required />
                 </div>
 
-                <div>
+                <div class="mt-4">
                     <jet-label for="name" value="Name" />
                     <jet-input id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autocomplete="name" />
                 </div>

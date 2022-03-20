@@ -21,7 +21,7 @@
                         <!-- Navigation Links -->
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                             <div v-if="canLogin" class="hidden px-6 py-4 sm:block grid-cols-1">
-                                <Link v-if="$page.props.user" :href="route('dashboard')" class="text-sm font-bold">Dashboard</Link>
+                                <Link v-if="$page.props.user" :href="route('dashboard')" class="text-sm">Dashboard</Link>
 
                                 <template v-else>
                                     <Link :href="route('login')" class="text-sm font-bold">Login</Link>
