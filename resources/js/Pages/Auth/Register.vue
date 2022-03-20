@@ -5,8 +5,8 @@
 
             <form @submit.prevent="submit">
                 <div class="mt-4">
-                    <jet-label for="role_id" value="Join As" />
-                    <Multiselect id="role_id" v-model="form.role_id" :options="{2: 'Gigger', 3: 'Gig Host'}" required />
+                    <jet-label for="role" value="Join As" />
+                    <Multiselect id="role" v-model="form.role" :options="['Gigger', 'Gig Host']" required />
                 </div>
 
                 <div>
@@ -88,7 +88,7 @@
                     email: '',
                     password: '',
                     password_confirmation: '',
-                    role_id: '',
+                    role: '',
                     terms: false,
                 })
             }
