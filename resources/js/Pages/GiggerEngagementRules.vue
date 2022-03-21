@@ -7,7 +7,7 @@
                         <div class="mt-4 text-xl leading-7 font-semibold text-center">Rules of Engagement (Gigger)</div>
                         <div class="p-6">
                             <div class="flex items-center">
-                                <jet-checkbox-icon class="block h-8 w-auto" />
+                                <div class="block h-8 w-auto"><jet-icon name="checkbox-icon" /></div>
                                 <div class="ml-4 text-lg leading-7 font-semibold">
                                     <strong>No to Money and formal Contracts</strong> – do not ask for or give any monetary or non-monetary gift to the Gig Host
                                 </div>
@@ -15,7 +15,7 @@
                         </div>
                         <div class="p-6">
                             <div class="flex items-center">
-                                <jet-checkbox-icon class="block h-8 w-auto" />
+                                <div class="block h-8 w-auto"><jet-icon name="checkbox-icon" /></div>
                                 <div class="ml-4 text-lg leading-7 font-semibold">
                                     Be <strong>Generous</strong> with your <strong>Time</strong> and <strong>Skills</strong> – make the experience extra meaningful by allocating precious time and learning the skills
                                 </div>
@@ -23,7 +23,7 @@
                         </div>
                         <div class="p-6">
                             <div class="flex items-center">
-                                <jet-checkbox-icon class="block h-8 w-auto" />
+                                <div class="block h-8 w-auto"><jet-icon name="checkbox-icon" /></div>
                                 <div class="ml-4 text-lg leading-7 font-semibold">
                                     Write a helpful Gig Host review – thank your Gig Host and explain the valuable skills you’ve gained during the Gig
                                 </div>
@@ -49,9 +49,9 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { Head, Link } from '@inertiajs/inertia-vue3';
-import WelcomeLayout from "@/Layouts/WelcomeLayout";
-import JetCheckboxIcon from "@/Jetstream/CheckboxIcon"
+import { Head, Link } from '@inertiajs/inertia-vue3'
+import WelcomeLayout from "@/Layouts/WelcomeLayout"
+import JetIcon from "@/Jetstream/Icon"
 
 export default defineComponent({
     props: {
@@ -63,7 +63,7 @@ export default defineComponent({
         Head,
         Link,
         WelcomeLayout,
-        JetCheckboxIcon,
+        JetIcon,
     }
 })
 </script>
