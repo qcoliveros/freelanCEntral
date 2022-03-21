@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use function Sodium\add;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -36,8 +37,12 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        return array_merge(parent::share($request), [
-            //
-        ]);
+        $sharedData = [];
+        if ($request->user() != null) {
+            $sharedData['user.permissions'] = $request->user()->getAllPermissions()->pluck('name');
+            $sharedData['user.roles'] = $request->user()->roles()->pluck('name');
+        }
+
+        return array_merge(parent::share($request), $sharedData);
     }
 }

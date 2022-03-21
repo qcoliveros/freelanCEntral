@@ -39,13 +39,13 @@ Route::get('/gigMasterTips', function () {
 });
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {
+    Route::group(['middleware' => 'role:Administrator', 'prefix' => 'admin', 'as' => 'admin.'], function() {
         Route::resource('userList', \App\Http\Controllers\Admin\UserController::class);
     });
-    Route::group(['middleware' => 'role:gigger', 'prefix' => 'gigger', 'as' => 'gigger.'], function() {
+    Route::group(['middleware' => 'role:Gigger', 'prefix' => 'gigger', 'as' => 'gigger.'], function() {
         Route::resource('gigList', \App\Http\Controllers\Gigger\GigController::class);
     });
-    Route::group(['middleware' => 'role:gigHost', 'prefix' => 'gigHost', 'as' => 'gigHost.'], function() {
+    Route::group(['middleware' => 'role:Gig Host', 'prefix' => 'gigHost', 'as' => 'gigHost.'], function() {
         Route::resource('gigList', \App\Http\Controllers\GigHost\GigController::class);
     });
 });
