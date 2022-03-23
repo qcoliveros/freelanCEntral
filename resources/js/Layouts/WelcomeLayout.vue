@@ -44,7 +44,7 @@
                     <div class="flex justify-between h-12">
                         <div class="mt-4 text-xs sm:ml-0 text-white">© 2022 freelanCEntral Inc.</div>
                         <div class="mt-4 text-xs sm:ml-0 text-white">
-                            Terms of Service &nbsp;|&nbsp;&nbsp;Privacy Policy
+                            Terms of Service&nbsp;&nbsp;|&nbsp;&nbsp;Privacy Policy
                         </div>
                     </div>
                 </div>
