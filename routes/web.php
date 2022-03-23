@@ -22,10 +22,6 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
-
 Route::get('/giggerEngagementRules', function () {
     return Inertia::render('GiggerEngagementRules');
 });
@@ -37,6 +33,10 @@ Route::get('/gigHostEngagementRules', function () {
 Route::get('/gigMasterTips', function () {
     return Inertia::render('GigMasterTips');
 });
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->name('dashboard');
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::group(['middleware' => 'role:Administrator', 'prefix' => 'admin', 'as' => 'admin.'], function() {
