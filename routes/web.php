@@ -38,7 +38,7 @@ Route::get('/gigMasterTips', function () {
     return Inertia::render('GigMasterTips');
 });
 
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::group(['middleware' => 'role:Administrator', 'prefix' => 'admin', 'as' => 'admin.'], function() {
         Route::get('userList', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('user.list');
     });
