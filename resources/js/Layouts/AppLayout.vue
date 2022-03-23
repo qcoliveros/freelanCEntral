@@ -22,18 +22,18 @@
                                 <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </jet-nav-link>
-                                <jet-nav-link :href="route('admin.userList.index')"
-                                              :active="route().current('admin.userList.index')"
+                                <jet-nav-link :href="route('admin.user.list')"
+                                              :active="route().current('admin.user.list')"
                                               v-if="$page.props.user.roles.includes('Administrator')">
                                     Manage Users
                                 </jet-nav-link>
-                                <jet-nav-link :href="route('gigger.gigList.index')"
-                                              :active="route().current('gigger.gigList.index')"
+                                <jet-nav-link :href="route('gigger.gig.list')"
+                                              :active="route().current('gigger.gig.list')"
                                               v-if="$page.props.user.roles.includes('Gigger')">
                                     My Gigs
                                 </jet-nav-link>
-                                <jet-nav-link :href="route('gigHost.gigList.index')"
-                                              :active="route().current('gigHost.gigList.index')"
+                                <jet-nav-link :href="route('gigger.gig.list')"
+                                              :active="route().current('gigHost.gig.list')"
                                               v-if="$page.props.user.roles.includes('Gig Host')">
                                     My Gigs
                                 </jet-nav-link>
@@ -123,6 +123,10 @@
 
                                         <jet-dropdown-link :href="route('profile.show')">
                                             Profile
+                                        </jet-dropdown-link>
+
+                                        <jet-dropdown-link :href="route('settings.show')">
+                                            Settings
                                         </jet-dropdown-link>
 
                                         <jet-dropdown-link :href="route('api-tokens.index')" v-if="$page.props.jetstream.hasApiFeatures">

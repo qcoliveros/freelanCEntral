@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Profile\UserSettingsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -39,6 +40,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
+    Route::get('/user/settings', [UserSettingsController::class, 'show'])->name('settings.show');
+
     Route::group(['middleware' => 'role:Administrator', 'prefix' => 'admin', 'as' => 'admin.'], function() {
         Route::get('userList', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('user.list');
     });
