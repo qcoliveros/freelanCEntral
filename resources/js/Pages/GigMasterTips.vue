@@ -5,19 +5,19 @@
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-1">
                         <div class="mt-4 text-xl leading-7 font-semibold text-center">Tips from the GigMaster</div>
-                        <div class="p-6">
+                        <div class="p-4">
                             <div class="flex items-center">
                                 <div class="block h-8 w-auto"><jet-icon name="checkbox-icon" /></div>
                                 <div class="ml-4 text-lg leading-7 font-semibold">Articles on work, skills development, coaching</div>
                             </div>
                         </div>
-                        <div class="p-6">
+                        <div class="p-4">
                             <div class="flex items-center">
                                 <div class="block h-8 w-auto"><jet-icon name="checkbox-icon" /></div>
                                 <div class="ml-4 text-lg leading-7 font-semibold">Blogs</div>
                             </div>
                         </div>
-                        <div class="p-6">
+                        <div class="p-4">
                             <div class="flex items-center">
                                 <div class="block h-8 w-auto"><jet-icon name="checkbox-icon" /></div>
                                 <div class="ml-4 text-lg leading-7 font-semibold">Gig success stories</div>

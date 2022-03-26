@@ -13,7 +13,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="p-6">
+                        <div class="p-4">
                             <div class="flex items-center">
                                 <div class="block h-8 w-auto"><jet-icon name="checkbox-icon" /></div>
                                 <div class="ml-4 text-lg leading-7 font-semibold">
@@ -21,7 +21,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="p-6">
+                        <div class="p-4">
                             <div class="flex items-center">
                                 <div class="block h-8 w-auto"><jet-icon name="checkbox-icon" /></div>
                                 <div class="ml-4 text-lg leading-7 font-semibold">
@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="p-6">
+                        <div class="p-4">
                             <Link :href="'/../gig-master-tips'">
                                 <div class="mt-3 flex items-center text-sm font-semibold text-green-700">
                                     <div>Tips</div>
