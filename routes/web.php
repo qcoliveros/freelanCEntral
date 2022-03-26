@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Profile\AboutInformationController;
 use App\Http\Controllers\Profile\UserSettingsController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -24,15 +23,15 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/giggerEngagementRules', function () {
-    return Inertia::render('GiggerEngagementRules');
+Route::get('/gigger/engagement-rules', function () {
+    return Inertia::render('Gigger/EngagementRules');
 });
 
-Route::get('/gigHostEngagementRules', function () {
-    return Inertia::render('GigHostEngagementRules');
+Route::get('/gigHost/engagement-rules', function () {
+    return Inertia::render('GigHost/EngagementRules');
 });
 
-Route::get('/gigMasterTips', function () {
+Route::get('/gig-master-tips', function () {
     return Inertia::render('GigMasterTips');
 });
 
@@ -47,15 +46,15 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         ->name('user-about-information.update');
 
     Route::group(['middleware' => 'role:Administrator', 'prefix' => 'admin', 'as' => 'admin.'], function() {
-        Route::get('userList', [\App\Http\Controllers\Admin\UserController::class, 'index'])
+        Route::get('user-list', [\App\Http\Controllers\Admin\UserController::class, 'index'])
             ->name('user.list');
     });
     Route::group(['middleware' => 'role:Gigger', 'prefix' => 'gigger', 'as' => 'gigger.'], function() {
-        Route::get('gigList', [\App\Http\Controllers\Gigger\GigController::class, 'index'])
+        Route::get('gig-list', [\App\Http\Controllers\Gigger\GigController::class, 'index'])
             ->name('gig.list');
     });
     Route::group(['middleware' => 'role:Gig Host', 'prefix' => 'gigHost', 'as' => 'gigHost.'], function() {
-        Route::get('gigList', [\App\Http\Controllers\GigHost\GigController::class, 'index'])
+        Route::get('gig-list', [\App\Http\Controllers\GigHost\GigController::class, 'index'])
             ->name('gig.list');
     });
 });

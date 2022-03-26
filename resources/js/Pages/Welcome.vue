@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="p-6">
-                            <Link :href="'giggerEngagementRules'">
+                            <Link :href="'/gigger/engagement-rules'">
                                 <div class="mt-3 flex items-center text-sm font-semibold text-green-700">
                                     <div>Rules of Engagement</div>
 
@@ -60,7 +60,7 @@
                             </Link>
                         </div>
                         <div class="p-6">
-                            <Link :href="'gigHostEngagementRules'">
+                            <Link :href="'/gigHost/engagement-rules'">
                                 <div class="mt-3 flex items-center text-sm font-semibold text-green-700">
                                     <div>Rules of Engagement</div>
 
