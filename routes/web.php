@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Profile\AboutInformationController;
 use App\Http\Controllers\Profile\UserSettingsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -40,15 +41,21 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
-    Route::get('/user/settings', [UserSettingsController::class, 'show'])->name('settings.show');
+    Route::get('/user/settings', [UserSettingsController::class, 'show'])
+        ->name('settings.show');
+    Route::post('/user/about-information', [AboutInformationController::class, 'update'])
+        ->name('user-about-information.update');
 
     Route::group(['middleware' => 'role:Administrator', 'prefix' => 'admin', 'as' => 'admin.'], function() {
-        Route::get('userList', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('user.list');
+        Route::get('userList', [\App\Http\Controllers\Admin\UserController::class, 'index'])
+            ->name('user.list');
     });
     Route::group(['middleware' => 'role:Gigger', 'prefix' => 'gigger', 'as' => 'gigger.'], function() {
-        Route::get('gigList', [\App\Http\Controllers\Gigger\GigController::class, 'index'])->name('gig.list');
+        Route::get('gigList', [\App\Http\Controllers\Gigger\GigController::class, 'index'])
+            ->name('gig.list');
     });
     Route::group(['middleware' => 'role:Gig Host', 'prefix' => 'gigHost', 'as' => 'gigHost.'], function() {
-        Route::get('gigList', [\App\Http\Controllers\GigHost\GigController::class, 'index'])->name('gig.list');
+        Route::get('gigList', [\App\Http\Controllers\GigHost\GigController::class, 'index'])
+            ->name('gig.list');
     });
 });

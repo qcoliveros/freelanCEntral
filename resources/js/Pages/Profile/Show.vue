@@ -13,6 +13,12 @@
 
                     <jet-section-border />
                 </div>
+
+                <div v-if="$page.props.jetstream.canUpdateProfileInformation">
+                    <about-form :user="$page.props.user" />
+
+                    <jet-section-border />
+                </div>
             </div>
         </div>
     </app-layout>
@@ -23,13 +29,16 @@
     import AppLayout from '@/Layouts/AppLayout.vue'
     import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
     import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfileInformationForm.vue'
+    import AboutForm from '@/Pages/Profile/Partials/AboutForm.vue'
 
     export default defineComponent({
         props: ['sessions'],
 
         components: {
             AppLayout,
+            JetSectionBorder,
             UpdateProfileInformationForm,
+            AboutForm,
         },
     })
 </script>
