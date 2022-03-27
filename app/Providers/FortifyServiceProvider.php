@@ -6,11 +6,17 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Models\Parameter\MessengerType;
+use App\Models\Parameter\PhoneType;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
+use Inertia\Inertia;
+use Laravel\Fortify\Features;
 use Laravel\Fortify\Fortify;
+use Laravel\Jetstream\Jetstream;
+use Spatie\Permission\Models\Role;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -45,5 +51,23 @@ class FortifyServiceProvider extends ServiceProvider
         RateLimiter::for('two-factor', function (Request $request) {
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
+
+        Fortify::registerView(function () {
+            return Inertia::render('Auth/Register', [
+                'roles' => Role::all()->whereNotIn('name', 'Administrator')->pluck('name', 'id'),
+            ]);
+        });
+
+        if (Features::enabled(Features::updateProfileInformation())) {
+            Jetstream::inertia()->whenRendering(
+                'Profile/Show',
+                function (Request $request, array $data) {
+                    return array_merge($data, [
+                        'phoneTypes' => PhoneType::all()->pluck('name', 'id'),
+                        'messengerTypes' => MessengerType::all()->pluck('name', 'id'),
+                    ]);
+                }
+            );
+        }
     }
 }

@@ -48,6 +48,33 @@
                 <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" />
                 <jet-input-error :message="form.errors.email" class="mt-2" />
             </div>
+
+            <!-- Phone -->
+            <div class="col-span-6 sm:col-span-4">
+                <jet-label for="phone" value="Phone" />
+                <div class="flex flex-row gap-2">
+                    <jet-input id="phone" type="text" class="mt-1 block w-full" v-model="form.phone" />
+                    <multiselect id="phone_type" v-model="form.phone_type" :options="$page.props.phoneTypes" :searchable="true" />
+                </div>
+                <jet-input-error :message="form.errors.phone" class="mt-2" />
+            </div>
+
+            <!-- Messenger -->
+            <div class="col-span-6 sm:col-span-4">
+                <jet-label for="messenger" value="Messenger" />
+                <div class="flex flex-row gap-2">
+                    <jet-input id="messenger" type="text" class="mt-1 block w-full" v-model="form.messenger" />
+                    <multiselect id="messenger_type" v-model="form.messenger_type" :options="$page.props.messengerTypes" :searchable="true" />
+                </div>
+                <jet-input-error :message="form.errors.messenger" class="mt-2" />
+            </div>
+
+            <!-- LinkedIn URL -->
+            <div class="col-span-6 sm:col-span-4">
+                <jet-label for="website_url" value="LinkedIn URL" />
+                <jet-input id="website_url" type="text" class="mt-1 block w-full" v-model="form.website_url" autocomplete="website_url" />
+                <jet-input-error :message="form.errors.website_url" class="mt-2" />
+            </div>
         </template>
 
         <template #actions>
@@ -72,6 +99,7 @@ import JetLabel from '@/Jetstream/Label.vue'
 import JetActionMessage from '@/Jetstream/ActionMessage.vue'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 import JetIcon from '@/Jetstream/Icon.vue'
+import Multiselect from "@vueform/multiselect";
 
 export default defineComponent({
     components: {
@@ -83,6 +111,7 @@ export default defineComponent({
         JetLabel,
         JetSecondaryButton,
         JetIcon,
+        Multiselect,
     },
 
     props: ['user'],
@@ -91,9 +120,14 @@ export default defineComponent({
         return {
             form: this.$inertia.form({
                 _method: 'PUT',
+                photo: null,
                 name: this.user.name,
                 email: this.user.email,
-                photo: null,
+                phone: this.user.phone,
+                phone_type: this.user.phone_type,
+                messenger: this.user.messenger,
+                messenger_type: this.user.messenger_type,
+                website_url: this.user.website_url,
             }),
 
             photoPreview: null,

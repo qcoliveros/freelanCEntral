@@ -6,7 +6,7 @@
             <form @submit.prevent="submit">
                 <div>
                     <jet-label for="role" value="Join As" />
-                    <Multiselect id="role" v-model="form.role" :options="['Gigger', 'Gig Host']" required />
+                    <multiselect id="role" v-model="form.role" :options="$page.props.roles" :searchable="true" required />
                 </div>
 
                 <div class="mt-4">

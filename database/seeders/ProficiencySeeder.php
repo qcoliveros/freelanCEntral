@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Proficiency;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Parameter\Proficiency;
 use Illuminate\Database\Seeder;
 
 class ProficiencySeeder extends Seeder

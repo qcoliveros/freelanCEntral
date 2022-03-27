@@ -49,10 +49,12 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         Route::get('user-list', [\App\Http\Controllers\Admin\UserController::class, 'index'])
             ->name('user.list');
     });
+
     Route::group(['middleware' => 'role:Gigger', 'prefix' => 'gigger', 'as' => 'gigger.'], function() {
         Route::get('gig-list', [\App\Http\Controllers\Gigger\GigController::class, 'index'])
             ->name('gig.list');
     });
+
     Route::group(['middleware' => 'role:Gig Host', 'prefix' => 'gigHost', 'as' => 'gigHost.'], function() {
         Route::get('gig-list', [\App\Http\Controllers\GigHost\GigController::class, 'index'])
             ->name('gig.list');
