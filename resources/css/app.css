@@ -8,11 +8,6 @@
   --ms-group-label-bg-selected: rgb(209,213,219);
   --ms-option-bg-selected: rgb(209,213,219);
   --ms-option-bg-selected-pointed: rgb(209,213,219);
-    --ms-line-height: 1;
-    --ms-max-height: 8rem;
-    --ms-tag-line-height: 1rem;
-    --ms-group-label-line-height: 1;
-    --ms-option-line-height: 1;
 }
 
 .full-h-screen {
