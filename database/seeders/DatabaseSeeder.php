@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             PhoneTypeSeeder::class,
             MessengerTypeSeeder::class,
+            EmploymentTypeSeeder::class,
+            IndustrySeeder::class,
+            CountrySeeder::class,
             SkillSeeder::class,
             ProficiencySeeder::class
         ]);

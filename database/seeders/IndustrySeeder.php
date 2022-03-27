@@ -1,0 +1,166 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Parameter\Industry;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class IndustrySeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        Industry::create(['name' => 'Accounting ']);
+        Industry::create(['name' => 'Airlines/Aviation']);
+        Industry::create(['name' => 'Alternative Dispute Resolution']);
+        Industry::create(['name' => 'Alternative Medicine']);
+        Industry::create(['name' => 'Animation']);
+        Industry::create(['name' => 'Apparel/Fashion']);
+        Industry::create(['name' => 'Architecture/Planning']);
+        Industry::create(['name' => 'Arts/Crafts']);
+        Industry::create(['name' => 'Automotive']);
+        Industry::create(['name' => 'Aviation/Aerospace']);
+        Industry::create(['name' => 'Banking/Mortgage']);
+        Industry::create(['name' => 'Biotechnology/Greentech']);
+        Industry::create(['name' => 'Broadcast Media']);
+        Industry::create(['name' => 'Building Materials']);
+        Industry::create(['name' => 'Business Supplies/Equipment']);
+        Industry::create(['name' => 'Capital Markets/Hedge Fund/Private Equity']);
+        Industry::create(['name' => 'Chemicals']);
+        Industry::create(['name' => 'Civic/Social Organization']);
+        Industry::create(['name' => 'Civil Engineering']);
+        Industry::create(['name' => 'Commercial Real Estate']);
+        Industry::create(['name' => 'Computer Games']);
+        Industry::create(['name' => 'Computer Hardware']);
+        Industry::create(['name' => 'Computer Networking']);
+        Industry::create(['name' => 'Computer Software/Engineering']);
+        Industry::create(['name' => 'Computer/Network Security']);
+        Industry::create(['name' => 'Construction']);
+        Industry::create(['name' => 'Consumer Electronics']);
+        Industry::create(['name' => 'Consumer Goods']);
+        Industry::create(['name' => 'Consumer Services']);
+        Industry::create(['name' => 'Cosmetics']);
+        Industry::create(['name' => 'Dairy']);
+        Industry::create(['name' => 'Defense/Space']);
+        Industry::create(['name' => 'Design']);
+        Industry::create(['name' => 'E-Learning']);
+        Industry::create(['name' => 'Education Management']);
+        Industry::create(['name' => 'Electrical/Electronic Manufacturing']);
+        Industry::create(['name' => 'Entertainment/Movie Production']);
+        Industry::create(['name' => 'Environmental Services']);
+        Industry::create(['name' => 'Events Services']);
+        Industry::create(['name' => 'Executive Office']);
+        Industry::create(['name' => 'Facilities Services']);
+        Industry::create(['name' => 'Farming']);
+        Industry::create(['name' => 'Financial Services']);
+        Industry::create(['name' => 'Fine Art']);
+        Industry::create(['name' => 'Fishery']);
+        Industry::create(['name' => 'Food Production']);
+        Industry::create(['name' => 'Food/Beverages']);
+        Industry::create(['name' => 'Fundraising']);
+        Industry::create(['name' => 'Furniture']);
+        Industry::create(['name' => 'Gambling/Casinos']);
+        Industry::create(['name' => 'Glass/Ceramics/Concrete']);
+        Industry::create(['name' => 'Government Administration']);
+        Industry::create(['name' => 'Government Relations']);
+        Industry::create(['name' => 'Graphic Design/Web Design']);
+        Industry::create(['name' => 'Health/Fitness']);
+        Industry::create(['name' => 'Higher Education/Acadamia']);
+        Industry::create(['name' => 'Hospital/Health Care']);
+        Industry::create(['name' => 'Hospitality']);
+        Industry::create(['name' => 'Human Resources/HR']);
+        Industry::create(['name' => 'Import/Export']);
+        Industry::create(['name' => 'Individual/Family Services']);
+        Industry::create(['name' => 'Industrial Automation']);
+        Industry::create(['name' => 'Information Services']);
+        Industry::create(['name' => 'Information Technology/IT']);
+        Industry::create(['name' => 'Insurance']);
+        Industry::create(['name' => 'International Affairs']);
+        Industry::create(['name' => 'International Trade/Development']);
+        Industry::create(['name' => 'Internet']);
+        Industry::create(['name' => 'Investment Banking/Venture']);
+        Industry::create(['name' => 'Investment Management/Hedge Fund/Private Equity']);
+        Industry::create(['name' => 'Judiciary']);
+        Industry::create(['name' => 'Law Enforcement']);
+        Industry::create(['name' => 'Law Practice/Law Firms']);
+        Industry::create(['name' => 'Legal Services']);
+        Industry::create(['name' => 'Legislative Office']);
+        Industry::create(['name' => 'Leisure/Travel']);
+        Industry::create(['name' => 'Library']);
+        Industry::create(['name' => 'Logistics/Procurement']);
+        Industry::create(['name' => 'Luxury Goods/Jewelry']);
+        Industry::create(['name' => 'Machinery']);
+        Industry::create(['name' => 'Management Consulting']);
+        Industry::create(['name' => 'Maritime']);
+        Industry::create(['name' => 'Market Research']);
+        Industry::create(['name' => 'Marketing/Advertising/Sales']);
+        Industry::create(['name' => 'Mechanical or Industrial Engineering']);
+        Industry::create(['name' => 'Media Production']);
+        Industry::create(['name' => 'Medical Equipment']);
+        Industry::create(['name' => 'Medical Practice']);
+        Industry::create(['name' => 'Mental Health Care']);
+        Industry::create(['name' => 'Military Industry']);
+        Industry::create(['name' => 'Mining/Metals']);
+        Industry::create(['name' => 'Motion Pictures/Film']);
+        Industry::create(['name' => 'Museums/Institutions']);
+        Industry::create(['name' => 'Music']);
+        Industry::create(['name' => 'Nanotechnology']);
+        Industry::create(['name' => 'Newspapers/Journalism']);
+        Industry::create(['name' => 'Non-Profit/Volunteering']);
+        Industry::create(['name' => 'Oil/Energy/Solar/Greentech']);
+        Industry::create(['name' => 'Online Publishing']);
+        Industry::create(['name' => 'Other Industry']);
+        Industry::create(['name' => 'Outsourcing/Offshoring']);
+        Industry::create(['name' => 'Package/Freight Delivery']);
+        Industry::create(['name' => 'Packaging/Containers']);
+        Industry::create(['name' => 'Paper/Forest Products']);
+        Industry::create(['name' => 'Performing Arts']);
+        Industry::create(['name' => 'Pharmaceuticals']);
+        Industry::create(['name' => 'Philanthropy']);
+        Industry::create(['name' => 'Photography']);
+        Industry::create(['name' => 'Plastics']);
+        Industry::create(['name' => 'Political Organization']);
+        Industry::create(['name' => 'Primary/Secondary Education']);
+        Industry::create(['name' => 'Printing']);
+        Industry::create(['name' => 'Professional Training']);
+        Industry::create(['name' => 'Program Development']);
+        Industry::create(['name' => 'Public Relations/PR']);
+        Industry::create(['name' => 'Public Safety']);
+        Industry::create(['name' => 'Publishing Industry']);
+        Industry::create(['name' => 'Railroad Manufacture']);
+        Industry::create(['name' => 'Ranching']);
+        Industry::create(['name' => 'Real Estate/Mortgage']);
+        Industry::create(['name' => 'Recreational Facilities/Services']);
+        Industry::create(['name' => 'Religious Institutions']);
+        Industry::create(['name' => 'Renewables/Environment']);
+        Industry::create(['name' => 'Research Industry']);
+        Industry::create(['name' => 'Restaurants']);
+        Industry::create(['name' => 'Retail Industry']);
+        Industry::create(['name' => 'Security/Investigations']);
+        Industry::create(['name' => 'Semiconductors']);
+        Industry::create(['name' => 'Shipbuilding']);
+        Industry::create(['name' => 'Sporting Goods']);
+        Industry::create(['name' => 'Sports']);
+        Industry::create(['name' => 'Staffing/Recruiting']);
+        Industry::create(['name' => 'Supermarkets']);
+        Industry::create(['name' => 'Telecommunications']);
+        Industry::create(['name' => 'Textiles']);
+        Industry::create(['name' => 'Think Tanks']);
+        Industry::create(['name' => 'Tobacco']);
+        Industry::create(['name' => 'Translation/Localization']);
+        Industry::create(['name' => 'Transportation']);
+        Industry::create(['name' => 'Utilities']);
+        Industry::create(['name' => 'Venture Capital/VC']);
+        Industry::create(['name' => 'Veterinary']);
+        Industry::create(['name' => 'Warehousing']);
+        Industry::create(['name' => 'Wholesale']);
+        Industry::create(['name' => 'Wine/Spirits']);
+        Industry::create(['name' => 'Wireless']);
+        Industry::create(['name' => 'Writing/Editing']);
+    }
+}
