@@ -57,6 +57,7 @@
                     <multiselect id="phone_type" v-model="form.phone_type" :options="$page.props.phoneTypes" :searchable="true" />
                 </div>
                 <jet-input-error :message="form.errors.phone" class="mt-2" />
+                <jet-input-error :message="form.errors.phone_type" class="mt-2" />
             </div>
 
             <!-- Messenger -->
@@ -67,6 +68,7 @@
                     <multiselect id="messenger_type" v-model="form.messenger_type" :options="$page.props.messengerTypes" :searchable="true" />
                 </div>
                 <jet-input-error :message="form.errors.messenger" class="mt-2" />
+                <jet-input-error :message="form.errors.messenger_type" class="mt-2" />
             </div>
 
             <!-- LinkedIn URL -->
