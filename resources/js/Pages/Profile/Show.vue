@@ -16,11 +16,13 @@
 
                 <div v-if="$page.props.jetstream.canUpdateProfileInformation">
                     <update-about-form :user="$page.props.user" />
-
-                    <jet-section-border />
                 </div>
 
-                <manage-work-experience-form :sessions="sessions" class="mt-10 sm:mt-0" />
+                <div v-if="!$page.props.user.roles.includes('Administrator')">
+                    <jet-section-border />
+
+                    <manage-work-experience-form class="mt-10 sm:mt-0" :workExperiences="$page.props.workExperiences" />
+                </div>
             </div>
         </div>
     </app-layout>

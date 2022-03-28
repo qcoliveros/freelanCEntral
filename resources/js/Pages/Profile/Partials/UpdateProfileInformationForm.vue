@@ -28,8 +28,8 @@
                 </div>
 
                 <div class="flex flex-row">
-                    <span @click.prevent="selectNewPhoto"><jet-icon name="add-icon" /></span>
-                    <span @click.prevent="deletePhoto"><jet-icon name="delete-icon" /></span>
+                    <jet-icon name="add-icon" tooltip="Add Photo" @click.prevent="selectNewPhoto" />
+                    <jet-icon name="delete-icon" tooltip="Remove Photo" @click.prevent="deletePhoto" />
                 </div>
 
                 <jet-input-error :message="form.errors.photo" class="mt-2" />

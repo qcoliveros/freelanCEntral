@@ -27,9 +27,25 @@
 }
 
 .md\:gap-2 {
-    gap: 0.5rem;
+  gap: 0.5rem;
 }
 
 .gap-2 {
-    gap: 0.5rem;
+  gap: 0.5rem;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+
+.rotate-45 {
+  transform: rotate(45deg);
+}
+
+.w-3 {
+  width: 0.75rem; /* 12px */
+}
+
+.h-3 {
+  height: 0.75rem; /* 12px */
 }
