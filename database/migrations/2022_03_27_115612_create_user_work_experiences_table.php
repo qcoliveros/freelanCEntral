@@ -24,6 +24,7 @@ return new class extends Migration
             $table->date('end_date')->nullable();
             $table->boolean('is_current')->nullable();
             $table->foreignId('industry');
+            $table->text('description', 2048);
             $table->timestamps();
         });
     }

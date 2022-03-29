@@ -2,14 +2,9 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 @import "@vueform/multiselect/themes/default.css";
+@import 'vue-datepicker-next/index.css';
 
-:root {
-  --ms-ring-color: rgb(187 247 208);
-  --ms-group-label-bg-selected: rgb(209,213,219);
-  --ms-option-bg-selected: rgb(209,213,219);
-  --ms-option-bg-selected-pointed: rgb(209,213,219);
-}
-
+/* Tailwind */
 .full-h-screen {
   min-height: 72vh;
 }
@@ -49,3 +44,25 @@
 .h-3 {
   height: 0.75rem; /* 12px */
 }
+
+/* Datepicker */
+/*.mx-table-date .today {
+  color: #166535;
+  font-weight: bolder;
+}
+
+.mx-input:hover {
+  border-color: #d1d5dbff;
+}
+
+.mx-input:focus {
+  border-color: rgb(187 247 208);
+}*/
+
+/* Multiselect */
+/*:root {
+  --ms-ring-color: rgb(187 247 208);
+  --ms-group-label-bg-selected: rgb(209,213,219);
+  --ms-option-bg-selected: rgb(209,213,219);
+  --ms-option-bg-selected-pointed: rgb(209,213,219);
+}*/

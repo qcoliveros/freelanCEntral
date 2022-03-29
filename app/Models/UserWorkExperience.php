@@ -19,5 +19,6 @@ class UserWorkExperience extends Model
         'end_date',
         'is_current',
         'industry',
+        'description',
     ];
 }

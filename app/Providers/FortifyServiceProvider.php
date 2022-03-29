@@ -6,6 +6,9 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Models\Parameter\Country;
+use App\Models\Parameter\EmploymentType;
+use App\Models\Parameter\Industry;
 use App\Models\Parameter\MessengerType;
 use App\Models\Parameter\PhoneType;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -67,6 +70,10 @@ class FortifyServiceProvider extends ServiceProvider
                     return array_merge($data, [
                         'phoneTypes' => PhoneType::all()->pluck('name', 'id'),
                         'messengerTypes' => MessengerType::all()->pluck('name', 'id'),
+                        'employmentTypes' => EmploymentType::all()->pluck('name', 'id'),
+                        'countries' => Country::all()->pluck('name', 'id'),
+                        'industries' => Industry::all()->pluck('name', 'id'),
+
                         'workExperiences' => $request->user()->userWorkExperiences()->get(),
                     ]);
                 }

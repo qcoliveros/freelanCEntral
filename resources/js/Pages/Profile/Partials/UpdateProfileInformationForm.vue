@@ -99,9 +99,8 @@ import JetInput from '@/Jetstream/Input.vue'
 import JetInputError from '@/Jetstream/InputError.vue'
 import JetLabel from '@/Jetstream/Label.vue'
 import JetActionMessage from '@/Jetstream/ActionMessage.vue'
-import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 import JetIcon from '@/Jetstream/Icon.vue'
-import Multiselect from "@vueform/multiselect";
+import Multiselect from "@vueform/multiselect"
 
 export default defineComponent({
     components: {
@@ -111,7 +110,6 @@ export default defineComponent({
         JetInput,
         JetInputError,
         JetLabel,
-        JetSecondaryButton,
         JetIcon,
         Multiselect,
     },
