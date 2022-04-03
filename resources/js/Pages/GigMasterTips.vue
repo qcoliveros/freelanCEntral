@@ -1,7 +1,7 @@
 <template>
     <welcome-layout title="Welcome" canLogin="canLogin" canRegister="canRegister">
         <div class="py-12">
-            <div class="full-h-screen max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-1">
                         <div class="mt-4 text-xl leading-7 font-semibold text-center">Tips from the GigMaster</div>

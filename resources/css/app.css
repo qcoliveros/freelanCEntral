@@ -5,10 +5,6 @@
 @import 'vue-datepicker-next/index.css';
 
 /* Tailwind */
-.full-h-screen {
-  min-height: 72vh;
-}
-
 .h-30 {
   height: 7.5rem;
 }
