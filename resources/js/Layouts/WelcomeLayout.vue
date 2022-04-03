@@ -7,7 +7,7 @@
         <div class="flex flex-col min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grow-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
                         <div class="flex">
                             <!-- Logo -->
@@ -35,11 +35,11 @@
                 </div>
             </nav>
 
-            <main class="flex-grow">
+            <main class="grow">
                 <slot></slot>
             </main>
 
-            <footer class="bg-black border-t border-gray-100">
+            <footer class="grow-0 bg-black border-t border-gray-100">
                 <div class="max-w-7xl mx-auto lg:px-8">
                     <div class="flex justify-between h-12">
                         <div class="mt-4 text-xs sm:ml-0 text-white">© 2022 freelanCEntral Inc.</div>
