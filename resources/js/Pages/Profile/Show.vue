@@ -21,7 +21,7 @@
                 <div v-if="!$page.props.user.roles.includes('Administrator')">
                     <jet-section-border />
 
-                    <manage-work-experience-form class="mt-10 sm:mt-0" :workExperiences="$page.props.workExperiences" />
+                    <manage-work-experience-form class="mt-10 sm:mt-0" :workExperiences="$page.props.user.workExperiences" />
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
     import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
     import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfileInformationForm.vue'
     import UpdateAboutForm from '@/Pages/Profile/Partials/UpdateAboutForm.vue'
-    import ManageWorkExperienceForm from "@/Pages/Profile/Partials/ManageWorkExperienceForm";
+    import ManageWorkExperienceForm from "@/Pages/Profile/Partials/ManageWorkExperienceForm"
 
     export default defineComponent({
         props: ['sessions'],

@@ -11,7 +11,7 @@
         <template #content>
             <div class="w-full">
                 <div class="flex justify-end mb-2 mr-2">
-                    <jet-icon name="add-icon" tooltip="Add Work Experience" @click="add" />
+                    <jet-icon name="add-icon" tooltip="Add Work Experience" @click="addRecord" />
                 </div>
                 <div class="bg-white rounded">
                     <table class="w-full table-auto">
@@ -47,8 +47,8 @@
                             </td>
                             <td class="py-3 px-6 text-center">
                                 <div class="flex item-center justify-center">
-                                    <jet-icon name="edit-icon" tooltip="Edit Work Experience" @click="edit(row)" />
-                                    <jet-icon name="delete-icon" tooltip="Remove Work Experience" />
+                                    <jet-icon name="edit-icon" tooltip="Edit Work Experience" @click="editRecord(row)" />
+                                    <jet-icon name="delete-icon" tooltip="Remove Work Experience" @click="confirmDeleteModal(row)" />
                                 </div>
                             </td>
                         </tr>
@@ -57,9 +57,10 @@
                 </div>
             </div>
 
-            <jet-dialog-modal :show="isOpenModal" @close="closeModal">
+            <jet-dialog-modal :show="isOpenDetailModal" @close="closeDetailModal">
                 <template #title>
-                    Add Work Experience
+                    <span v-if="isEditMode">Update Work Experience</span>
+                    <span v-else>Add Work Experience</span>
                 </template>
 
                 <template #content>
@@ -79,7 +80,7 @@
                     <!-- Employment Type -->
                     <div class="mt-2">
                         <jet-label for="employment_type" value="Employment Type" />
-                        <multiselect id="employment_type" v-model="form.employment_type" :options="$page.props.employmentTypes" :searchable="true" />
+                        <multiselect id="employment_type" v-model="form.employment_type" :options="$page.props.parameter.employmentTypes" :searchable="true" />
                         <jet-input-error :message="form.errors.employment_type" class="mt-2" />
                     </div>
 
@@ -93,7 +94,7 @@
                     <!-- Location -->
                     <div class="mt-2">
                         <jet-label for="location" value="Location" />
-                        <multiselect id="location" v-model="form.location" :options="$page.props.countries" :searchable="true" />
+                        <multiselect id="location" v-model="form.location" :options="$page.props.parameter.countries" :searchable="true" />
                         <jet-input-error :message="form.errors.location" class="mt-2" />
                     </div>
 
@@ -115,7 +116,7 @@
                     <!-- Industry -->
                     <div class="mt-2">
                         <jet-label for="industry" value="Industry" />
-                        <multiselect id="industry" v-model="form.location" :options="$page.props.industries" :searchable="true" />
+                        <multiselect id="industry" v-model="form.location" :options="$page.props.parameter.industries" :searchable="true" />
                         <jet-input-error :message="form.errors.industry" class="mt-2" />
                     </div>
 
@@ -127,12 +128,32 @@
                 </template>
 
                 <template #footer>
-                    <jet-secondary-button @click="closeModal">
+                    <jet-secondary-button @click="closeDetailModal">
                         Cancel
                     </jet-secondary-button>
 
-                    <jet-button class="ml-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    <jet-button class="ml-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="saveRecord">
                         Save
+                    </jet-button>
+                </template>
+            </jet-dialog-modal>
+
+            <jet-dialog-modal :show="isOpenConfirmDeleteModal" @close="closeDeleteModal">
+                <template #title>
+                    Delete Work Experience
+                </template>
+
+                <template #content>
+                    Are you sure you want to delete your work experience?
+                </template>
+
+                <template #footer>
+                    <jet-secondary-button @click="closeDeleteModal">
+                        Cancel
+                    </jet-secondary-button>
+
+                    <jet-button class="ml-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="deleteRecord">
+                        Delete
                     </jet-button>
                 </template>
             </jet-dialog-modal>
@@ -177,10 +198,13 @@ export default defineComponent({
 
     data() {
         return {
-            isOpenModal: false,
+            isOpenDetailModal: false,
+            isOpenConfirmDeleteModal: false,
 
             form: this.$inertia.form({
+                id: null,
                 title: null,
+                user_id: null,
                 employment_type: null,
                 company_name: null,
                 location: null,
@@ -194,25 +218,51 @@ export default defineComponent({
     },
 
     methods: {
-        openModal() {
-            this.isOpenModal = true
+        openDetailModal() {
+            this.isOpenDetailModal = true
         },
 
-        closeModal() {
-            this.isOpenModal = false
+        closeDetailModal() {
+            this.isOpenDetailModal = false
+            this.isEditMode = false
             this.form.reset()
         },
 
-        add() {
-            this.openModal()
+        addRecord() {
+            this.openDetailModal()
         },
 
-        edit(row) {
-            this.openModal()
+        editRecord(row) {
+            Object.assign(this.form, row)
+            this.isEditMode = true
+            this.openDetailModal()
         },
 
-        deleteRow(row) {
+        saveRecord() {
+            if (this.isEditMode) {
+                console.log('save update')
+            } else {
+                console.log('save new')
+            }
+            this.closeDetailModal();
+        },
 
+        confirmDeleteModal(row) {
+            Object.assign(this.form, row)
+            console.log(this.form)
+            this.isOpenConfirmDeleteModal = true
+        },
+
+        closeDeleteModal() {
+            this.isOpenConfirmDeleteModal = false
+            this.form.reset()
+        },
+
+        deleteRecord() {
+            console.log('delete')
+            console.log(this.form)
+
+            this.closeDeleteModal()
         }
     },
 })

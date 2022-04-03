@@ -58,7 +58,7 @@ class FortifyServiceProvider extends ServiceProvider
 
         Fortify::registerView(function () {
             return Inertia::render('Auth/Register', [
-                'roles' => Role::all()->whereNotIn('name', 'Administrator')->pluck('name', 'id'),
+                'parameter.roles' => Role::all()->whereNotIn('name', 'Administrator')->pluck('name', 'id'),
             ]);
         });
 
@@ -68,13 +68,13 @@ class FortifyServiceProvider extends ServiceProvider
                 function (Request $request, array $data) {
                     //Log::info();
                     return array_merge($data, [
-                        'phoneTypes' => PhoneType::all()->pluck('name', 'id'),
-                        'messengerTypes' => MessengerType::all()->pluck('name', 'id'),
-                        'employmentTypes' => EmploymentType::all()->pluck('name', 'id'),
-                        'countries' => Country::all()->pluck('name', 'id'),
-                        'industries' => Industry::all()->pluck('name', 'id'),
+                        'parameter.phoneTypes' => PhoneType::all()->pluck('name', 'id'),
+                        'parameter.messengerTypes' => MessengerType::all()->pluck('name', 'id'),
+                        'parameter.employmentTypes' => EmploymentType::all()->pluck('name', 'id'),
+                        'parameter.countries' => Country::all()->pluck('name', 'id'),
+                        'parameter.industries' => Industry::all()->pluck('name', 'id'),
 
-                        'workExperiences' => $request->user()->userWorkExperiences()->get(),
+                        'user.workExperiences' => $request->user()->userWorkExperiences()->get(),
                     ]);
                 }
             );
