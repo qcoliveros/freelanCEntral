@@ -7,7 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class AboutInformationController extends Controller
+class UserAboutInformationController extends Controller
 {
     public function update(Request $request,
                            UpdatesUserAboutInformation $updater)

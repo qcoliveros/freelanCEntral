@@ -21,4 +21,8 @@ class UserWorkExperience extends Model
         'industry',
         'description',
     ];
+
+    protected $casts = [
+        'is_current' => 'boolean',
+    ];
 }

@@ -103,12 +103,12 @@
                         <div class="grid grid-cols-2 md:grid-cols-2 md:gap-2">
                             <div class="flex-col">
                                 <jet-label for="start_date" value="Start Date" />
-                                <date-picker v-model:value="form.start_date" />
+                                <date-picker v-model:value="form.start_date" value-type="YYYY-MM-DD" />
                             </div>
 
                             <div>
                                 <jet-label for="end_date" value="End Date" />
-                                <date-picker v-model:value="form.end_date" />
+                                <date-picker v-model:value="form.end_date" value-type="YYYY-MM-DD" />
                             </div>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                     <!-- Industry -->
                     <div class="mt-2">
                         <jet-label for="industry" value="Industry" />
-                        <multiselect id="industry" v-model="form.location" :options="$page.props.parameter.industries" :searchable="true" />
+                        <multiselect id="industry" v-model="form.industry" :options="$page.props.parameter.industries" :searchable="true" />
                         <jet-input-error :message="form.errors.industry" class="mt-2" />
                     </div>
 
@@ -200,11 +200,13 @@ export default defineComponent({
         return {
             isOpenDetailModal: false,
             isOpenConfirmDeleteModal: false,
+            isEditMode: false,
+            saveRoute: null,
 
             form: this.$inertia.form({
+                _method: 'POST',
                 id: null,
                 title: null,
-                user_id: null,
                 employment_type: null,
                 company_name: null,
                 location: null,
@@ -239,17 +241,19 @@ export default defineComponent({
         },
 
         saveRecord() {
+            this.saveRoute = 'user-work-experience.store'
             if (this.isEditMode) {
-                console.log('save update')
-            } else {
-                console.log('save new')
+               this.saveRoute = 'user-work-experience.update'
             }
-            this.closeDetailModal();
+            this.form.post(route(this.saveRoute), {
+                errorBag: 'workExpereienceError',
+                preserveScroll: true,
+                onSuccess: () => this.closeDetailModal(),
+            });
         },
 
         confirmDeleteModal(row) {
             Object.assign(this.form, row)
-            console.log(this.form)
             this.isOpenConfirmDeleteModal = true
         },
 
@@ -259,10 +263,10 @@ export default defineComponent({
         },
 
         deleteRecord() {
-            console.log('delete')
-            console.log(this.form)
-
-            this.closeDeleteModal()
+            this.form.delete(route('user-work-experience.delete'), {
+                preserveScroll: true,
+                onSuccess: () => this.closeDeleteModal(),
+            });
         }
     },
 })

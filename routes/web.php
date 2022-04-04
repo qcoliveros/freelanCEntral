@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\Profile\AboutInformationController;
+use App\Http\Controllers\Profile\UserAboutInformationController;
 use App\Http\Controllers\Profile\UserSettingsController;
+use App\Http\Controllers\Profile\UserWorkExperienceController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -42,8 +43,14 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/user/settings', [UserSettingsController::class, 'show'])
         ->name('settings.show');
-    Route::post('/user/about-information', [AboutInformationController::class, 'update'])
+    Route::post('/user/about-information', [UserAboutInformationController::class, 'update'])
         ->name('user-about-information.update');
+    Route::post('/user/add-work-experience', [UserWorkExperienceController::class, 'store'])
+        ->name('user-work-experience.store');
+    Route::post('/user/edit-work-experience', [UserWorkExperienceController::class, 'update'])
+        ->name('user-work-experience.update');
+    Route::delete('/user/delete-work-experience', [UserWorkExperienceController::class, 'delete'])
+        ->name('user-work-experience.delete');
 
     Route::group(['middleware' => 'role:Administrator', 'prefix' => 'admin', 'as' => 'admin.'], function() {
         Route::get('user-list', [\App\Http\Controllers\Admin\UserController::class, 'index'])
