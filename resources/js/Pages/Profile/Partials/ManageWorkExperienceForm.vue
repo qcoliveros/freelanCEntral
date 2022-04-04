@@ -41,7 +41,7 @@
                             </td>
                             <td class="py-3 px-6 text-center">
                                 <div class="flex items-center">
-                                    <span v-if="!!row.end_date">{{ row.start_date }} - {{ row.end_date }}</span>
+                                    <span v-if="!!row.end_date">{{ row.start_date }} to {{ row.end_date }}</span>
                                     <span v-else>{{ row.start_date }} to Present</span>
                                 </div>
                             </td>
