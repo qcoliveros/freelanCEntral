@@ -54,7 +54,7 @@
                 <jet-label for="phone" value="Phone" />
                 <div class="flex flex-row gap-2">
                     <jet-input id="phone" type="text" class="mt-1 block w-full" v-model="form.phone" />
-                    <multiselect id="phone_type" v-model="form.phone_type" :options="$page.props.phoneTypes" :searchable="true" />
+                    <multiselect id="phone_type" v-model="form.phone_type" :options="$page.props.parameter.phoneTypes" :searchable="true" />
                 </div>
                 <jet-input-error :message="form.errors.phone" class="mt-2" />
                 <jet-input-error :message="form.errors.phone_type" class="mt-2" />
@@ -65,7 +65,7 @@
                 <jet-label for="messenger" value="Messenger" />
                 <div class="flex flex-row gap-2">
                     <jet-input id="messenger" type="text" class="mt-1 block w-full" v-model="form.messenger" />
-                    <multiselect id="messenger_type" v-model="form.messenger_type" :options="$page.props.messengerTypes" :searchable="true" />
+                    <multiselect id="messenger_type" v-model="form.messenger_type" :options="$page.props.parameter.messengerTypes" :searchable="true" />
                 </div>
                 <jet-input-error :message="form.errors.messenger" class="mt-2" />
                 <jet-input-error :message="form.errors.messenger_type" class="mt-2" />
