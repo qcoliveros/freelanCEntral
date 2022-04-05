@@ -39,7 +39,7 @@ class ManageUserWorkExperience implements ManagesUserWorkExperience
             'company_name' => ['required', 'string', 'max:255'],
             'location' => ['required'],
             'start_date' => ['required', 'date', 'before:now'],
-            'end_date' => ['required_without:is_present', 'date'],
+            'end_date' => [($input['is_current']) ? 'nullable' : 'required', 'date', 'after:start_date'],
             'industry' => ['required'],
             'description' => ['required', 'string', 'max:2048'],
         ])->validateWithBag('workExpereienceError');

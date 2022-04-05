@@ -66,8 +66,9 @@
                 <template #content>
                     <!-- Is present? -->
                     <div>
-                        <jet-checkbox name="is_present" id="is_present" v-model:checked="form.is_present" />
+                        <jet-checkbox v-model:checked="form.is_current" true-value="1" false-value="0" />
                         <span class="font-medium text-sm text-gray-700"> Is present work?</span>
+                        <jet-input-error :message="form.errors.title" class="mt-2" />
                     </div>
 
                     <!-- Title -->
@@ -104,11 +105,13 @@
                             <div class="flex-col">
                                 <jet-label for="start_date" value="Start Date" />
                                 <date-picker v-model:value="form.start_date" value-type="YYYY-MM-DD" />
+                                <jet-input-error :message="form.errors.start_date" class="mt-2" />
                             </div>
 
                             <div>
                                 <jet-label for="end_date" value="End Date" />
                                 <date-picker v-model:value="form.end_date" value-type="YYYY-MM-DD" />
+                                <jet-input-error :message="form.errors.end_date" class="mt-2" />
                             </div>
                         </div>
                     </div>
@@ -212,7 +215,7 @@ export default defineComponent({
                 location: null,
                 start_date: null,
                 end_date: null,
-                is_present: null,
+                is_current: null,
                 industry: null,
                 description: null,
             })
@@ -228,6 +231,7 @@ export default defineComponent({
             this.isOpenDetailModal = false
             this.isEditMode = false
             this.form.reset()
+            this.form.clearErrors()
         },
 
         addRecord() {
