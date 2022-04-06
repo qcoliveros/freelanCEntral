@@ -266,7 +266,17 @@ export default defineComponent({
             this.form.post(route(this.saveRoute), {
                 errorBag: 'workExpereienceError',
                 preserveScroll: true,
-                onSuccess: () => this.closeDetailModal(),
+                onSuccess: () => {
+                    this.closeDetailModal()
+                    this.$swal({
+                        position: 'top-end',
+                        icon: 'success',
+                        text: 'Saved',
+                        showConfirmButton: false,
+                        timer: 1000,
+                        width: 300,
+                    });
+                }
             });
         },
 
@@ -283,7 +293,17 @@ export default defineComponent({
         deleteRecord() {
             this.form.delete(route('user-work-experience.delete'), {
                 preserveScroll: true,
-                onSuccess: () => this.closeDeleteModal(),
+                onSuccess: () => {
+                    this.closeDeleteModal()
+                    this.$swal({
+                        position: 'top-end',
+                        icon: 'success',
+                        text: 'Deleted',
+                        showConfirmButton: false,
+                        timer: 1000,
+                        width: 300,
+                    });
+                }
             });
         }
     },

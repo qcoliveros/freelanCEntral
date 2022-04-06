@@ -3,6 +3,7 @@
 @import 'tailwindcss/utilities';
 @import "@vueform/multiselect/themes/default.css";
 @import 'vue-datepicker-next/index.css';
+@import 'sweetalert2/dist/sweetalert2.min.css';
 
 /* Tailwind */
 .h-30 {
