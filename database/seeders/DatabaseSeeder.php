@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             EmploymentTypeSeeder::class,
             IndustrySeeder::class,
             CountrySeeder::class,
-            SkillSeeder::class,
+            TechnicalSkillSeeder::class,
             ProficiencySeeder::class
         ]);
     }

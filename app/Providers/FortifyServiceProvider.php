@@ -13,7 +13,6 @@ use App\Models\Parameter\MessengerType;
 use App\Models\Parameter\PhoneType;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Inertia\Inertia;
@@ -66,7 +65,6 @@ class FortifyServiceProvider extends ServiceProvider
             Jetstream::inertia()->whenRendering(
                 'Profile/Show',
                 function (Request $request, array $data) {
-                    //Log::info();
                     return array_merge($data, [
                         'parameter.phoneTypes' => PhoneType::all()->pluck('name', 'id'),
                         'parameter.messengerTypes' => MessengerType::all()->pluck('name', 'id'),
