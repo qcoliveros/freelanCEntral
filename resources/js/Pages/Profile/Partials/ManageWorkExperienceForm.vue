@@ -41,8 +41,8 @@
                             </td>
                             <td class="py-3 px-6 text-center">
                                 <div class="flex items-center">
-                                    <span v-if="!!row.end_date">{{ row.start_date }} to {{ row.end_date }}</span>
-                                    <span v-else>{{ row.start_date }} to Present</span>
+                                    <span v-if="!!row.end_date">{{ moment(row.start_date).format("YYYY MMM") }} to {{ moment(row.end_date).format("YYYY MMM") }}</span>
+                                    <span v-else>{{ moment(row.start_date).format("YYYY MMM") }} to Present</span>
                                 </div>
                             </td>
                             <td class="py-3 px-6 text-center">
@@ -66,7 +66,7 @@
                 <template #content>
                     <!-- Is present? -->
                     <div>
-                        <jet-checkbox v-model:checked="form.is_current" true-value="1" false-value="0" />
+                        <jet-checkbox v-model:checked="form.is_current" @change="checkIfCurrent($event)" />
                         <span class="font-medium text-sm text-gray-700"> Is present work?</span>
                         <jet-input-error :message="form.errors.title" class="mt-2" />
                     </div>
@@ -104,13 +104,18 @@
                         <div class="grid grid-cols-2 md:grid-cols-2 md:gap-2">
                             <div class="flex-col">
                                 <jet-label for="start_date" value="Start Date" />
-                                <date-picker v-model:value="form.start_date" value-type="YYYY-MM-DD" />
+                                <date-picker v-model:value="form.start_date" value-type="YYYY-MM-DD" type="month" format="YYYY MMM" />
                                 <jet-input-error :message="form.errors.start_date" class="mt-2" />
                             </div>
 
                             <div>
                                 <jet-label for="end_date" value="End Date" />
-                                <date-picker v-model:value="form.end_date" value-type="YYYY-MM-DD" />
+                                <date-picker v-model:value="form.end_date"
+                                             value-type="YYYY-MM-DD"
+                                             type="month"
+                                             format="YYYY MMM"
+                                             :disabled="form.is_current"
+                                             :input-attr="{id: 'end_date'}" />
                                 <jet-input-error :message="form.errors.end_date" class="mt-2" />
                             </div>
                         </div>
@@ -179,6 +184,7 @@ import JetLabel from '@/Jetstream/Label.vue'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 import JetTextarea from "@/Jetstream/Textarea"
 import Multiselect from "@vueform/multiselect"
+import moment from "moment"
 
 export default defineComponent({
     components: {
@@ -201,6 +207,8 @@ export default defineComponent({
 
     data() {
         return {
+            moment: moment,
+
             isOpenDetailModal: false,
             isOpenConfirmDeleteModal: false,
             isEditMode: false,
@@ -223,6 +231,12 @@ export default defineComponent({
     },
 
     methods: {
+        checkIfCurrent(event) {
+            if (event.target.checked) {
+                this.form.end_date = null;
+            }
+        },
+
         openDetailModal() {
             this.isOpenDetailModal = true
         },

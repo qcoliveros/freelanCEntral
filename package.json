@@ -29,6 +29,7 @@
     },
     "dependencies": {
         "@vueform/multiselect": "^2.3.3",
+        "moment": "^2.29.2",
         "vue-datepicker-next": "^1.0.2"
     }
 }

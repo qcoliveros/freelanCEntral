@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,5 +21,9 @@ class UserWorkExperience extends Model
         'is_current',
         'industry',
         'description',
+    ];
+
+    protected $casts = [
+        'is_current' => 'boolean',
     ];
 }
