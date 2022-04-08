@@ -73,6 +73,7 @@ class FortifyServiceProvider extends ServiceProvider
                         'parameter.industries' => Industry::all()->pluck('name', 'id'),
 
                         'user.workExperiences' => $request->user()->userWorkExperiences()->get(),
+                        'user.educations' => $request->user()->userEducations()->get(),
                     ]);
                 }
             );

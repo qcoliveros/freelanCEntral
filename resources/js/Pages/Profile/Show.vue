@@ -12,9 +12,7 @@
                     <update-profile-information-form :user="$page.props.user" />
 
                     <jet-section-border />
-                </div>
 
-                <div v-if="$page.props.jetstream.canUpdateProfileInformation">
                     <update-about-form :user="$page.props.user" />
                 </div>
 
@@ -22,6 +20,10 @@
                     <jet-section-border />
 
                     <manage-work-experience-form class="mt-10 sm:mt-0" :workExperiences="$page.props.user.workExperiences" />
+
+                    <jet-section-border />
+
+                    <manage-education-form class="mt-10 sm:mt-0" :educations="$page.props.user.educations" />
                 </div>
             </div>
         </div>
@@ -35,6 +37,7 @@
     import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfileInformationForm.vue'
     import UpdateAboutForm from '@/Pages/Profile/Partials/UpdateAboutForm.vue'
     import ManageWorkExperienceForm from "@/Pages/Profile/Partials/ManageWorkExperienceForm"
+    import ManageEducationForm from "@/Pages/Profile/Partials/ManageEducationForm"
 
     export default defineComponent({
         props: ['sessions'],
@@ -45,6 +48,7 @@
             UpdateProfileInformationForm,
             UpdateAboutForm,
             ManageWorkExperienceForm,
+            ManageEducationForm,
         },
     })
 </script>

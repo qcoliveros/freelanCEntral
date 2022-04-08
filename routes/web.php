@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Profile\UserAboutInformationController;
+use App\Http\Controllers\Profile\UserEducationController;
 use App\Http\Controllers\Profile\UserSettingsController;
 use App\Http\Controllers\Profile\UserWorkExperienceController;
 use Illuminate\Support\Facades\Route;
@@ -43,14 +44,23 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/user/settings', [UserSettingsController::class, 'show'])
         ->name('settings.show');
+    // User's About Information
     Route::post('/user/about-information', [UserAboutInformationController::class, 'update'])
         ->name('user-about-information.update');
+    // User's Work Experience
     Route::post('/user/add-work-experience', [UserWorkExperienceController::class, 'store'])
         ->name('user-work-experience.store');
     Route::post('/user/edit-work-experience', [UserWorkExperienceController::class, 'update'])
         ->name('user-work-experience.update');
     Route::delete('/user/delete-work-experience', [UserWorkExperienceController::class, 'delete'])
         ->name('user-work-experience.delete');
+    // User's Education
+    Route::post('/user/add-education', [UserEducationController::class, 'store'])
+        ->name('user-education.store');
+    Route::post('/user/edit-education', [UserEducationController::class, 'update'])
+        ->name('user-education.update');
+    Route::delete('/user/delete-education', [UserEducationController::class, 'delete'])
+        ->name('user-education.delete');
 
     Route::group(['middleware' => 'role:Administrator', 'prefix' => 'admin', 'as' => 'admin.'], function() {
         Route::get('user-list', [\App\Http\Controllers\Admin\UserController::class, 'index'])

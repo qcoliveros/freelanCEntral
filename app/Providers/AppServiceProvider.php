@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
-use App\Actions\Profile\ManageUserWorkExperience;
 use App\Actions\Profile\UpdateUserAboutInformation;
-use App\Contracts\Profile\ManagesUserWorkExperience;
+use App\Actions\Profile\ManageUserEducation;
+use App\Actions\Profile\ManageUserWorkExperience;
 use App\Contracts\Profile\UpdatesUserAboutInformation;
+use App\Contracts\Profile\ManagesUserEducation;
+use App\Contracts\Profile\ManagesUserWorkExperience;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(UpdatesUserAboutInformation::class, UpdateUserAboutInformation::class);
         $this->app->bind(ManagesUserWorkExperience::class, ManageUserWorkExperience::class);
+        $this->app->bind(ManagesUserEducation::class, ManageUserEducation::class);
     }
 
     /**
