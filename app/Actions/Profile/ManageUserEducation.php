@@ -39,12 +39,12 @@ class ManageUserEducation implements ManagesUserEducation
 
         Validator::make($input, [
             'school' => ['required', 'string', 'max:255'],
-            'degree' => ['required', 'string', 'max:255'],
-            'field' => ['required', 'string', 'max:255'],
-            'start_date' => ['required', 'date', 'before:now'],
+            'degree' => ['nullable', 'string', 'max:255'],
+            'field' => ['nullable', 'string', 'max:255'],
+            'start_date' => ['nullable', 'date', 'before:now'],
             'end_date' => ['nullable', 'date', 'after:start_date'],
-            'grade' => ['required'],
-            'description' => ['required', 'string', 'max:2048'],
+            'grade' => ['nullable'],
+            'description' => ['nullable', 'string', 'max:2048'],
             ], [], $customAttributes)->validateWithBag('educationError');
     }
 }

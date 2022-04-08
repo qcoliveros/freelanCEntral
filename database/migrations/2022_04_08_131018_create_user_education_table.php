@@ -17,12 +17,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('school');
-            $table->string('degree');
-            $table->string('field');
-            $table->date('start_date');
+            $table->string('degree')->nullable();
+            $table->string('field')->nullable();
+            $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->string('grade');
-            $table->text('description', 2048);
+            $table->string('grade')->nullable();
+            $table->text('description', 2048)->nullable();
             $table->timestamps();
         });
     }
