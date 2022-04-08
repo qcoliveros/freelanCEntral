@@ -33,6 +33,10 @@ class ManageUserEducation implements ManagesUserEducation
 
     private function validate(array $input)
     {
+        $customAttributes = array(
+            'field' => 'field of study',
+        );
+
         Validator::make($input, [
             'school' => ['required', 'string', 'max:255'],
             'degree' => ['required', 'string', 'max:255'],
@@ -41,6 +45,6 @@ class ManageUserEducation implements ManagesUserEducation
             'end_date' => ['nullable', 'date', 'after:start_date'],
             'grade' => ['required'],
             'description' => ['required', 'string', 'max:2048'],
-        ])->validateWithBag('educationError');
+            ], [], $customAttributes)->validateWithBag('educationError');
     }
 }
