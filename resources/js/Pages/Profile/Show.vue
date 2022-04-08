@@ -24,6 +24,10 @@
                     <jet-section-border />
 
                     <manage-education-form class="mt-10 sm:mt-0" :educations="$page.props.user.educations" />
+
+                    <jet-section-border />
+
+                    <manage-technical-skill-form class="mt-10 sm:mt-0" :technicalSkills="$page.props.user.technicalSkills" />
                 </div>
             </div>
         </div>
@@ -38,6 +42,7 @@
     import UpdateAboutForm from '@/Pages/Profile/Partials/UpdateAboutForm.vue'
     import ManageWorkExperienceForm from "@/Pages/Profile/Partials/ManageWorkExperienceForm"
     import ManageEducationForm from "@/Pages/Profile/Partials/ManageEducationForm"
+    import ManageTechnicalSkillForm from "@/Pages/Profile/Partials/ManageTechnicalSkillForm";
 
     export default defineComponent({
         props: ['sessions'],
@@ -49,6 +54,7 @@
             UpdateAboutForm,
             ManageWorkExperienceForm,
             ManageEducationForm,
+            ManageTechnicalSkillForm,
         },
     })
 </script>

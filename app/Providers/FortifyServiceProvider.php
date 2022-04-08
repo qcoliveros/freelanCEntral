@@ -11,6 +11,8 @@ use App\Models\Parameter\EmploymentType;
 use App\Models\Parameter\Industry;
 use App\Models\Parameter\MessengerType;
 use App\Models\Parameter\PhoneType;
+use App\Models\Parameter\Proficiency;
+use App\Models\Parameter\TechnicalSkill;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -71,9 +73,12 @@ class FortifyServiceProvider extends ServiceProvider
                         'parameter.employmentTypes' => EmploymentType::all()->pluck('name', 'id'),
                         'parameter.countries' => Country::all()->pluck('name', 'id'),
                         'parameter.industries' => Industry::all()->pluck('name', 'id'),
+                        'parameter.technicalSkills' => TechnicalSkill::all()->pluck('name', 'id'),
+                        'parameter.proficiencies' => Proficiency::all()->pluck('name', 'id'),
 
                         'user.workExperiences' => $request->user()->userWorkExperiences()->get(),
                         'user.educations' => $request->user()->userEducations()->get(),
+                        'user.technicalSkills' => $request->user()->userTechnicalSkills()->with('skill', 'proficiency')->get(),
                     ]);
                 }
             );

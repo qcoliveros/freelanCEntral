@@ -3,6 +3,7 @@
 use App\Http\Controllers\Profile\UserAboutInformationController;
 use App\Http\Controllers\Profile\UserEducationController;
 use App\Http\Controllers\Profile\UserSettingsController;
+use App\Http\Controllers\Profile\UserTechnicalSkillController;
 use App\Http\Controllers\Profile\UserWorkExperienceController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -61,6 +62,13 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         ->name('user-education.update');
     Route::delete('/user/delete-education', [UserEducationController::class, 'delete'])
         ->name('user-education.delete');
+    // User's Technical Proficiency
+    Route::post('/user/add-technical-skill', [UserTechnicalSkillController::class, 'store'])
+        ->name('user-technical-skill.store');
+    Route::post('/user/edit-technical-skill', [UserTechnicalSkillController::class, 'update'])
+        ->name('user-technical-skill.update');
+    Route::delete('/user/delete-technical-skill', [UserTechnicalSkillController::class, 'delete'])
+        ->name('user-technical-skill.delete');
 
     Route::group(['middleware' => 'role:Administrator', 'prefix' => 'admin', 'as' => 'admin.'], function() {
         Route::get('user-list', [\App\Http\Controllers\Admin\UserController::class, 'index'])

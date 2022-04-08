@@ -172,7 +172,6 @@
 <script>
 import { defineComponent } from 'vue'
 import DatePicker from 'vue-datepicker-next'
-import JetActionMessage from '@/Jetstream/ActionMessage.vue'
 import JetActionSection from '@/Jetstream/ActionSection.vue'
 import JetButton from '@/Jetstream/Button.vue'
 import JetCheckbox from '@/Jetstream/Checkbox'
@@ -189,7 +188,6 @@ import moment from "moment"
 export default defineComponent({
     components: {
         DatePicker,
-        JetActionMessage,
         JetActionSection,
         JetButton,
         JetCheckbox,
