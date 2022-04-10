@@ -69,14 +69,14 @@ class FortifyServiceProvider extends ServiceProvider
                 'Profile/Show',
                 function (Request $request, array $data) {
                     return array_merge($data, [
-                        'parameter.phoneTypes' => PhoneType::all()->pluck('name', 'id'),
-                        'parameter.messengerTypes' => MessengerType::all()->pluck('name', 'id'),
-                        'parameter.employmentTypes' => EmploymentType::all()->pluck('name', 'id'),
+                        'parameter.phoneTypes' => PhoneType::pluck('name', 'id'),
+                        'parameter.messengerTypes' => MessengerType::pluck('name', 'id'),
+                        'parameter.employmentTypes' => EmploymentType::pluck('name', 'id'),
                         'parameter.countries' => Country::orderBy('name')->pluck('name', 'id'),
                         'parameter.industries' => Industry::orderBy('name')->pluck('name', 'id'),
                         'parameter.technicalSkills' => TechnicalSkill::orderBy('name')->pluck('name', 'id'),
                         'parameter.softSkills' => SoftSkill::orderBy('name')->pluck('name', 'id'),
-                        'parameter.proficiencies' => Proficiency::all()->pluck('name', 'id'),
+                        'parameter.proficiencies' => Proficiency::pluck('name', 'id'),
 
                         'user.workExperiences' => $request->user()->userWorkExperiences()->latest('start_date')->get(),
                         'user.educations' => $request->user()->userEducations()->latest('start_date')->get(),
