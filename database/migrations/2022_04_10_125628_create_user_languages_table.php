@@ -13,9 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('proficiencies', function (Blueprint $table) {
+        Schema::create('user_languages', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->foreignId('user_id');
+            $table->foreignId('language_id');
+            $table->foreignId('speaking_proficiency_id');
+            $table->foreignId('writing_proficiency_id');
+            $table->foreignId('reading_proficiency_id');
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proficiencies');
+        Schema::dropIfExists('user_languages');
     }
 };

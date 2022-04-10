@@ -1,47 +1,59 @@
 <template>
     <jet-action-section>
         <template #title>
-            Technical Skill
+           Language
         </template>
 
         <template #description>
-            Manage your technical skill.
+            Manage your language.
         </template>
 
         <template #content>
             <div class="w-full">
                 <div class="flex justify-end mb-2 mr-2">
-                    <jet-icon name="add-icon" tooltip="Add Technical Skill" @click="addRecord" />
+                    <jet-icon name="add-icon" tooltip="Add Language" @click="addRecord" />
                 </div>
                 <div class="bg-white rounded">
                     <table class="w-full table-auto">
                         <thead>
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                            <th class="py-3 px-6 text-left">Skill</th>
-                            <th class="py-3 px-6 text-left">Proficiency</th>
+                            <th class="py-3 px-6 text-left">Language</th>
+                            <th class="py-3 px-6 text-left">Speaking Proficiency</th>
+                            <th class="py-3 px-6 text-left">Writing Proficiency</th>
+                            <th class="py-3 px-6 text-left">Reading Proficiency</th>
                             <th class="py-3 px-6 text-center">Actions</th>
                         </tr>
                         </thead>
                         <tbody class="text-gray-600 text-sm font-light">
                         <tr class="border-b border-gray-200 hover:bg-gray-100"
-                            v-if="!!technicalSkills && !technicalSkills.length">
+                            v-if="!!languages && !languages.length">
                             <td class="py-3 px-6 text-left whitespace-nowrap">No records found.</td>
                         </tr>
-                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-for="row in technicalSkills">
+                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-for="row in languages">
                             <td class="py-3 px-6 text-left whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <span class="font-medium">{{ row.skill.name }}</span>
+                                    <span class="font-medium">{{ row.language.name }}</span>
                                 </div>
                             </td>
                             <td class="py-3 px-6 text-left">
                                 <div class="flex items-center">
-                                    <span>{{ row.proficiency.name }}</span>
+                                    <span>{{ row.speaking_proficiency.name }}</span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-left">
+                                <div class="flex items-center">
+                                    <span>{{ row.writing_proficiency.name }}</span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-left">
+                                <div class="flex items-center">
+                                    <span>{{ row.reading_proficiency.name }}</span>
                                 </div>
                             </td>
                             <td class="py-3 px-6 text-center">
                                 <div class="flex item-center justify-center">
-                                    <jet-icon name="edit-icon" tooltip="Edit Technical Skill" @click="editRecord(row)" />
-                                    <jet-icon name="delete-icon" tooltip="Remove Technical Skill" @click="confirmDeleteModal(row)" />
+                                    <jet-icon name="edit-icon" tooltip="Edit Language" @click="editRecord(row)" />
+                                    <jet-icon name="delete-icon" tooltip="Remove Language" @click="confirmDeleteModal(row)" />
                                 </div>
                             </td>
                         </tr>
@@ -52,30 +64,37 @@
 
             <jet-dialog-modal :show="isOpenDetailModal" @close="closeDetailModal">
                 <template #title>
-                    <span v-if="isEditMode">Update Technical Skill</span>
-                    <span v-else>Add Technical Skill</span>
+                    <span v-if="isEditMode">Update Language</span>
+                    <span v-else>Add Language</span>
                 </template>
 
                 <template #content>
                     <!-- Skill -->
                     <div class="mt-2">
-                        <jet-label for="skill_id" value="Technical Skill" />
-                        <multiselect id="skill_id" v-model="form.skill_id" :options="$page.props.parameter.technicalSkills" :searchable="true" />
-                        <jet-input-error :message="form.errors.skill_id" class="mt-2" />
+                        <jet-label for="language_id" value="Language" />
+                        <multiselect id="language_id" v-model="form.language_id" :options="$page.props.parameter.languages" :searchable="true" />
+                        <jet-input-error :message="form.errors.language_id" class="mt-2" />
                     </div>
 
-                    <!-- Proficiency Level -->
+                    <!-- Speaking Proficiency -->
                     <div class="mt-2">
-                        <jet-label for="proficiency_id" value="Proficiency Level" />
-                        <multiselect id="proficiency_id" v-model="form.proficiency_id" :options="$page.props.parameter.skillProficiencies" :searchable="true" />
-                        <jet-input-error :message="form.errors.proficiency_id" class="mt-2" />
+                        <jet-label for="speaking_proficiency_id" value="Speaking Proficiency Level" />
+                        <multiselect id="speaking_proficiency_id" v-model="form.speaking_proficiency_id" :options="$page.props.parameter.languageProficiencies" :searchable="true" />
+                        <jet-input-error :message="form.errors.speaking_proficiency_id" class="mt-2" />
                     </div>
 
-                    <!-- Description -->
+                    <!-- Writing Proficiency -->
                     <div class="mt-2">
-                        <jet-label for="description" value="Description" />
-                        <jet-textarea id="description" class="mt-1 block w-full" v-model="form.description" autocomplete="description" />
-                        <jet-input-error :message="form.errors.description" class="mt-2" />
+                        <jet-label for="writing_proficiency_id" value="Writing Proficiency Level" />
+                        <multiselect id="writing_proficiency_id" v-model="form.writing_proficiency_id" :options="$page.props.parameter.languageProficiencies" :searchable="true" />
+                        <jet-input-error :message="form.errors.writing_proficiency_id" class="mt-2" />
+                    </div>
+
+                    <!-- Speaking Proficiency -->
+                    <div class="mt-2">
+                        <jet-label for="reading_proficiency_id" value="Reading Proficiency Level" />
+                        <multiselect id="reading_proficiency_id" v-model="form.reading_proficiency_id" :options="$page.props.parameter.languageProficiencies" :searchable="true" />
+                        <jet-input-error :message="form.errors.reading_proficiency_id" class="mt-2" />
                     </div>
                 </template>
 
@@ -92,11 +111,11 @@
 
             <jet-dialog-modal :show="isOpenConfirmDeleteModal" @close="closeDeleteModal">
                 <template #title>
-                    Delete Technical Skill
+                    Delete Language
                 </template>
 
                 <template #content>
-                    Are you sure you want to delete your technical skill?
+                    Are you sure you want to delete your language?
                 </template>
 
                 <template #footer>
@@ -140,7 +159,7 @@ export default defineComponent({
         Multiselect,
     },
 
-    props: ['technicalSkills'],
+    props: ['languages'],
 
     data() {
         return {
@@ -152,9 +171,10 @@ export default defineComponent({
             form: this.$inertia.form({
                 _method: 'POST',
                 id: null,
-                skill_id: null,
-                proficiency_id: null,
-                description: null,
+                language_id: null,
+                speaking_proficiency_id: null,
+                writing_proficiency_id: null,
+                reading_proficiency_id: null,
             })
         }
     },
@@ -182,12 +202,12 @@ export default defineComponent({
         },
 
         saveRecord() {
-            this.saveRoute = 'user-technical-skill.store'
+            this.saveRoute = 'user-language.store'
             if (this.isEditMode) {
-                this.saveRoute = 'user-technical-skill.update'
+                this.saveRoute = 'user-language.update'
             }
             this.form.post(route(this.saveRoute), {
-                errorBag: 'technicalSkillError',
+                errorBag: 'languageError',
                 preserveScroll: true,
                 onSuccess: () => {
                     this.closeDetailModal()
@@ -214,7 +234,7 @@ export default defineComponent({
         },
 
         deleteRecord() {
-            this.form.delete(route('user-technical-skill.delete'), {
+            this.form.delete(route('user-language.delete'), {
                 preserveScroll: true,
                 onSuccess: () => {
                     this.closeDeleteModal()

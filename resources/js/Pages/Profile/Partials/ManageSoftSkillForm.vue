@@ -18,7 +18,7 @@
                         <thead>
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                             <th class="py-3 px-6 text-left">Skill</th>
-                            <th class="py-3 px-6 text-left">Proficiency Level</th>
+                            <th class="py-3 px-6 text-left">Proficiency</th>
                             <th class="py-3 px-6 text-center">Actions</th>
                         </tr>
                         </thead>
@@ -67,7 +67,7 @@
                     <!-- Proficiency Level -->
                     <div class="mt-2">
                         <jet-label for="proficiency_id" value="Proficiency Level" />
-                        <multiselect id="proficiency_id" v-model="form.proficiency_id" :options="$page.props.parameter.proficiencies" :searchable="true" />
+                        <multiselect id="proficiency_id" v-model="form.proficiency_id" :options="$page.props.parameter.skillProficiencies" :searchable="true" />
                         <jet-input-error :message="form.errors.proficiency_id" class="mt-2" />
                     </div>
 

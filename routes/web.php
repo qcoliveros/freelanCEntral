@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\Profile\UserAboutInformationController;
 use App\Http\Controllers\Profile\UserEducationController;
+use \App\Http\Controllers\Profile\UserLanguageController;
 use App\Http\Controllers\Profile\UserSettingsController;
-use App\Http\Controllers\Profile\UserTechnicalSkillController;
 use App\Http\Controllers\Profile\UserSoftSkillController;
+use App\Http\Controllers\Profile\UserTechnicalSkillController;
 use App\Http\Controllers\Profile\UserWorkExperienceController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -77,6 +78,13 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         ->name('user-soft-skill.update');
     Route::delete('/user/delete-soft-skill', [UserSoftSkillController::class, 'delete'])
         ->name('user-soft-skill.delete');
+    // User's Language
+    Route::post('/user/add-language', [UserLanguageController::class, 'store'])
+        ->name('user-language.store');
+    Route::post('/user/edit-language', [UserLanguageController::class, 'update'])
+        ->name('user-language.update');
+    Route::delete('/user/delete-soft-skill', [UserLanguageController::class, 'delete'])
+        ->name('user-language.delete');
 
     Route::group(['middleware' => 'role:Administrator', 'prefix' => 'admin', 'as' => 'admin.'], function() {
         Route::get('user-list', [\App\Http\Controllers\Admin\UserController::class, 'index'])

@@ -9,9 +9,11 @@ use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Models\Parameter\Country;
 use App\Models\Parameter\EmploymentType;
 use App\Models\Parameter\Industry;
+use App\Models\Parameter\Language;
+use App\Models\Parameter\LanguageProficiency;
 use App\Models\Parameter\MessengerType;
 use App\Models\Parameter\PhoneType;
-use App\Models\Parameter\Proficiency;
+use App\Models\Parameter\SkillProficiency;
 use App\Models\Parameter\SoftSkill;
 use App\Models\Parameter\TechnicalSkill;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -74,14 +76,17 @@ class FortifyServiceProvider extends ServiceProvider
                         'parameter.employmentTypes' => EmploymentType::pluck('name', 'id'),
                         'parameter.countries' => Country::orderBy('name')->pluck('name', 'id'),
                         'parameter.industries' => Industry::orderBy('name')->pluck('name', 'id'),
+                        'parameter.skillProficiencies' => SkillProficiency::pluck('name', 'id'),
                         'parameter.technicalSkills' => TechnicalSkill::orderBy('name')->pluck('name', 'id'),
                         'parameter.softSkills' => SoftSkill::orderBy('name')->pluck('name', 'id'),
-                        'parameter.proficiencies' => Proficiency::pluck('name', 'id'),
+                        'parameter.languageProficiencies' => LanguageProficiency::pluck('name', 'id'),
+                        'parameter.languages' => Language::orderBy('name')->pluck('name', 'id'),
 
                         'user.workExperiences' => $request->user()->userWorkExperiences()->latest('start_date')->get(),
                         'user.educations' => $request->user()->userEducations()->latest('start_date')->get(),
                         'user.technicalSkills' => $request->user()->userTechnicalSkills()->with('skill', 'proficiency')->get(),
                         'user.softSkills' => $request->user()->userSoftSkills()->with('skill', 'proficiency')->get(),
+                        'user.languages' => $request->user()->userLanguages()->with('language', 'speakingProficiency', 'writingProficiency', 'readingProficiency')->get(),
                     ]);
                 }
             );

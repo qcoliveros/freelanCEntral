@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Parameter\Proficiency;
+use App\Models\Parameter\SkillProficiency;
 use App\Models\Parameter\SoftSkill;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,6 +25,6 @@ class UserSoftSkill extends Model
 
     public function proficiency()
     {
-        return $this->hasOne(Proficiency::class, 'id', 'proficiency_id');
+        return $this->hasOne(SkillProficiency::class, 'id', 'proficiency_id');
     }
 }
