@@ -22,8 +22,9 @@ class DatabaseSeeder extends Seeder
             EmploymentTypeSeeder::class,
             IndustrySeeder::class,
             CountrySeeder::class,
+            ProficiencySeeder::class,
             TechnicalSkillSeeder::class,
-            ProficiencySeeder::class
+            SoftSkillSeeder::class,
         ]);
     }
 }

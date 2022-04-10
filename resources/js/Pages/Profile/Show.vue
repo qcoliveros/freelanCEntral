@@ -28,6 +28,10 @@
                     <jet-section-border />
 
                     <manage-technical-skill-form class="mt-10 sm:mt-0" :technicalSkills="$page.props.user.technicalSkills" />
+
+                    <jet-section-border />
+
+                    <manage-soft-skill-form class="mt-10 sm:mt-0" :softSkills="$page.props.user.softSkills" />
                 </div>
             </div>
         </div>
@@ -43,6 +47,7 @@
     import ManageWorkExperienceForm from "@/Pages/Profile/Partials/ManageWorkExperienceForm"
     import ManageEducationForm from "@/Pages/Profile/Partials/ManageEducationForm"
     import ManageTechnicalSkillForm from "@/Pages/Profile/Partials/ManageTechnicalSkillForm";
+    import ManageSoftSkillForm from "@/Pages/Profile/Partials/ManageSoftSkillForm";
 
     export default defineComponent({
         props: ['sessions'],
@@ -55,6 +60,7 @@
             ManageWorkExperienceForm,
             ManageEducationForm,
             ManageTechnicalSkillForm,
+            ManageSoftSkillForm,
         },
     })
 </script>

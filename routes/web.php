@@ -4,6 +4,7 @@ use App\Http\Controllers\Profile\UserAboutInformationController;
 use App\Http\Controllers\Profile\UserEducationController;
 use App\Http\Controllers\Profile\UserSettingsController;
 use App\Http\Controllers\Profile\UserTechnicalSkillController;
+use App\Http\Controllers\Profile\UserSoftSkillController;
 use App\Http\Controllers\Profile\UserWorkExperienceController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -62,13 +63,20 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         ->name('user-education.update');
     Route::delete('/user/delete-education', [UserEducationController::class, 'delete'])
         ->name('user-education.delete');
-    // User's Technical Proficiency
+    // User's Technical Skill
     Route::post('/user/add-technical-skill', [UserTechnicalSkillController::class, 'store'])
         ->name('user-technical-skill.store');
     Route::post('/user/edit-technical-skill', [UserTechnicalSkillController::class, 'update'])
         ->name('user-technical-skill.update');
     Route::delete('/user/delete-technical-skill', [UserTechnicalSkillController::class, 'delete'])
         ->name('user-technical-skill.delete');
+    // User's Soft Skill
+    Route::post('/user/add-soft-skill', [UserSoftSkillController::class, 'store'])
+        ->name('user-soft-skill.store');
+    Route::post('/user/edit-soft-skill', [UserSoftSkillController::class, 'update'])
+        ->name('user-soft-skill.update');
+    Route::delete('/user/delete-soft-skill', [UserSoftSkillController::class, 'delete'])
+        ->name('user-soft-skill.delete');
 
     Route::group(['middleware' => 'role:Administrator', 'prefix' => 'admin', 'as' => 'admin.'], function() {
         Route::get('user-list', [\App\Http\Controllers\Admin\UserController::class, 'index'])

@@ -12,6 +12,7 @@ use App\Models\Parameter\Industry;
 use App\Models\Parameter\MessengerType;
 use App\Models\Parameter\PhoneType;
 use App\Models\Parameter\Proficiency;
+use App\Models\Parameter\SoftSkill;
 use App\Models\Parameter\TechnicalSkill;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -71,14 +72,16 @@ class FortifyServiceProvider extends ServiceProvider
                         'parameter.phoneTypes' => PhoneType::all()->pluck('name', 'id'),
                         'parameter.messengerTypes' => MessengerType::all()->pluck('name', 'id'),
                         'parameter.employmentTypes' => EmploymentType::all()->pluck('name', 'id'),
-                        'parameter.countries' => Country::all()->pluck('name', 'id'),
-                        'parameter.industries' => Industry::all()->pluck('name', 'id'),
-                        'parameter.technicalSkills' => TechnicalSkill::all()->pluck('name', 'id'),
+                        'parameter.countries' => Country::orderBy('name')->pluck('name', 'id'),
+                        'parameter.industries' => Industry::orderBy('name')->pluck('name', 'id'),
+                        'parameter.technicalSkills' => TechnicalSkill::orderBy('name')->pluck('name', 'id'),
+                        'parameter.softSkills' => SoftSkill::orderBy('name')->pluck('name', 'id'),
                         'parameter.proficiencies' => Proficiency::all()->pluck('name', 'id'),
 
-                        'user.workExperiences' => $request->user()->userWorkExperiences()->get(),
-                        'user.educations' => $request->user()->userEducations()->get(),
+                        'user.workExperiences' => $request->user()->userWorkExperiences()->latest('start_date')->get(),
+                        'user.educations' => $request->user()->userEducations()->latest('start_date')->get(),
                         'user.technicalSkills' => $request->user()->userTechnicalSkills()->with('skill', 'proficiency')->get(),
+                        'user.softSkills' => $request->user()->userSoftSkills()->with('skill', 'proficiency')->get(),
                     ]);
                 }
             );

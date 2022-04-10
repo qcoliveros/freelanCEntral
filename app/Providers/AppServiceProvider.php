@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Actions\Profile\ManageUserSoftSkill;
 use App\Actions\Profile\UpdateUserAboutInformation;
 use App\Actions\Profile\ManageUserEducation;
 use App\Actions\Profile\ManageUserTechnicalSkill;
 use App\Actions\Profile\ManageUserWorkExperience;
+use App\Contracts\Profile\ManagesUserSoftSkill;
 use App\Contracts\Profile\UpdatesUserAboutInformation;
 use App\Contracts\Profile\ManagesUserEducation;
 use App\Contracts\Profile\ManagesUserTechnicalSkill;
@@ -25,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ManagesUserWorkExperience::class, ManageUserWorkExperience::class);
         $this->app->bind(ManagesUserEducation::class, ManageUserEducation::class);
         $this->app->bind(ManagesUserTechnicalSkill::class, ManageUserTechnicalSkill::class);
+        $this->app->bind(ManagesUserSoftSkill::class, ManageUserSoftSkill::class);
     }
 
     /**
