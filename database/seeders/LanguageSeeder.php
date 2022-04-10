@@ -65,8 +65,8 @@ class LanguageSeeder extends Seeder
         Language::create(['name' => 'Dutch']);
         Language::create(['name' => 'Dzongkha']);
         Language::create(['name' => 'English (AU)']);
-        Language::create(['name' => 'English(UK)']);
-        Language::create(['name' => 'English(US)']);
+        Language::create(['name' => 'English (UK)']);
+        Language::create(['name' => 'English (US)']);
         Language::create(['name' => 'Estonian']);
         Language::create(['name' => 'Farsi, Eastern']);
         Language::create(['name' => 'Farsi, Western']);
