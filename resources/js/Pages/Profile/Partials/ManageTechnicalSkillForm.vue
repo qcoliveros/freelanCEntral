@@ -70,6 +70,13 @@
                         <multiselect id="proficiency_id" v-model="form.proficiency_id" :options="$page.props.parameter.proficiencies" :searchable="true" />
                         <jet-input-error :message="form.errors.proficiency_id" class="mt-2" />
                     </div>
+
+                    <!-- Description -->
+                    <div class="mt-2">
+                        <jet-label for="description" value="Description" />
+                        <jet-textarea id="description" class="mt-1 block w-full" v-model="form.description" autocomplete="description" />
+                        <jet-input-error :message="form.errors.description" class="mt-2" />
+                    </div>
                 </template>
 
                 <template #footer>
@@ -116,6 +123,7 @@ import JetIcon from '@/Jetstream/Icon'
 import JetInputError from '@/Jetstream/InputError.vue'
 import JetLabel from '@/Jetstream/Label.vue'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+import JetTextarea from "@/Jetstream/Textarea"
 import Multiselect from "@vueform/multiselect"
 
 export default defineComponent({
@@ -128,6 +136,7 @@ export default defineComponent({
         JetInputError,
         JetLabel,
         JetSecondaryButton,
+        JetTextarea,
         Multiselect,
     },
 
@@ -145,6 +154,7 @@ export default defineComponent({
                 id: null,
                 skill_id: null,
                 proficiency_id: null,
+                description: null,
             })
         }
     },

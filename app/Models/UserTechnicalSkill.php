@@ -15,6 +15,7 @@ class UserTechnicalSkill extends Model
         'user_id',
         'skill_id',
         'proficiency_id',
+        'description',
     ];
 
     public function skill()

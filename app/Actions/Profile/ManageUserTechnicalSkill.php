@@ -45,6 +45,7 @@ class ManageUserTechnicalSkill implements ManagesUserTechnicalSkill
                     return $query->where('user_id', $userId);
                 })->ignore($input['id'])],
             'proficiency_id' => ['required'],
+            'description' => ['nullable', 'string', 'max:2048'],
             ], [], $customAttributes)->validateWithBag('technicalSkillError');
     }
 }

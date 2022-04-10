@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreignId('skill_id');
             $table->foreignId('proficiency_id');
+            $table->text('description', 2048)->nullable();
             $table->timestamps();
         });
     }
