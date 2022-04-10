@@ -191,14 +191,7 @@ export default defineComponent({
                 preserveScroll: true,
                 onSuccess: () => {
                     this.closeDetailModal()
-                    this.$swal({
-                        position: 'top-end',
-                        icon: 'success',
-                        text: 'Saved',
-                        showConfirmButton: false,
-                        timer: 1000,
-                        width: 300,
-                    });
+                    this.showToastMessage('Saved')
                 }
             });
         },
@@ -218,15 +211,19 @@ export default defineComponent({
                 preserveScroll: true,
                 onSuccess: () => {
                     this.closeDeleteModal()
-                    this.$swal({
-                        position: 'top-end',
-                        icon: 'success',
-                        text: 'Deleted',
-                        showConfirmButton: false,
-                        timer: 1000,
-                        width: 300,
-                    });
+                    this.showToastMessage('Deleted')
                 }
+            });
+        },
+
+        showToastMessage(message) {
+            this.$swal({
+                position: 'top-end',
+                icon: 'success',
+                text: message,
+                showConfirmButton: false,
+                timer: 1000,
+                width: 300,
             });
         }
     },
