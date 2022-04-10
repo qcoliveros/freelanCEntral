@@ -20,7 +20,7 @@ class UserSoftSkill extends Model
 
     public function skill()
     {
-        $this->hasOne(SoftSkill::class, 'id', 'skill_id');
+        return $this->hasOne(SoftSkill::class, 'id', 'skill_id');
     }
 
     public function proficiency()
