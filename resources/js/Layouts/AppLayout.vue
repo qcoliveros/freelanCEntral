@@ -32,10 +32,10 @@
                                               v-if="$page.props.user.roles.includes('Gigger')">
                                     My Gigs
                                 </jet-nav-link>
-                                <jet-nav-link :href="route('gigger.gig.list')"
+                                <jet-nav-link :href="route('gigHost.gig.list')"
                                               :active="route().current('gigHost.gig.list')"
                                               v-if="$page.props.user.roles.includes('Gig Host')">
-                                    My Gigs
+                                    My Gig Ads
                                 </jet-nav-link>
                             </div>
                         </div>

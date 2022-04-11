@@ -9,27 +9,29 @@
         <div>
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                 <div v-if="$page.props.jetstream.canUpdateProfileInformation">
-                    <update-profile-information-form :user="$page.props.user" />
+                    <update-profile-information-form :user="$page.props.user" :roles="$page.props.user.roles" />
 
-                    <jet-section-border />
-                    <update-about-form :user="$page.props.user" />
-                </div>
+                    <div v-if="!$page.props.user.roles.includes('Administrator')">
+                        <jet-section-border />
+                        <update-about-form :user="$page.props.user" />
+                    </div>
 
-                <div v-if="!$page.props.user.roles.includes('Administrator')">
-                    <jet-section-border />
-                    <manage-work-experience-form class="mt-10 sm:mt-0" :workExperiences="$page.props.user.workExperiences" />
+                    <div v-if="$page.props.user.roles.includes('Gigger')">
+                        <jet-section-border />
+                        <manage-work-experience-form class="mt-10 sm:mt-0" :workExperiences="$page.props.user.workExperiences" />
 
-                    <jet-section-border />
-                    <manage-education-form class="mt-10 sm:mt-0" :educations="$page.props.user.educations" />
+                        <jet-section-border />
+                        <manage-education-form class="mt-10 sm:mt-0" :educations="$page.props.user.educations" />
 
-                    <jet-section-border />
-                    <manage-technical-skill-form class="mt-10 sm:mt-0" :technicalSkills="$page.props.user.technicalSkills" />
+                        <jet-section-border />
+                        <manage-technical-skill-form class="mt-10 sm:mt-0" :technicalSkills="$page.props.user.technicalSkills" />
 
-                    <jet-section-border />
-                    <manage-soft-skill-form class="mt-10 sm:mt-0" :softSkills="$page.props.user.softSkills" />
+                        <jet-section-border />
+                        <manage-soft-skill-form class="mt-10 sm:mt-0" :softSkills="$page.props.user.softSkills" />
 
-                    <jet-section-border />
-                    <manage-language-form class="mt-10 sm:mt-0" :languages="$page.props.user.languages" />
+                        <jet-section-border />
+                        <manage-language-form class="mt-10 sm:mt-0" :languages="$page.props.user.languages" />
+                    </div>
                 </div>
             </div>
         </div>

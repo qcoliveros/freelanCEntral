@@ -61,7 +61,7 @@
             </div>
 
             <!-- Messenger -->
-            <div class="col-span-6 sm:col-span-4">
+            <div v-if="roles.includes('Gigger')" class="col-span-6 sm:col-span-4">
                 <jet-label for="messenger" value="Messenger" />
                 <div class="flex flex-row gap-2">
                     <jet-input id="messenger" type="text" class="mt-1 block w-full" v-model="form.messenger" />
@@ -72,8 +72,9 @@
             </div>
 
             <!-- LinkedIn URL -->
-            <div class="col-span-6 sm:col-span-4">
-                <jet-label for="website_url" value="LinkedIn URL" />
+            <div v-if="!roles.includes('Administrator')" class="col-span-6 sm:col-span-4">
+                <jet-label v-if="roles.includes('Gigger')" for="website_url" value="LinkedIn URL" />
+                <jet-label v-else for="website_url" value="Website" />
                 <jet-input id="website_url" type="text" class="mt-1 block w-full" v-model="form.website_url" autocomplete="website_url" />
                 <jet-input-error :message="form.errors.website_url" class="mt-2" />
             </div>
@@ -114,7 +115,10 @@ export default defineComponent({
         Multiselect,
     },
 
-    props: ['user'],
+    props: [
+        'user',
+        'roles'
+    ],
 
     data() {
         return {
