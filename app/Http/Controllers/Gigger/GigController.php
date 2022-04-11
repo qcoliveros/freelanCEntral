@@ -10,6 +10,8 @@ class GigController extends Controller
 {
     public function index(Request $request)
     {
-        return Jetstream::inertia()->render($request, 'Gigger/GigList');
+        return Jetstream::inertia()->render($request, 'Gigger/GigList', [
+            'gigList' => [],
+        ]);
     }
 }
