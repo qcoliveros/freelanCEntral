@@ -96,6 +96,13 @@
                         <multiselect id="reading_proficiency_id" v-model="form.reading_proficiency_id" :options="$page.props.parameter.languageProficiencies" :searchable="true" />
                         <jet-input-error :message="form.errors.reading_proficiency_id" class="mt-2" />
                     </div>
+
+                    <!-- Description -->
+                    <div class="mt-2">
+                        <jet-label for="description" value="Description" />
+                        <jet-textarea id="description" class="mt-1 block w-full" v-model="form.description" autocomplete="description" />
+                        <jet-input-error :message="form.errors.description" class="mt-2" />
+                    </div>
                 </template>
 
                 <template #footer>
@@ -175,6 +182,8 @@ export default defineComponent({
                 speaking_proficiency_id: null,
                 writing_proficiency_id: null,
                 reading_proficiency_id: null,
+                description: null,
+
             })
         }
     },

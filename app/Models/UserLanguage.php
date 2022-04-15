@@ -17,6 +17,7 @@ class UserLanguage extends Model
         'speaking_proficiency_id',
         'writing_proficiency_id',
         'reading_proficiency_id',
+        'description',
     ];
 
     public function language()

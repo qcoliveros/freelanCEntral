@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('speaking_proficiency_id');
             $table->foreignId('writing_proficiency_id');
             $table->foreignId('reading_proficiency_id');
+            $table->text('description', 2048)->nullable();
             $table->timestamps();
         });
     }

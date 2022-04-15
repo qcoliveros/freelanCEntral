@@ -49,6 +49,7 @@ class ManageUserLanguage implements ManagesUserLanguage
             'speaking_proficiency_id' => ['required'],
             'writing_proficiency_id' => ['required'],
             'reading_proficiency_id' => ['required'],
+            'description' => ['nullable', 'string', 'max:2048'],
         ], [], $customAttributes)->validateWithBag('languageError');
     }
 }
