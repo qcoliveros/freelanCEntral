@@ -61,7 +61,7 @@
             </div>
 
             <!-- Messenger -->
-            <div v-if="roles.includes('Gigger')" class="col-span-6 sm:col-span-4">
+            <div class="col-span-6 sm:col-span-4">
                 <jet-label for="messenger" value="Messenger" />
                 <div class="flex flex-row gap-2">
                     <jet-input id="messenger" type="text" class="mt-1 block w-full" v-model="form.messenger" />
@@ -73,10 +73,16 @@
 
             <!-- LinkedIn URL -->
             <div v-if="!roles.includes('Administrator')" class="col-span-6 sm:col-span-4">
-                <jet-label v-if="roles.includes('Gigger')" for="website_url" value="LinkedIn URL" />
-                <jet-label v-else for="website_url" value="Website" />
+                <jet-label value="Website / LinkedIn URL" />
                 <jet-input id="website_url" type="text" class="mt-1 block w-full" v-model="form.website_url" autocomplete="website_url" />
                 <jet-input-error :message="form.errors.website_url" class="mt-2" />
+            </div>
+
+            <!-- Industry -->
+            <div v-if="roles.includes('Gig Host')" class="col-span-6 sm:col-span-4">
+                <jet-label value="Industry" />
+                <multiselect id="industry" v-model="form.industry" :options="$page.props.parameter.industries" :searchable="true" />
+                <jet-input-error :message="form.errors.industry" class="mt-2" />
             </div>
         </template>
 
@@ -132,6 +138,7 @@ export default defineComponent({
                 messenger: this.user.messenger,
                 messenger_type: this.user.messenger_type,
                 website_url: this.user.website_url,
+                industry: this.user.industry,
             }),
 
             photoPreview: null,

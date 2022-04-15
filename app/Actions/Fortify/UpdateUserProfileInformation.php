@@ -27,6 +27,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'messenger' => ['required_with:messenger_type', 'max:100', isset($input['messenger']) ? Rule::unique('users')->ignore($user->id) : ''],
             'messenger_type' => ['required_with:messenger'],
             'website_url' => ['nullable', 'string', 'max:2048'],
+            'industry' => ['nullable'],
         ])->validateWithBag('updateProfileInformation');
 
         if (isset($input['photo'])) {
@@ -45,6 +46,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'messenger' => $input['messenger'],
                 'messenger_type' => $input['messenger_type'],
                 'website_url' => $input['website_url'],
+                'industry' => $input['industry'],
             ])->save();
         }
     }

@@ -20,6 +20,7 @@ return new class extends Migration
                 $table->string('messenger')->unique()->nullable();
                 $table->foreignId('messenger_type')->nullable();
                 $table->string('website_url', 2048)->nullable();
+                $table->foreignId('industry')->nullable();
                 $table->text('about')->nullable();
             });
         });

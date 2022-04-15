@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
             SoftSkillSeeder::class,
             LanguageProficiencySeeder::class,
             LanguageSeeder::class,
+            DurationSeeder::class,
+            JobFunctionSeeder::class,
         ]);
     }
 }
