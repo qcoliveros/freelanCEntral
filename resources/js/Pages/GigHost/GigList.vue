@@ -72,6 +72,16 @@
         data() {
             return {
                 moment: moment,
+
+                form: this.$inertia.form({
+                    _method: 'POST',
+                })
+            }
+        },
+
+        methods: {
+            addRecord() {
+                this.form.get(route('gigHost.gig.create'));
             }
         }
     })

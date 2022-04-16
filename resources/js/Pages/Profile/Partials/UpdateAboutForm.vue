@@ -29,42 +29,42 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-import JetButton from '@/Jetstream/Button.vue'
-import JetFormSection from '@/Jetstream/FormSection.vue'
-import JetTextarea from '@/Jetstream/Textarea.vue'
-import JetInputError from '@/Jetstream/InputError.vue'
-import JetLabel from '@/Jetstream/Label.vue'
-import JetActionMessage from '@/Jetstream/ActionMessage.vue'
+    import { defineComponent } from 'vue'
+    import JetButton from '@/Jetstream/Button.vue'
+    import JetFormSection from '@/Jetstream/FormSection.vue'
+    import JetTextarea from '@/Jetstream/Textarea.vue'
+    import JetInputError from '@/Jetstream/InputError.vue'
+    import JetLabel from '@/Jetstream/Label.vue'
+    import JetActionMessage from '@/Jetstream/ActionMessage.vue'
 
-export default defineComponent({
-    components: {
-        JetActionMessage,
-        JetButton,
-        JetFormSection,
-        JetTextarea,
-        JetInputError,
-        JetLabel,
-    },
-
-    props: ['user'],
-
-    data() {
-        return {
-            form: this.$inertia.form({
-                _method: 'POST',
-                about: this.user.about,
-            }),
-        }
-    },
-
-    methods: {
-        updateAboutInformation() {
-            this.form.post(route('user-about-information.update'), {
-                errorBag: 'updateAboutInformation',
-                preserveScroll: true,
-            });
+    export default defineComponent({
+        components: {
+            JetActionMessage,
+            JetButton,
+            JetFormSection,
+            JetTextarea,
+            JetInputError,
+            JetLabel,
         },
-    },
-})
+
+        props: ['user'],
+
+        data() {
+            return {
+                form: this.$inertia.form({
+                    _method: 'POST',
+                    about: this.user.about,
+                }),
+            }
+        },
+
+        methods: {
+            updateAboutInformation() {
+                this.form.post(route('user-about-information.update'), {
+                    errorBag: 'updateAboutInformation',
+                    preserveScroll: true,
+                });
+            },
+        },
+    })
 </script>

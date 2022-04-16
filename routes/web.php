@@ -99,5 +99,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::group(['middleware' => 'role:Gig Host', 'prefix' => 'gigHost', 'as' => 'gigHost.'], function() {
         Route::get('gig-list', [\App\Http\Controllers\GigHost\GigController::class, 'index'])
             ->name('gig.list');
+        Route::get('gig-create', [\App\Http\Controllers\GigHost\GigController::class, 'create'])
+            ->name('gig.create');
     });
 });

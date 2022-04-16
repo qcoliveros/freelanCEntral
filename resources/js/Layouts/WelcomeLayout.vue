@@ -54,25 +54,25 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-import { Head, Link } from '@inertiajs/inertia-vue3';
-import JetBannerLogo from '@/Jetstream/BannerLogo.vue'
-import JetBanner from '@/Jetstream/Banner.vue'
-import JetNavLink from '@/Jetstream/NavLink.vue'
+    import { defineComponent } from 'vue'
+    import { Head, Link } from '@inertiajs/inertia-vue3';
+    import JetBannerLogo from '@/Jetstream/BannerLogo.vue'
+    import JetBanner from '@/Jetstream/Banner.vue'
+    import JetNavLink from '@/Jetstream/NavLink.vue'
 
-export default defineComponent({
-    props: {
-        title: String,
-        canLogin: Boolean,
-        canRegister: Boolean,
-    },
+    export default defineComponent({
+        props: {
+            title: String,
+            canLogin: Boolean,
+            canRegister: Boolean,
+        },
 
-    components: {
-        Head,
-        Link,
-        JetBannerLogo,
-        JetBanner,
-        JetNavLink,
-    }
-})
+        components: {
+            Head,
+            Link,
+            JetBannerLogo,
+            JetBanner,
+            JetNavLink,
+        }
+    })
 </script>

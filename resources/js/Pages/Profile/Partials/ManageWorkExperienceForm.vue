@@ -68,7 +68,7 @@
                     <div>
                         <jet-checkbox v-model:checked="form.is_current" @change="checkIfCurrent($event)" />
                         <span class="font-medium text-sm text-gray-700"> Is present work?</span>
-                        <jet-input-error :message="form.errors.title" class="mt-2" />
+                        <jet-input-error :message="form.errors.is_current" class="mt-2" />
                     </div>
 
                     <!-- Title -->
@@ -170,137 +170,137 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-import DatePicker from 'vue-datepicker-next'
-import JetActionSection from '@/Jetstream/ActionSection.vue'
-import JetButton from '@/Jetstream/Button.vue'
-import JetCheckbox from '@/Jetstream/Checkbox'
-import JetDialogModal from '@/Jetstream/DialogModal.vue'
-import JetIcon from '@/Jetstream/Icon'
-import JetInput from '@/Jetstream/Input.vue'
-import JetInputError from '@/Jetstream/InputError.vue'
-import JetLabel from '@/Jetstream/Label.vue'
-import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
-import JetTextarea from "@/Jetstream/Textarea"
-import Multiselect from "@vueform/multiselect"
-import moment from "moment"
+    import { defineComponent } from 'vue'
+    import DatePicker from 'vue-datepicker-next'
+    import JetActionSection from '@/Jetstream/ActionSection.vue'
+    import JetButton from '@/Jetstream/Button.vue'
+    import JetCheckbox from '@/Jetstream/Checkbox'
+    import JetDialogModal from '@/Jetstream/DialogModal.vue'
+    import JetIcon from '@/Jetstream/Icon'
+    import JetInput from '@/Jetstream/Input.vue'
+    import JetInputError from '@/Jetstream/InputError.vue'
+    import JetLabel from '@/Jetstream/Label.vue'
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+    import JetTextarea from "@/Jetstream/Textarea"
+    import Multiselect from "@vueform/multiselect"
+    import moment from "moment"
 
-export default defineComponent({
-    components: {
-        DatePicker,
-        JetActionSection,
-        JetButton,
-        JetCheckbox,
-        JetDialogModal,
-        JetIcon,
-        JetInput,
-        JetInputError,
-        JetLabel,
-        JetSecondaryButton,
-        JetTextarea,
-        Multiselect,
-    },
+    export default defineComponent({
+        components: {
+            DatePicker,
+            JetActionSection,
+            JetButton,
+            JetCheckbox,
+            JetDialogModal,
+            JetIcon,
+            JetInput,
+            JetInputError,
+            JetLabel,
+            JetSecondaryButton,
+            JetTextarea,
+            Multiselect,
+        },
 
-    props: ['workExperiences'],
+        props: ['workExperiences'],
 
-    data() {
-        return {
-            moment: moment,
+        data() {
+            return {
+                moment: moment,
 
-            isOpenDetailModal: false,
-            isOpenConfirmDeleteModal: false,
-            isEditMode: false,
-            saveRoute: null,
+                isOpenDetailModal: false,
+                isOpenConfirmDeleteModal: false,
+                isEditMode: false,
+                saveRoute: null,
 
-            form: this.$inertia.form({
-                _method: 'POST',
-                id: null,
-                title: null,
-                employment_type: null,
-                company_name: null,
-                location: null,
-                start_date: null,
-                end_date: null,
-                is_current: null,
-                industry: null,
-                description: null,
-            })
-        }
-    },
-
-    methods: {
-        checkIfCurrent(event) {
-            if (event.target.checked) {
-                this.form.end_date = null;
+                form: this.$inertia.form({
+                    _method: 'POST',
+                    id: null,
+                    title: null,
+                    employment_type: null,
+                    company_name: null,
+                    location: null,
+                    start_date: null,
+                    end_date: null,
+                    is_current: null,
+                    industry: null,
+                    description: null,
+                })
             }
         },
 
-        openDetailModal() {
-            this.isOpenDetailModal = true
-        },
+        methods: {
+            checkIfCurrent(event) {
+                if (event.target.checked) {
+                    this.form.end_date = null;
+                }
+            },
 
-        closeDetailModal() {
-            this.isOpenDetailModal = false
-            this.isEditMode = false
-            this.form.reset()
-            this.form.clearErrors()
-        },
+            openDetailModal() {
+                this.isOpenDetailModal = true
+            },
 
-        addRecord() {
-            this.openDetailModal()
-        },
+            closeDetailModal() {
+                this.isOpenDetailModal = false
+                this.isEditMode = false
+                this.form.reset()
+                this.form.clearErrors()
+            },
 
-        editRecord(row) {
-            Object.assign(this.form, row)
-            this.isEditMode = true
-            this.openDetailModal()
-        },
+            addRecord() {
+                this.openDetailModal()
+            },
 
-        saveRecord() {
-            this.saveRoute = 'user-work-experience.store'
-            if (this.isEditMode) {
-               this.saveRoute = 'user-work-experience.update'
+            editRecord(row) {
+                Object.assign(this.form, row)
+                this.isEditMode = true
+                this.openDetailModal()
+            },
+
+            saveRecord() {
+                this.saveRoute = 'user-work-experience.store'
+                if (this.isEditMode) {
+                   this.saveRoute = 'user-work-experience.update'
+                }
+                this.form.post(route(this.saveRoute), {
+                    errorBag: 'workExpereienceError',
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.closeDetailModal()
+                        this.showToastMessage('Saved')
+                    }
+                });
+            },
+
+            confirmDeleteModal(row) {
+                Object.assign(this.form, row)
+                this.isOpenConfirmDeleteModal = true
+            },
+
+            closeDeleteModal() {
+                this.isOpenConfirmDeleteModal = false
+                this.form.reset()
+            },
+
+            deleteRecord() {
+                this.form.delete(route('user-work-experience.delete'), {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.closeDeleteModal()
+                        this.showToastMessage('Deleted')
+                    }
+                });
+            },
+
+            showToastMessage(message) {
+                this.$swal({
+                    position: 'top-end',
+                    icon: 'success',
+                    text: message,
+                    showConfirmButton: false,
+                    timer: 1000,
+                    width: 300,
+                });
             }
-            this.form.post(route(this.saveRoute), {
-                errorBag: 'workExpereienceError',
-                preserveScroll: true,
-                onSuccess: () => {
-                    this.closeDetailModal()
-                    this.showToastMessage('Saved')
-                }
-            });
         },
-
-        confirmDeleteModal(row) {
-            Object.assign(this.form, row)
-            this.isOpenConfirmDeleteModal = true
-        },
-
-        closeDeleteModal() {
-            this.isOpenConfirmDeleteModal = false
-            this.form.reset()
-        },
-
-        deleteRecord() {
-            this.form.delete(route('user-work-experience.delete'), {
-                preserveScroll: true,
-                onSuccess: () => {
-                    this.closeDeleteModal()
-                    this.showToastMessage('Deleted')
-                }
-            });
-        },
-
-        showToastMessage(message) {
-            this.$swal({
-                position: 'top-end',
-                icon: 'success',
-                text: message,
-                showConfirmButton: false,
-                timer: 1000,
-                width: 300,
-            });
-        }
-    },
-})
+    })
 </script>

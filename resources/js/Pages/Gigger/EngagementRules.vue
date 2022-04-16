@@ -48,22 +48,22 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-import { Head, Link } from '@inertiajs/inertia-vue3'
-import WelcomeLayout from "@/Layouts/WelcomeLayout"
-import JetIcon from "@/Jetstream/Icon"
+    import { defineComponent } from 'vue'
+    import { Head, Link } from '@inertiajs/inertia-vue3'
+    import WelcomeLayout from "@/Layouts/WelcomeLayout"
+    import JetIcon from "@/Jetstream/Icon"
 
-export default defineComponent({
-    props: {
-        canLogin: Boolean,
-        canRegister: Boolean,
-    },
+    export default defineComponent({
+        props: {
+            canLogin: Boolean,
+            canRegister: Boolean,
+        },
 
-    components: {
-        Head,
-        Link,
-        WelcomeLayout,
-        JetIcon,
-    }
-})
+        components: {
+            Head,
+            Link,
+            WelcomeLayout,
+            JetIcon,
+        }
+    })
 </script>

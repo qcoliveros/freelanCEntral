@@ -151,125 +151,125 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-import DatePicker from 'vue-datepicker-next'
-import JetActionSection from '@/Jetstream/ActionSection.vue'
-import JetButton from '@/Jetstream/Button.vue'
-import JetDialogModal from '@/Jetstream/DialogModal.vue'
-import JetIcon from '@/Jetstream/Icon'
-import JetInput from '@/Jetstream/Input.vue'
-import JetInputError from '@/Jetstream/InputError.vue'
-import JetLabel from '@/Jetstream/Label.vue'
-import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
-import JetTextarea from "@/Jetstream/Textarea"
-import moment from "moment"
+    import { defineComponent } from 'vue'
+    import DatePicker from 'vue-datepicker-next'
+    import JetActionSection from '@/Jetstream/ActionSection.vue'
+    import JetButton from '@/Jetstream/Button.vue'
+    import JetDialogModal from '@/Jetstream/DialogModal.vue'
+    import JetIcon from '@/Jetstream/Icon'
+    import JetInput from '@/Jetstream/Input.vue'
+    import JetInputError from '@/Jetstream/InputError.vue'
+    import JetLabel from '@/Jetstream/Label.vue'
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+    import JetTextarea from "@/Jetstream/Textarea"
+    import moment from "moment"
 
-export default defineComponent({
-    components: {
-        DatePicker,
-        JetActionSection,
-        JetButton,
-        JetDialogModal,
-        JetIcon,
-        JetInput,
-        JetInputError,
-        JetLabel,
-        JetSecondaryButton,
-        JetTextarea,
-    },
-
-    props: ['educations'],
-
-    data() {
-        return {
-            moment: moment,
-
-            isOpenDetailModal: false,
-            isOpenConfirmDeleteModal: false,
-            isEditMode: false,
-            saveRoute: null,
-
-            form: this.$inertia.form({
-                _method: 'POST',
-                id: null,
-                school: null,
-                degree: null,
-                field: null,
-                start_date: null,
-                end_date: null,
-                grade: null,
-                description: null,
-            })
-        }
-    },
-
-    methods: {
-        openDetailModal() {
-            this.isOpenDetailModal = true
+    export default defineComponent({
+        components: {
+            DatePicker,
+            JetActionSection,
+            JetButton,
+            JetDialogModal,
+            JetIcon,
+            JetInput,
+            JetInputError,
+            JetLabel,
+            JetSecondaryButton,
+            JetTextarea,
         },
 
-        closeDetailModal() {
-            this.isOpenDetailModal = false
-            this.isEditMode = false
-            this.form.reset()
-            this.form.clearErrors()
-        },
+        props: ['educations'],
 
-        addRecord() {
-            this.openDetailModal()
-        },
+        data() {
+            return {
+                moment: moment,
 
-        editRecord(row) {
-            Object.assign(this.form, row)
-            this.isEditMode = true
-            this.openDetailModal()
-        },
+                isOpenDetailModal: false,
+                isOpenConfirmDeleteModal: false,
+                isEditMode: false,
+                saveRoute: null,
 
-        saveRecord() {
-            this.saveRoute = 'user-education.store'
-            if (this.isEditMode) {
-                this.saveRoute = 'user-education.update'
+                form: this.$inertia.form({
+                    _method: 'POST',
+                    id: null,
+                    school: null,
+                    degree: null,
+                    field: null,
+                    start_date: null,
+                    end_date: null,
+                    grade: null,
+                    description: null,
+                })
             }
-            this.form.post(route(this.saveRoute), {
-                errorBag: 'educationError',
-                preserveScroll: true,
-                onSuccess: () => {
-                    this.closeDetailModal()
-                    this.showToastMessage('Saved')
+        },
+
+        methods: {
+            openDetailModal() {
+                this.isOpenDetailModal = true
+            },
+
+            closeDetailModal() {
+                this.isOpenDetailModal = false
+                this.isEditMode = false
+                this.form.reset()
+                this.form.clearErrors()
+            },
+
+            addRecord() {
+                this.openDetailModal()
+            },
+
+            editRecord(row) {
+                Object.assign(this.form, row)
+                this.isEditMode = true
+                this.openDetailModal()
+            },
+
+            saveRecord() {
+                this.saveRoute = 'user-education.store'
+                if (this.isEditMode) {
+                    this.saveRoute = 'user-education.update'
                 }
-            });
-        },
+                this.form.post(route(this.saveRoute), {
+                    errorBag: 'educationError',
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.closeDetailModal()
+                        this.showToastMessage('Saved')
+                    }
+                });
+            },
 
-        confirmDeleteModal(row) {
-            Object.assign(this.form, row)
-            this.isOpenConfirmDeleteModal = true
-        },
+            confirmDeleteModal(row) {
+                Object.assign(this.form, row)
+                this.isOpenConfirmDeleteModal = true
+            },
 
-        closeDeleteModal() {
-            this.isOpenConfirmDeleteModal = false
-            this.form.reset()
-        },
+            closeDeleteModal() {
+                this.isOpenConfirmDeleteModal = false
+                this.form.reset()
+            },
 
-        deleteRecord() {
-            this.form.delete(route('user-education.delete'), {
-                preserveScroll: true,
-                onSuccess: () => {
-                    this.closeDeleteModal()
-                    this.showToastMessage('Deleted')
-                }
-            });
-        },
+            deleteRecord() {
+                this.form.delete(route('user-education.delete'), {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.closeDeleteModal()
+                        this.showToastMessage('Deleted')
+                    }
+                });
+            },
 
-        showToastMessage(message) {
-            this.$swal({
-                position: 'top-end',
-                icon: 'success',
-                text: message,
-                showConfirmButton: false,
-                timer: 1000,
-                width: 300,
-            });
-        }
-    },
-})
+            showToastMessage(message) {
+                this.$swal({
+                    position: 'top-end',
+                    icon: 'success',
+                    text: message,
+                    showConfirmButton: false,
+                    timer: 1000,
+                    width: 300,
+                });
+            }
+        },
+    })
 </script>

@@ -99,98 +99,98 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-import JetButton from '@/Jetstream/Button.vue'
-import JetFormSection from '@/Jetstream/FormSection.vue'
-import JetInput from '@/Jetstream/Input.vue'
-import JetInputError from '@/Jetstream/InputError.vue'
-import JetLabel from '@/Jetstream/Label.vue'
-import JetActionMessage from '@/Jetstream/ActionMessage.vue'
-import JetIcon from '@/Jetstream/Icon.vue'
-import Multiselect from "@vueform/multiselect"
+    import { defineComponent } from 'vue'
+    import JetButton from '@/Jetstream/Button.vue'
+    import JetFormSection from '@/Jetstream/FormSection.vue'
+    import JetInput from '@/Jetstream/Input.vue'
+    import JetInputError from '@/Jetstream/InputError.vue'
+    import JetLabel from '@/Jetstream/Label.vue'
+    import JetActionMessage from '@/Jetstream/ActionMessage.vue'
+    import JetIcon from '@/Jetstream/Icon.vue'
+    import Multiselect from "@vueform/multiselect"
 
-export default defineComponent({
-    components: {
-        JetActionMessage,
-        JetButton,
-        JetFormSection,
-        JetInput,
-        JetInputError,
-        JetLabel,
-        JetIcon,
-        Multiselect,
-    },
-
-    props: [
-        'user',
-        'roles'
-    ],
-
-    data() {
-        return {
-            form: this.$inertia.form({
-                _method: 'PUT',
-                photo: null,
-                name: this.user.name,
-                email: this.user.email,
-                phone: this.user.phone,
-                phone_type: this.user.phone_type,
-                messenger: this.user.messenger,
-                messenger_type: this.user.messenger_type,
-                website_url: this.user.website_url,
-                industry: this.user.industry,
-            }),
-
-            photoPreview: null,
-        }
-    },
-
-    methods: {
-        updateProfileInformation() {
-            if (this.$refs.photo) {
-                this.form.photo = this.$refs.photo.files[0]
-            }
-
-            this.form.post(route('user-profile-information.update'), {
-                errorBag: 'updateProfileInformation',
-                preserveScroll: true,
-                onSuccess: () => (this.clearPhotoFileInput()),
-            });
+    export default defineComponent({
+        components: {
+            JetActionMessage,
+            JetButton,
+            JetFormSection,
+            JetInput,
+            JetInputError,
+            JetLabel,
+            JetIcon,
+            Multiselect,
         },
 
-        selectNewPhoto() {
-            this.$refs.photo.click();
-        },
+        props: [
+            'user',
+            'roles'
+        ],
 
-        updatePhotoPreview() {
-            const photo = this.$refs.photo.files[0];
+        data() {
+            return {
+                form: this.$inertia.form({
+                    _method: 'PUT',
+                    photo: null,
+                    name: this.user.name,
+                    email: this.user.email,
+                    phone: this.user.phone,
+                    phone_type: this.user.phone_type,
+                    messenger: this.user.messenger,
+                    messenger_type: this.user.messenger_type,
+                    website_url: this.user.website_url,
+                    industry: this.user.industry,
+                }),
 
-            if (! photo) return;
-
-            const reader = new FileReader();
-
-            reader.onload = (e) => {
-                this.photoPreview = e.target.result;
-            };
-
-            reader.readAsDataURL(photo);
-        },
-
-        deletePhoto() {
-            this.$inertia.delete(route('current-user-photo.destroy'), {
-                preserveScroll: true,
-                onSuccess: () => {
-                    this.photoPreview = null;
-                    this.clearPhotoFileInput();
-                },
-            });
-        },
-
-        clearPhotoFileInput() {
-            if (this.$refs.photo?.value) {
-                this.$refs.photo.value = null;
+                photoPreview: null,
             }
         },
-    },
-})
+
+        methods: {
+            updateProfileInformation() {
+                if (this.$refs.photo) {
+                    this.form.photo = this.$refs.photo.files[0]
+                }
+
+                this.form.post(route('user-profile-information.update'), {
+                    errorBag: 'updateProfileInformation',
+                    preserveScroll: true,
+                    onSuccess: () => (this.clearPhotoFileInput()),
+                });
+            },
+
+            selectNewPhoto() {
+                this.$refs.photo.click();
+            },
+
+            updatePhotoPreview() {
+                const photo = this.$refs.photo.files[0];
+
+                if (! photo) return;
+
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    this.photoPreview = e.target.result;
+                };
+
+                reader.readAsDataURL(photo);
+            },
+
+            deletePhoto() {
+                this.$inertia.delete(route('current-user-photo.destroy'), {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.photoPreview = null;
+                        this.clearPhotoFileInput();
+                    },
+                });
+            },
+
+            clearPhotoFileInput() {
+                if (this.$refs.photo?.value) {
+                    this.$refs.photo.value = null;
+                }
+            },
+        },
+    })
 </script>

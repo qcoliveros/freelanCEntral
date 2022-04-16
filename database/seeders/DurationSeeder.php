@@ -15,6 +15,7 @@ class DurationSeeder extends Seeder
      */
     public function run()
     {
+        Duration::create(['name' => 'Hour(s)']);
         Duration::create(['name' => 'Day(s)']);
         Duration::create(['name' => 'Week(s)']);
         Duration::create(['name' => 'Month(s)']);

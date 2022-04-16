@@ -140,121 +140,121 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-import JetActionMessage from '@/Jetstream/ActionMessage.vue'
-import JetActionSection from '@/Jetstream/ActionSection.vue'
-import JetButton from '@/Jetstream/Button.vue'
-import JetDialogModal from '@/Jetstream/DialogModal.vue'
-import JetIcon from '@/Jetstream/Icon'
-import JetInputError from '@/Jetstream/InputError.vue'
-import JetLabel from '@/Jetstream/Label.vue'
-import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
-import JetTextarea from "@/Jetstream/Textarea"
-import Multiselect from "@vueform/multiselect"
+    import { defineComponent } from 'vue'
+    import JetActionMessage from '@/Jetstream/ActionMessage.vue'
+    import JetActionSection from '@/Jetstream/ActionSection.vue'
+    import JetButton from '@/Jetstream/Button.vue'
+    import JetDialogModal from '@/Jetstream/DialogModal.vue'
+    import JetIcon from '@/Jetstream/Icon'
+    import JetInputError from '@/Jetstream/InputError.vue'
+    import JetLabel from '@/Jetstream/Label.vue'
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+    import JetTextarea from "@/Jetstream/Textarea"
+    import Multiselect from "@vueform/multiselect"
 
-export default defineComponent({
-    components: {
-        JetActionMessage,
-        JetActionSection,
-        JetButton,
-        JetDialogModal,
-        JetIcon,
-        JetInputError,
-        JetLabel,
-        JetSecondaryButton,
-        JetTextarea,
-        Multiselect,
-    },
-
-    props: ['languages'],
-
-    data() {
-        return {
-            isOpenDetailModal: false,
-            isOpenConfirmDeleteModal: false,
-            isEditMode: false,
-            saveRoute: null,
-
-            form: this.$inertia.form({
-                _method: 'POST',
-                id: null,
-                language_id: null,
-                speaking_proficiency_id: null,
-                writing_proficiency_id: null,
-                reading_proficiency_id: null,
-                description: null,
-
-            })
-        }
-    },
-
-    methods: {
-        openDetailModal() {
-            this.isOpenDetailModal = true
+    export default defineComponent({
+        components: {
+            JetActionMessage,
+            JetActionSection,
+            JetButton,
+            JetDialogModal,
+            JetIcon,
+            JetInputError,
+            JetLabel,
+            JetSecondaryButton,
+            JetTextarea,
+            Multiselect,
         },
 
-        closeDetailModal() {
-            this.isOpenDetailModal = false
-            this.isEditMode = false
-            this.form.reset()
-            this.form.clearErrors()
-        },
+        props: ['languages'],
 
-        addRecord() {
-            this.openDetailModal()
-        },
+        data() {
+            return {
+                isOpenDetailModal: false,
+                isOpenConfirmDeleteModal: false,
+                isEditMode: false,
+                saveRoute: null,
 
-        editRecord(row) {
-            Object.assign(this.form, row)
-            this.isEditMode = true
-            this.openDetailModal()
-        },
+                form: this.$inertia.form({
+                    _method: 'POST',
+                    id: null,
+                    language_id: null,
+                    speaking_proficiency_id: null,
+                    writing_proficiency_id: null,
+                    reading_proficiency_id: null,
+                    description: null,
 
-        saveRecord() {
-            this.saveRoute = 'user-language.store'
-            if (this.isEditMode) {
-                this.saveRoute = 'user-language.update'
+                })
             }
-            this.form.post(route(this.saveRoute), {
-                errorBag: 'languageError',
-                preserveScroll: true,
-                onSuccess: () => {
-                    this.closeDetailModal()
-                    this.showToastMessage('Saved')
+        },
+
+        methods: {
+            openDetailModal() {
+                this.isOpenDetailModal = true
+            },
+
+            closeDetailModal() {
+                this.isOpenDetailModal = false
+                this.isEditMode = false
+                this.form.reset()
+                this.form.clearErrors()
+            },
+
+            addRecord() {
+                this.openDetailModal()
+            },
+
+            editRecord(row) {
+                Object.assign(this.form, row)
+                this.isEditMode = true
+                this.openDetailModal()
+            },
+
+            saveRecord() {
+                this.saveRoute = 'user-language.store'
+                if (this.isEditMode) {
+                    this.saveRoute = 'user-language.update'
                 }
-            });
-        },
+                this.form.post(route(this.saveRoute), {
+                    errorBag: 'languageError',
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.closeDetailModal()
+                        this.showToastMessage('Saved')
+                    }
+                });
+            },
 
-        confirmDeleteModal(row) {
-            Object.assign(this.form, row)
-            this.isOpenConfirmDeleteModal = true
-        },
+            confirmDeleteModal(row) {
+                Object.assign(this.form, row)
+                this.isOpenConfirmDeleteModal = true
+            },
 
-        closeDeleteModal() {
-            this.isOpenConfirmDeleteModal = false
-            this.form.reset()
-        },
+            closeDeleteModal() {
+                this.isOpenConfirmDeleteModal = false
+                this.form.reset()
+            },
 
-        deleteRecord() {
-            this.form.delete(route('user-language.delete'), {
-                preserveScroll: true,
-                onSuccess: () => {
-                    this.closeDeleteModal()
-                    this.showToastMessage('Deleted')
-                }
-            });
-        },
+            deleteRecord() {
+                this.form.delete(route('user-language.delete'), {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.closeDeleteModal()
+                        this.showToastMessage('Deleted')
+                    }
+                });
+            },
 
-        showToastMessage(message) {
-            this.$swal({
-                position: 'top-end',
-                icon: 'success',
-                text: message,
-                showConfirmButton: false,
-                timer: 1000,
-                width: 300,
-            });
-        }
-    },
-})
+            showToastMessage(message) {
+                this.$swal({
+                    position: 'top-end',
+                    icon: 'success',
+                    text: message,
+                    showConfirmButton: false,
+                    timer: 1000,
+                    width: 300,
+                });
+            }
+        },
+    })
 </script>
