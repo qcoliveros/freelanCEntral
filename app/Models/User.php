@@ -92,4 +92,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(UserLanguage::class);
     }
+
+    public function gigAds()
+    {
+        return $this->hasMany(Gig::class);
+    }
+
+    public function gigs()
+    {
+        return $this->hasMany(Gig::class);
+    }
 }

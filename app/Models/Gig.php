@@ -28,4 +28,19 @@ class Gig extends Model
         'is_draft' => 'boolean',
         'is_post_end' => 'boolean',
     ];
+
+    public function gigHost()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function candidates()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function giggers()
+    {
+        return $this->hasMany(User::class);
+    }
 }

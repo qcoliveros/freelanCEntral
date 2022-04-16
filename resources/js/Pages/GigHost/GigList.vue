@@ -16,7 +16,7 @@
                         <thead>
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                             <th class="py-3 px-6 text-left">Job Title</th>
-                            <th class="py-3 px-6 text-left">Duration</th>
+                            <th class="py-3 px-6 text-left">Job Duration</th>
                             <th class="py-3 px-6 text-left">Posted Date</th>
                             <th class="py-3 px-6 text-center">Actions</th>
                         </tr>
@@ -34,12 +34,12 @@
                             </td>
                             <td class="py-3 px-6 text-center">
                                 <div class="flex items-center">
-                                    <span class="font-medium">{{ moment(row.job_start_date).format("YYYY MMM") }} to {{ moment(row.job_end_date).format("YYYY MMM") }}</span>
+                                    <span class="font-medium">{{ moment(row.job_start_date).format("YYYY MMM DD") }} to {{ moment(row.job_end_date).format("YYYY MMM DD") }}</span>
                                 </div>
                             </td>
                             <td class="py-3 px-6 text-left whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <span class="font-medium">{{ moment(row.posted_date).format("YYYY MMM") }}</span>
+                                    <span class="font-medium">{{ moment(row.posted_date).format("YYYY MMM DD") }}</span>
                                 </div>
                             </td>
                             <td class="py-3 px-6 text-center">

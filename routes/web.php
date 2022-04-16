@@ -101,5 +101,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
             ->name('gig.list');
         Route::get('gig-create', [\App\Http\Controllers\GigHost\GigController::class, 'create'])
             ->name('gig.create');
+        Route::post('gig-store', [\App\Http\Controllers\GigHost\GigController::class, 'store'])
+            ->name('gig.store');
     });
 });

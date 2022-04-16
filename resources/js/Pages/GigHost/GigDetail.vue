@@ -43,7 +43,7 @@
                             <div class="mt-4">
                                 <jet-label value="Time Commitment Required (hours per week)" />
                                 <jet-input id="commitment_time" type="text" class="mt-1 block w-full" v-model="form.commitment_time" autocomplete="commitment_time" />
-                                <jet-input-error :message="form.errors.commitment_duration" class="mt-2" />
+                                <jet-input-error :message="form.errors.commitment_time" class="mt-2" />
                             </div>
 
                             <!-- Job Duration -->
@@ -140,7 +140,10 @@
             },
 
             saveRecord() {
-                alert('Save');
+                this.form.post(route('gigHost.gig.store'), {
+                    errorBag: 'gigError',
+                    preserveScroll: true,
+                });
             }
         }
     })
