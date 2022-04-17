@@ -2,7 +2,8 @@
     <app-layout title="Gig Ads">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Create Gig Ad
+                <span v-if="$page.props.isEdit">Update Gig Ad</span>
+                <span v-else>Create Gig Ad</span>
             </h2>
         </template>
 
@@ -114,22 +115,28 @@
             Multiselect,
         },
 
+        props: {
+            gigAd: Object,
+            isEdit: Boolean,
+        },
+
         data() {
             return {
+                saveRoute: null,
+
                 form: this.$inertia.form({
                     _method: 'POST',
-                    id: null,
-                    job_title: null,
-                    description: null,
-                    job_function: null,
-                    other_job_function: null,
-                    commitment_time: null,
-                    commitment_duration: null,
-                    job_start_date: null,
-                    job_end_date: null,
-                    posted_date: null,
-                    is_draft: null,
-                    is_post_end: null,
+                    id: this.gigAd ? this.gigAd.id : null,
+                    job_title: this.gigAd ? this.gigAd.job_title : null,
+                    description: this.gigAd ? this.gigAd.description : null,
+                    job_function: this.gigAd ? this.gigAd.job_function : null,
+                    other_job_function: this.gigAd ? this.gigAd.other_job_function : null,
+                    commitment_time: this.gigAd ? this.gigAd.commitment_time : null,
+                    job_start_date: this.gigAd ? this.gigAd.job_start_date : null,
+                    job_end_date: this.gigAd ? this.gigAd.job_end_date : null,
+                    posted_date: this.gigAd ? this.gigAd.posted_date : null,
+                    is_draft: this.gigAd ? this.gigAd.is_draft : null,
+                    is_post_end: this.gigAd ? this.gigAd.is_post_end : null,
                 })
             }
         },
@@ -140,7 +147,12 @@
             },
 
             saveRecord() {
-                this.form.post(route('gigHost.gig.store'), {
+                this.saveRoute = 'gigHost.gig.store'
+                if (this.isEdit) {
+                    this.saveRoute = 'gigHost.gig.update'
+                }
+
+                this.form.post(route(this.saveRoute), {
                     errorBag: 'gigError',
                     preserveScroll: true,
                 });

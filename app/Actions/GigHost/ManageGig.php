@@ -25,6 +25,9 @@ class ManageGig implements ManagesGig
     {
         if (isset($input['id'])) {
             $this->validate($input);
+            if (!$input['is_draft']) {
+                $input['posted_date'] = Date::now();
+            }
 
             Gig::find($input['id'])->update($input);
         }

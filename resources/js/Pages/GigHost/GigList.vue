@@ -45,7 +45,7 @@
                             <td class="py-3 px-6 text-center">
                                 <div class="flex item-center justify-center">
                                     <jet-icon name="edit-icon" tooltip="Update Gig Ad" @click="editRecord(row)" />
-                                    <jet-icon name="delete-icon" tooltip="Remove Gig Ad" @click="confirmDeleteModal(row)" />
+                                    <jet-icon name="delete-icon" tooltip="Remove Gig Ad" @click="confirmDeleteRecord(row)" />
                                 </div>
                             </td>
                         </tr>
@@ -56,28 +56,56 @@
         </div>
         <jet-pagination :links="$page.props.gigAdList.links" />
     </app-layout>
+
+    <jet-dialog-modal :show="isOpenConfirmDeleteRecord" @close="closeConfirmDeleteRecord">
+        <template #title>
+            Delete Gig Ad
+        </template>
+
+        <template #content>
+            Are you sure you want to delete your gig ad?
+        </template>
+
+        <template #footer>
+            <jet-secondary-button @click="closeConfirmDeleteRecord">
+                Cancel
+            </jet-secondary-button>
+
+            <jet-button class="ml-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="deleteRecord">
+                Delete
+            </jet-button>
+        </template>
+    </jet-dialog-modal>
 </template>
 
 <script>
     import { defineComponent } from 'vue'
     import AppLayout from '@/Layouts/AppLayout.vue'
+    import JetButton from '@/Jetstream/Button.vue'
+    import JetDialogModal from '@/Jetstream/DialogModal.vue'
     import JetIcon from '@/Jetstream/Icon'
     import JetPagination from '@/Jetstream/Pagination'
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
     import moment from "moment"
 
     export default defineComponent({
         components: {
             AppLayout,
+            JetButton,
+            JetDialogModal,
             JetIcon,
             JetPagination,
+            JetSecondaryButton,
         },
 
         data() {
             return {
                 moment: moment,
+                isOpenConfirmDeleteRecord: false,
 
                 form: this.$inertia.form({
                     _method: 'POST',
+                    id: null,
                 })
             }
         },
@@ -85,6 +113,30 @@
         methods: {
             addRecord() {
                 this.form.get(route('gigHost.gig.create'));
+            },
+
+            editRecord(row) {
+                Object.assign(this.form, row)
+                this.form.get(route('gigHost.gig.edit'));
+            },
+
+            confirmDeleteRecord(row) {
+                Object.assign(this.form, row)
+                this.isOpenConfirmDeleteRecord = true
+            },
+
+            closeConfirmDeleteRecord() {
+                this.isOpenConfirmDeleteRecord = false
+                this.form.reset()
+            },
+
+            deleteRecord() {
+                this.form.delete(route('gigHost.gig.delete'), {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.closeConfirmDeleteRecord()
+                    }
+                });
             }
         }
     })
