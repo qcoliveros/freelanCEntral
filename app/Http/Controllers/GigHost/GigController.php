@@ -9,8 +9,8 @@ use App\Models\Parameter\Duration;
 use App\Models\Parameter\JobFunction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Laravel\Jetstream\Jetstream;
 
 class GigController extends Controller
@@ -19,8 +19,16 @@ class GigController extends Controller
     {
         return Jetstream::inertia()->render($request, 'GigHost/GigList', [
             'gigAdList' => Gig::where('user_id', $request->user()->id)
-                ->orderBy(DB::raw('ISNULL(posted_date)', 'posted_date'), 'ASC')
-                ->get(),
+                ->orderByRaw('ISNULL(posted_date) DESC')
+                ->paginate(10)
+                ->withQueryString()
+                ->through(fn ($gigAdList) => [
+                    'id' => $gigAdList->id,
+                    'job_title' => $gigAdList->job_title,
+                    'job_start_date' => $gigAdList->job_start_date,
+                    'job_end_date' => $gigAdList->job_end_date,
+                    'posted_date' => $gigAdList->posted_date,
+                ]),
         ]);
     }
 
@@ -35,6 +43,9 @@ class GigController extends Controller
     public function edit(Request $request)
     {
         return Jetstream::inertia()->render($request, 'GigHost/GigDetail', [
+            'parameter.jobFunctions' => JobFunction::pluck('name', 'id'),
+            'parameter.durations' => Duration::pluck('name', 'id'),
+
             'gigAd' => Gig::where('id', $request->input['id'])->get(),
         ]);
     }
@@ -45,7 +56,7 @@ class GigController extends Controller
 
         return $request->wantsJson()
             ? new JsonResponse('', 200)
-            : Route::route('gigHost.gig.list')->with('status', 'gig-ad-stored');
+            : Redirect::route('gigHost.gig.list')->with('status', 'gig-ad-stored');
     }
 
     public function update(Request $request, ManagesGig $updater)

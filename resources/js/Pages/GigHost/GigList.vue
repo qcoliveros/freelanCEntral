@@ -23,10 +23,10 @@
                         </thead>
                         <tbody class="text-gray-600 text-sm font-light">
                         <tr class="border-b border-gray-200 hover:bg-gray-100"
-                            v-if="!!$page.props.gigAdList && !$page.props.gigAdList.length">
+                            v-if="!!$page.props.gigAdList.data && !$page.props.gigAdList.data.length">
                             <td class="py-3 px-6 text-left whitespace-nowrap">No records found.</td>
                         </tr>
-                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-for="row in $page.props.gigAdList">
+                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-for="row in $page.props.gigAdList.data">
                             <td class="py-3 px-6 text-left whitespace-nowrap">
                                 <div class="flex items-center">
                                     <span class="font-medium">{{ row.job_title }}</span>
@@ -39,7 +39,7 @@
                             </td>
                             <td class="py-3 px-6 text-left whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <span class="font-medium">{{ moment(row.posted_date).format("YYYY MMM DD") }}</span>
+                                    <span class="font-medium" v-if="!!row.posted_date">{{ moment(row.posted_date).format("YYYY MMM DD") }}</span>
                                 </div>
                             </td>
                             <td class="py-3 px-6 text-center">
@@ -54,6 +54,7 @@
                 </div>
             </div>
         </div>
+        <jet-pagination :links="$page.props.gigAdList.links" />
     </app-layout>
 </template>
 
@@ -61,12 +62,14 @@
     import { defineComponent } from 'vue'
     import AppLayout from '@/Layouts/AppLayout.vue'
     import JetIcon from '@/Jetstream/Icon'
+    import JetPagination from '@/Jetstream/Pagination'
     import moment from "moment"
 
     export default defineComponent({
         components: {
             AppLayout,
             JetIcon,
+            JetPagination,
         },
 
         data() {
