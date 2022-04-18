@@ -51,8 +51,6 @@
     import ManageLanguageForm from "@/Pages/Profile/Partials/ManageLanguageForm"
 
     export default defineComponent({
-        props: ['sessions'],
-
         components: {
             AppLayout,
             JetSectionBorder,
