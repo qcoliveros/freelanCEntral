@@ -184,8 +184,11 @@
     import JetTextarea from "@/Jetstream/Textarea"
     import Multiselect from "@vueform/multiselect"
     import moment from "moment"
+    import ToastMessage from "../../../../mixins/toast-message";
 
     export default defineComponent({
+        mixins: [ ToastMessage ],
+
         components: {
             DatePicker,
             JetActionSection,
@@ -266,7 +269,7 @@
                     preserveScroll: true,
                     onSuccess: () => {
                         this.closeDetailModal()
-                        this.showToastMessage('Saved')
+                        this.showSuccessMessage('Saved')
                     }
                 });
             },
@@ -286,19 +289,8 @@
                     preserveScroll: true,
                     onSuccess: () => {
                         this.closeDeleteModal()
-                        this.showToastMessage('Deleted')
+                        this.showSuccessMessage('Deleted')
                     }
-                });
-            },
-
-            showToastMessage(message) {
-                this.$swal({
-                    position: 'top-end',
-                    icon: 'success',
-                    text: message,
-                    showConfirmButton: false,
-                    timer: 1000,
-                    width: 300,
                 });
             }
         },

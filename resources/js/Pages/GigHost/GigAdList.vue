@@ -45,7 +45,7 @@
                             <td class="py-3 px-6 text-center">
                                 <div class="flex item-center justify-center">
                                     <jet-icon name="edit-icon" tooltip="Update Gig Ad" @click="editRecord(row)" />
-                                    <jet-icon name="delete-icon" tooltip="Remove Gig Ad" @click="confirmDeleteRecord(row)" />
+                                    <jet-icon v-if="!row.posted_date" name="delete-icon" tooltip="Remove Gig Ad" @click="confirmDeleteRecord(row)" />
                                 </div>
                             </td>
                         </tr>
@@ -87,8 +87,11 @@
     import JetPagination from '@/Jetstream/Pagination'
     import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
     import moment from "moment"
+    import ToastMessage from "../../../mixins/toast-message";
 
     export default defineComponent({
+        mixins: [ ToastMessage ],
+
         components: {
             AppLayout,
             JetButton,
@@ -135,6 +138,7 @@
                     preserveScroll: true,
                     onSuccess: () => {
                         this.closeConfirmDeleteRecord()
+                        this.showSuccessMessage('Deleted')
                     }
                 });
             }

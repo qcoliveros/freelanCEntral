@@ -100,8 +100,11 @@
     import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
     import JetTextarea from '@/Jetstream/Textarea.vue'
     import Multiselect from "@vueform/multiselect"
+    import ToastMessage from "../../../mixins/toast-message";
 
     export default defineComponent({
+        mixins: [ ToastMessage ],
+
         components: {
             AppLayout,
             DatePicker,
@@ -155,6 +158,9 @@
                 this.form.post(route(this.saveRoute), {
                     errorBag: 'gigError',
                     preserveScroll: true,
+                    onSuccess: () => {
+                        this.showSuccessMessage('Saved')
+                    }
                 });
             }
         }
