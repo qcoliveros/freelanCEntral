@@ -112,12 +112,12 @@
 
         methods: {
             addRecord() {
-                this.form.get(route('gigHost.gig.create'));
+                this.form.get(route('gigHost.gigAd.create'));
             },
 
             editRecord(row) {
                 Object.assign(this.form, row)
-                this.form.get(route('gigHost.gig.edit'));
+                this.form.get(route('gigHost.gigAd.edit'));
             },
 
             confirmDeleteRecord(row) {
@@ -131,7 +131,7 @@
             },
 
             deleteRecord() {
-                this.form.delete(route('gigHost.gig.delete'), {
+                this.form.delete(route('gigHost.gigAd.delete'), {
                     preserveScroll: true,
                     onSuccess: () => {
                         this.closeConfirmDeleteRecord()

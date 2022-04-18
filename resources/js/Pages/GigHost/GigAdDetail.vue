@@ -143,13 +143,13 @@
 
         methods: {
             cancel() {
-                this.form.get(route('gigHost.gig.list'));
+                this.form.get(route('gigHost.gigAd.list'));
             },
 
             saveRecord() {
-                this.saveRoute = 'gigHost.gig.store'
+                this.saveRoute = 'gigHost.gigAd.store'
                 if (this.isEdit) {
-                    this.saveRoute = 'gigHost.gig.update'
+                    this.saveRoute = 'gigHost.gigAd.update'
                 }
 
                 this.form.post(route(this.saveRoute), {

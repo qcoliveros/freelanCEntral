@@ -2,13 +2,13 @@
 
 namespace App\Actions\GigHost;
 
-use App\Contracts\GigHost\ManagesGig;
-use App\Models\Gig;
+use App\Contracts\GigHost\ManagesGigAd;
+use App\Models\GigAd;
 use App\Models\Parameter\Duration;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Validator;
 
-class ManageGig implements ManagesGig
+class ManageGigAd implements ManagesGigAd
 {
     public function store($user, array $input)
     {
@@ -29,14 +29,14 @@ class ManageGig implements ManagesGig
                 $input['posted_date'] = Date::now();
             }
 
-            Gig::find($input['id'])->update($input);
+            GigAd::find($input['id'])->update($input);
         }
     }
 
     public function delete(array $input)
     {
         if (isset($input['id'])) {
-            Gig::find($input['id'])->delete();
+            GigAd::find($input['id'])->delete();
         }
     }
 

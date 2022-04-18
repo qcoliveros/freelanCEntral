@@ -97,17 +97,17 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     });
 
     Route::group(['middleware' => 'role:Gig Host', 'prefix' => 'gigHost', 'as' => 'gigHost.'], function() {
-        Route::get('gig-list', [\App\Http\Controllers\GigHost\GigController::class, 'index'])
-            ->name('gig.list');
-        Route::get('gig-create', [\App\Http\Controllers\GigHost\GigController::class, 'create'])
-            ->name('gig.create');
-        Route::post('gig-store', [\App\Http\Controllers\GigHost\GigController::class, 'store'])
-            ->name('gig.store');
-        Route::get('gig-edit', [\App\Http\Controllers\GigHost\GigController::class, 'edit'])
-            ->name('gig.edit');
-        Route::post('gig-update', [\App\Http\Controllers\GigHost\GigController::class, 'update'])
-            ->name('gig.update');
-        Route::delete('gig-delete', [\App\Http\Controllers\GigHost\GigController::class, 'delete'])
-            ->name('gig.delete');
+        Route::get('gig-ad-list', [\App\Http\Controllers\GigHost\GigAdController::class, 'index'])
+            ->name('gigAd.list');
+        Route::get('gig-ad-create', [\App\Http\Controllers\GigHost\GigAdController::class, 'create'])
+            ->name('gigAd.create');
+        Route::post('gig-ad-store', [\App\Http\Controllers\GigHost\GigAdController::class, 'store'])
+            ->name('gigAd.store');
+        Route::get('gig-ad-edit', [\App\Http\Controllers\GigHost\GigAdController::class, 'edit'])
+            ->name('gigAd.edit');
+        Route::post('gig-ad-update', [\App\Http\Controllers\GigHost\GigAdController::class, 'update'])
+            ->name('gigAd.update');
+        Route::delete('gig-ad-delete', [\App\Http\Controllers\GigHost\GigAdController::class, 'delete'])
+            ->name('gigAd.delete');
     });
 });

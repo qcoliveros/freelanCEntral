@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\GigHost;
 
-use App\Contracts\GigHost\ManagesGig;
+use App\Contracts\GigHost\ManagesGigAd;
 use App\Http\Controllers\Controller;
-use App\Models\Gig;
+use App\Models\GigAd;
 use App\Models\Parameter\Duration;
 use App\Models\Parameter\JobFunction;
 use Illuminate\Http\JsonResponse;
@@ -12,12 +12,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Laravel\Jetstream\Jetstream;
 
-class GigController extends Controller
+class GigAdController extends Controller
 {
     public function index(Request $request)
     {
-        return Jetstream::inertia()->render($request, 'GigHost/GigList', [
-            'gigAdList' => Gig::where('user_id', $request->user()->id)
+        return Jetstream::inertia()->render($request, 'GigHost/GigAdList', [
+            'gigAdList' => GigAd::where('user_id', $request->user()->id)
                 ->orderByRaw('ISNULL(posted_date) DESC')
                 ->paginate(10)
                 ->withQueryString()
@@ -33,7 +33,7 @@ class GigController extends Controller
 
     public function create(Request $request)
     {
-        return Jetstream::inertia()->render($request, 'GigHost/GigDetail', [
+        return Jetstream::inertia()->render($request, 'GigHost/GigAdDetail', [
             'parameter.jobFunctions' => JobFunction::pluck('name', 'id'),
             'parameter.durations' => Duration::pluck('name', 'id'),
 
@@ -41,27 +41,27 @@ class GigController extends Controller
         ]);
     }
 
-    public function store(Request $request, ManagesGig $updater)
+    public function store(Request $request, ManagesGigAd $updater)
     {
         $updater->store($request->user(), $request->all());
 
         return $request->wantsJson()
             ? new JsonResponse('', 200)
-            : Redirect::route('gigHost.gig.list')->with('status', 'gig-ad-stored');
+            : Redirect::route('gigHost.gigAd.list')->with('status', 'gig-ad-stored');
     }
 
     public function edit(Request $request)
     {
-        return Jetstream::inertia()->render($request, 'GigHost/GigDetail', [
+        return Jetstream::inertia()->render($request, 'GigHost/GigAdDetail', [
             'parameter.jobFunctions' => JobFunction::pluck('name', 'id'),
             'parameter.durations' => Duration::pluck('name', 'id'),
 
-            'gigAd' => Gig::where('id', $request['id'])->first(),
+            'gigAd' => GigAd::where('id', $request['id'])->first(),
             'isEdit' => true,
         ]);
     }
 
-    public function update(Request $request, ManagesGig $updater)
+    public function update(Request $request, ManagesGigAd $updater)
     {
         $updater->update($request->all());
 
@@ -70,12 +70,12 @@ class GigController extends Controller
             : back()->with('status', 'gig-ad-updated');
     }
 
-    public function delete(Request $request, ManagesGig $updater)
+    public function delete(Request $request, ManagesGigAd $updater)
     {
         $updater->delete($request->all());
 
         return $request->wantsJson()
             ? new JsonResponse('', 200)
-            : Redirect::route('gigHost.gig.list')->with('status', 'gig-ad-deleted');
+            : Redirect::route('gigHost.gigAd.list')->with('status', 'gig-ad-deleted');
     }
 }

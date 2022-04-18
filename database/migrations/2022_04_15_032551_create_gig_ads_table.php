@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('gigs', function (Blueprint $table) {
+        Schema::create('gig_ads', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
             // job details
@@ -40,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gigs');
+        Schema::dropIfExists('gig_ads');
     }
 };

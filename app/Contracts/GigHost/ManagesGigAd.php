@@ -2,7 +2,7 @@
 
 namespace App\Contracts\GigHost;
 
-interface ManagesGig
+interface ManagesGigAd
 {
     public function store($user, array $input);
 

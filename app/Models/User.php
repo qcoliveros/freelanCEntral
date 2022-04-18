@@ -2,6 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\HasEducations;
+use App\Traits\HasGigAds;
+use App\Traits\HasLanguages;
+use App\Traits\HasSoftSkills;
+use App\Traits\HasTechnicalSkills;
+use App\Traits\HasWorkExperiences;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -19,6 +25,12 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     use TwoFactorAuthenticatable;
     use HasRoles;
+    use HasWorkExperiences;
+    use HasEducations;
+    use HasTechnicalSkills;
+    use HasSoftSkills;
+    use HasLanguages;
+    use HasGigAds;
 
     /**
      * The attributes that are mass assignable.
@@ -67,39 +79,4 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'profile_photo_url',
     ];
-
-    public function userWorkExperiences()
-    {
-        return $this->hasMany(UserWorkExperience::class);
-    }
-
-    public function userEducations()
-    {
-        return $this->hasMany(UserEducation::class);
-    }
-
-    public function userTechnicalSkills()
-    {
-        return $this->hasMany(UserTechnicalSkill::class);
-    }
-
-    public function userSoftSkills()
-    {
-        return $this->hasMany(UserSoftSkill::class);
-    }
-
-    public function userLanguages()
-    {
-        return $this->hasMany(UserLanguage::class);
-    }
-
-    public function gigAds()
-    {
-        return $this->hasMany(Gig::class);
-    }
-
-    public function gigs()
-    {
-        return $this->hasMany(Gig::class);
-    }
 }

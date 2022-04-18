@@ -2,14 +2,14 @@
 
 namespace App\Providers;
 
-use App\Actions\GigHost\ManageGig;
+use App\Actions\GigHost\ManageGigAd;
 use App\Actions\Profile\ManageUserLanguage;
 use App\Actions\Profile\ManageUserSoftSkill;
 use App\Actions\Profile\UpdateUserAboutInformation;
 use App\Actions\Profile\ManageUserEducation;
 use App\Actions\Profile\ManageUserTechnicalSkill;
 use App\Actions\Profile\ManageUserWorkExperience;
-use App\Contracts\GigHost\ManagesGig;
+use App\Contracts\GigHost\ManagesGigAd;
 use App\Contracts\Profile\ManagesUserLanguage;
 use App\Contracts\Profile\ManagesUserSoftSkill;
 use App\Contracts\Profile\UpdatesUserAboutInformation;
@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ManagesUserSoftSkill::class, ManageUserSoftSkill::class);
         $this->app->bind(ManagesUserLanguage::class, ManageUserLanguage::class);
 
-        $this->app->bind(ManagesGig::class, ManageGig::class);
+        $this->app->bind(ManagesGigAd::class, ManageGigAd::class);
     }
 
     /**
