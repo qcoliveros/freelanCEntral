@@ -10,27 +10,34 @@ use Illuminate\Support\Facades\Validator;
 
 class ManageGigAd implements ManagesGigAd
 {
-    public function store($user, array $input)
+    public function save($user, array $input)
     {
         $this->validate($input);
-        $input['commitment_duration'] = Duration::where('name', 'Hour(s)')->value('id');
-        if (!$input['is_draft']) {
-            $input['posted_date'] = Date::now();
-        }
 
-        $user->gigAds()->create($input);
+        $input['commitment_duration_id'] = Duration::where('name', 'Hour(s)')->value('id');
+        $input['is_draft'] = true;
+
+        $this->createOrUpdate($user, $input);
     }
 
-    public function update(array $input)
+    public function publish($user, array $input)
     {
-        if (isset($input['id'])) {
-            $this->validate($input);
-            if (!$input['is_draft']) {
-                $input['posted_date'] = Date::now();
-            }
+        $this->validate($input);
 
-            GigAd::find($input['id'])->update($input);
-        }
+        $input['commitment_duration_id'] = Duration::where('name', 'Hour(s)')->value('id');
+        $input['is_draft'] = false;
+        $input['publish_date'] = Date::now();
+
+        $this->createOrUpdate($user, $input);
+    }
+
+    public function close($user, array $input)
+    {
+        $this->validate($input);
+
+        $input['close_date'] = Date::now();
+
+        $this->createOrUpdate($user, $input);
     }
 
     public function delete(array $input)
@@ -42,14 +49,27 @@ class ManageGigAd implements ManagesGigAd
 
     private function validate(array $input)
     {
+        $customAttributes = array(
+            'job_function_id' => 'job function',
+        );
+
         Validator::make($input, [
             'job_title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:2048'],
-            'job_function' => ['required'],
+            'job_function_id' => ['required'],
             'other_job_function' => ['nullable', 'string', 'max:255'],
             'commitment_time' => ['required', 'integer', 'between:5,40'],
             'job_start_date' => ['required', 'date', 'after:now'],
             'job_end_date' => ['required', 'date', 'after:job_start_date'],
-        ])->validateWithBag('gigError');
+            ], [], $customAttributes)->validateWithBag('gigError');
+    }
+
+    private function createOrUpdate($user, array $input)
+    {
+        if (!isset($input['id'])) {
+            $user->gigAds()->create($input);
+        } else {
+            GigAd::find($input['id'])->update($input);
+        }
     }
 }

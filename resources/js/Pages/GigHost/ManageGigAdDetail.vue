@@ -28,13 +28,13 @@
 
                             <!-- Job Function -->
                             <div class="mt-4">
-                                <jet-label for="job_function" value="Job Function" />
-                                <multiselect id="job_function" v-model="form.job_function" :options="$page.props.parameter.jobFunctions" :searchable="true" />
-                                <jet-input-error :message="form.errors.job_function" class="mt-2" />
+                                <jet-label for="job_function_id" value="Job Function" />
+                                <multiselect id="job_function_id" v-model="form.job_function_id" :options="$page.props.parameter.jobFunctions" :searchable="true" />
+                                <jet-input-error :message="form.errors.job_function_id" class="mt-2" />
                             </div>
 
                             <!-- Other Job Function -->
-                            <div class="mt-4" v-if="form.job_function == '22'">
+                            <div class="mt-4" v-if="form.job_function_id == '22'">
                                 <jet-label for="other_job_function" value="Others (please specify)" />
                                 <jet-input id="other_job_function" type="text" class="mt-1 block w-full" v-model="form.other_job_function" autocomplete="other_job_function" />
                                 <jet-input-error :message="form.errors.other_job_function" class="mt-2" />
@@ -57,30 +57,23 @@
                                 <jet-input-error :message="form.errors.job_start_date" class="mt-2" />
                                 <jet-input-error :message="form.errors.job_end_date" class="mt-2" />
                             </div>
-
-                            <!-- Is draft? -->
-                            <div class="mt-4" v-if="form.posted_date === null">
-                                <jet-checkbox v-model:checked="form.is_draft" />
-                                <span class="font-medium text-sm text-gray-700"> Save as draft?</span>
-                                <jet-input-error :message="form.errors.is_draft" class="mt-2" />
-                            </div>
-
-                            <!-- Post ended? -->
-                            <div class="mt-4" v-if="form.posted_date !== null">
-                                <jet-checkbox v-model:checked="form.is_post_end" />
-                                <span class="font-medium text-sm text-gray-700"> Posting completed?</span>
-                                <jet-input-error :message="form.errors.is_post_end" class="mt-2" />
-                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
-                    <jet-secondary-button @click="cancel" class="mr-2">
+                    <jet-secondary-button class="mr-2" @click="cancel">
                         Cancel
                     </jet-secondary-button>
-                    <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="saveRecord">
-                        Save
+                    <jet-button v-if="form.publish_date === null" class="mr-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="saveRecord">
+                        Save as Draft
+                    </jet-button>
+                    <jet-button v-else class="mr-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="closeRecord">
+                        Close
+                    </jet-button>
+                    <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="publishRecord">
+                        <span v-if="form.publish_date === null">Publish</span>
+                        <span v-else>Republish</span>
                     </jet-button>
                 </div>
             </div>
@@ -100,7 +93,7 @@
     import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
     import JetTextarea from '@/Jetstream/Textarea.vue'
     import Multiselect from "@vueform/multiselect"
-    import ToastMessage from "../../../mixins/toast-message";
+    import ToastMessage from "../../../mixins/toast-message"
 
     export default defineComponent({
         mixins: [ ToastMessage ],
@@ -120,26 +113,24 @@
 
         props: {
             gigAd: Object,
-            isEdit: Boolean,
         },
 
         data() {
             return {
-                saveRoute: null,
-
                 form: this.$inertia.form({
                     _method: 'POST',
                     id: this.gigAd ? this.gigAd.id : null,
                     job_title: this.gigAd ? this.gigAd.job_title : null,
                     description: this.gigAd ? this.gigAd.description : null,
-                    job_function: this.gigAd ? this.gigAd.job_function : null,
+                    job_function_id: this.gigAd ? this.gigAd.job_function_id : null,
                     other_job_function: this.gigAd ? this.gigAd.other_job_function : null,
                     commitment_time: this.gigAd ? this.gigAd.commitment_time : null,
+                    commitment_duration: this.gigAd ? this.gigAd.commitment_duration : null,
                     job_start_date: this.gigAd ? this.gigAd.job_start_date : null,
                     job_end_date: this.gigAd ? this.gigAd.job_end_date : null,
-                    posted_date: this.gigAd ? this.gigAd.posted_date : null,
                     is_draft: this.gigAd ? this.gigAd.is_draft : null,
-                    is_post_end: this.gigAd ? this.gigAd.is_post_end : null,
+                    publish_date: this.gigAd ? this.gigAd.publish_date : null,
+                    close_date: this.gigAd ? this.gigAd.close_date : null,
                 })
             }
         },
@@ -150,16 +141,31 @@
             },
 
             saveRecord() {
-                this.saveRoute = 'gigHost.gigAd.store'
-                if (this.isEdit) {
-                    this.saveRoute = 'gigHost.gigAd.update'
-                }
-
-                this.form.post(route(this.saveRoute), {
+                this.form.post(route('gigHost.gigAd.save'), {
                     errorBag: 'gigError',
                     preserveScroll: true,
                     onSuccess: () => {
                         this.showSuccessMessage('Saved')
+                    }
+                });
+            },
+
+            publishRecord() {
+                this.form.post(route('gigHost.gigAd.publish'), {
+                    errorBag: 'gigError',
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.showSuccessMessage('Published')
+                    }
+                });
+            },
+
+            closeRecord() {
+                this.form.post(route('gigHost.gigAd.close'), {
+                    errorBag: 'gigError',
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.showSuccessMessage('Closed')
                     }
                 });
             }

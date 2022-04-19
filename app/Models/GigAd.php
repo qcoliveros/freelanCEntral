@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Parameter\Duration;
+use App\Models\Parameter\JobFunction;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,20 +15,20 @@ class GigAd extends Model
         'gig_host_id',
         'job_title',
         'description',
-        'job_function',
+        'job_function_id',
         'other_job_function',
         'commitment_time',
-        'commitment_duration',
+        'commitment_duration_id',
         'job_start_date',
         'job_end_date',
         'posted_date',
         'is_draft',
-        'is_post_end'
+        'publish_date',
+        'close_date',
     ];
 
     protected $casts = [
         'is_draft' => 'boolean',
-        'is_post_end' => 'boolean',
     ];
 
     public function gigHost()
@@ -34,13 +36,13 @@ class GigAd extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function candidates()
+    public function jobFunction()
     {
-        return $this->hasMany(User::class);
+        return $this->hasOne(JobFunction::class, 'id', 'job_function_id');
     }
 
-    public function giggers()
+    public function commitmentDuration()
     {
-        return $this->hasMany(User::class);
+        return $this->hasOne(Duration::class, 'id', 'commitment_duration_id');
     }
 }

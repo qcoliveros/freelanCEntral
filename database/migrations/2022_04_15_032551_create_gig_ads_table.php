@@ -19,16 +19,16 @@ return new class extends Migration
             // job details
             $table->string('job_title');
             $table->text('description', 2048);
-            $table->foreignId('job_function');
+            $table->foreignId('job_function_id');
             $table->string('other_job_function')->nullable();
             $table->integer('commitment_time');
-            $table->foreignId('commitment_duration');
+            $table->foreignId('commitment_duration_id');
             $table->date('job_start_date');
             $table->date('job_end_date');
             // posting details
-            $table->date('posted_date')->nullable();
             $table->boolean('is_draft')->nullable();
-            $table->boolean('is_post_end')->nullable();
+            $table->date('publish_date')->nullable();
+            $table->date('close_date')->nullable();
             $table->timestamps();
         });
     }

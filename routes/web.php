@@ -101,12 +101,16 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
             ->name('gigAd.list');
         Route::get('gig-ad-create', [\App\Http\Controllers\GigHost\GigAdController::class, 'create'])
             ->name('gigAd.create');
-        Route::post('gig-ad-store', [\App\Http\Controllers\GigHost\GigAdController::class, 'store'])
-            ->name('gigAd.store');
         Route::get('gig-ad-edit', [\App\Http\Controllers\GigHost\GigAdController::class, 'edit'])
             ->name('gigAd.edit');
-        Route::post('gig-ad-update', [\App\Http\Controllers\GigHost\GigAdController::class, 'update'])
-            ->name('gigAd.update');
+        Route::get('gig-ad-view', [\App\Http\Controllers\GigHost\GigAdController::class, 'view'])
+            ->name('gigAd.view');
+        Route::post('gig-ad-save', [\App\Http\Controllers\GigHost\GigAdController::class, 'save'])
+            ->name('gigAd.save');
+        Route::post('gig-ad-publish', [\App\Http\Controllers\GigHost\GigAdController::class, 'publish'])
+            ->name('gigAd.publish');
+        Route::post('gig-ad-close', [\App\Http\Controllers\GigHost\GigAdController::class, 'close'])
+            ->name('gigAd.close');
         Route::delete('gig-ad-delete', [\App\Http\Controllers\GigHost\GigAdController::class, 'delete'])
             ->name('gigAd.delete');
     });

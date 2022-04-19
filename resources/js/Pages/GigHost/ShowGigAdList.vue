@@ -17,7 +17,8 @@
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                             <th class="py-3 px-6 text-left">Job Title</th>
                             <th class="py-3 px-6 text-left">Job Duration</th>
-                            <th class="py-3 px-6 text-left">Posted Date</th>
+                            <th class="py-3 px-6 text-left">Published Date</th>
+                            <th class="py-3 px-6 text-left">Closed Date</th>
                             <th class="py-3 px-6 text-center">Actions</th>
                         </tr>
                         </thead>
@@ -39,13 +40,19 @@
                             </td>
                             <td class="py-3 px-6 text-left whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <span class="font-medium" v-if="!!row.posted_date">{{ moment(row.posted_date).format("YYYY MMM DD") }}</span>
+                                    <span class="font-medium" v-if="!!row.publish_date">{{ moment(row.publish_date).format("YYYY MMM DD") }}</span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <span class="font-medium" v-if="!!row.close_date">{{ moment(row.close_date).format("YYYY MMM DD") }}</span>
                                 </div>
                             </td>
                             <td class="py-3 px-6 text-center">
                                 <div class="flex item-center justify-center">
-                                    <jet-icon name="edit-icon" tooltip="Update Gig Ad" @click="editRecord(row)" />
-                                    <jet-icon v-if="!row.posted_date" name="delete-icon" tooltip="Remove Gig Ad" @click="confirmDeleteRecord(row)" />
+                                    <jet-icon v-if="row.close_date == null" name="edit-icon" tooltip="Update Gig Ad" @click="editRecord(row)" />
+                                    <jet-icon v-if="row.close_date != null" name="view-icon" tooltip="View Gig Ad" @click="viewRecord(row)" />
+                                    <jet-icon v-if="row.publish_date == null" name="delete-icon" tooltip="Remove Gig Ad" @click="confirmDeleteRecord(row)" />
                                 </div>
                             </td>
                         </tr>
@@ -87,7 +94,7 @@
     import JetPagination from '@/Jetstream/Pagination'
     import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
     import moment from "moment"
-    import ToastMessage from "../../../mixins/toast-message";
+    import ToastMessage from "../../../mixins/toast-message"
 
     export default defineComponent({
         mixins: [ ToastMessage ],
@@ -121,6 +128,11 @@
             editRecord(row) {
                 Object.assign(this.form, row)
                 this.form.get(route('gigHost.gigAd.edit'));
+            },
+
+            viewRecord(row) {
+                Object.assign(this.form, row)
+                this.form.get(route('gigHost.gigAd.view'));
             },
 
             confirmDeleteRecord(row) {
