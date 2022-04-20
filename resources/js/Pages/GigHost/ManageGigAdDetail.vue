@@ -2,7 +2,7 @@
     <app-layout title="Gig Ads">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                <span v-if="$page.props.isEdit">Update Gig Ad</span>
+                <span v-if="isEdit">Update Gig Ad</span>
                 <span v-else>Create Gig Ad</span>
             </h2>
         </template>
@@ -111,7 +111,10 @@
             Multiselect,
         },
 
-        props: [ 'gigAd' ],
+        props: [
+            'gigAd',
+            'isEdit'
+        ],
 
         data() {
             return {
