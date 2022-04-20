@@ -64,9 +64,7 @@
             JetIcon,
         },
 
-        props: {
-            gigAppList: Array,
-        },
+        props: [ 'gigAppList' ],
 
         data() {
             return {

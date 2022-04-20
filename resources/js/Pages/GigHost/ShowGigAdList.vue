@@ -107,9 +107,7 @@
             JetSecondaryButton,
         },
 
-        props: {
-            gigAdList: Array,
-        },
+        props: [ 'gigAdList' ],
 
         data() {
             return {

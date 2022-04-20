@@ -74,9 +74,7 @@ export default defineComponent({
         JetSecondaryButton,
     },
 
-    props: {
-        gigAd: Object,
-    },
+    props: [ 'gigAd' ],
 
     data() {
         return {
