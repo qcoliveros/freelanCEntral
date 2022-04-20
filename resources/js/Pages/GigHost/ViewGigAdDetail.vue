@@ -44,7 +44,7 @@
                             <!-- Job Duration -->
                             <div class="mt-4">
                                 <jet-label value="Job Duration" />
-                                {{ moment(gigAd.job_start_date).format("YYYY MMM DD") }} to {{ moment(gigAd.job_end_date).format("YYYY MMM DD") }}
+                                {{ moment(gigAd.job_start_date).format("DD MMM YYYY") }} to {{ moment(gigAd.job_end_date).format("DD MMM YYYY") }}
                             </div>
                         </div>
                     </div>

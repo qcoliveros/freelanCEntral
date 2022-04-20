@@ -41,8 +41,8 @@
                             </td>
                             <td class="py-3 px-6 text-center">
                                 <div class="flex items-center">
-                                    <span v-if="!!row.end_date">{{ moment(row.start_date).format("YYYY MMM") }} to {{ moment(row.end_date).format("YYYY MMM") }}</span>
-                                    <span v-else>{{ moment(row.start_date).format("YYYY MMM") }} to Present</span>
+                                    <span v-if="!!row.end_date">{{ moment(row.start_date).format("MMM YYYY") }} to {{ moment(row.end_date).format("MMM YYYY") }}</span>
+                                    <span v-else>{{ moment(row.start_date).format("MMM YYYY") }} to Present</span>
                                 </div>
                             </td>
                             <td class="py-3 px-6 text-center">
@@ -104,7 +104,7 @@
                         <div class="grid grid-cols-2 md:grid-cols-2 md:gap-2">
                             <div class="flex-col">
                                 <jet-label for="start_date" value="Start Date" />
-                                <date-picker v-model:value="form.start_date" value-type="YYYY-MM-DD" type="month" format="YYYY MMM" />
+                                <date-picker v-model:value="form.start_date" value-type="YYYY-MM-DD" type="month" format="MMM YYYY" />
                                 <jet-input-error :message="form.errors.start_date" class="mt-2" />
                             </div>
 
@@ -113,7 +113,7 @@
                                 <date-picker v-model:value="form.end_date"
                                              value-type="YYYY-MM-DD"
                                              type="month"
-                                             format="YYYY MMM"
+                                             format="MMM YYYY"
                                              :disabled="form.is_current"
                                              :input-attr="{id: 'end_date'}" />
                                 <jet-input-error :message="form.errors.end_date" class="mt-2" />
