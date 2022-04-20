@@ -27,15 +27,15 @@
                                               v-if="$page.props.user.roles.includes('Administrator')">
                                     Manage Users
                                 </jet-nav-link>
-                                <jet-nav-link :href="route('gigger.gig.list')"
-                                              :active="route().current('gigger.gig.list')"
+                                <jet-nav-link :href="route('gigger.gigApp.list')"
+                                              :active="route().current('gigger.gigApp.list')"
                                               v-if="$page.props.user.roles.includes('Gigger')">
-                                    My Gigs
+                                    Gig Application
                                 </jet-nav-link>
                                 <jet-nav-link :href="route('gigHost.gigAd.list')"
                                               :active="route().current('gigHost.gigAd.list')"
                                               v-if="$page.props.user.roles.includes('Gig Host')">
-                                    My Gig Ads
+                                    Gig Ad
                                 </jet-nav-link>
                             </div>
                         </div>

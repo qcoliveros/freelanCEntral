@@ -92,8 +92,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     });
 
     Route::group(['middleware' => 'role:Gigger', 'prefix' => 'gigger', 'as' => 'gigger.'], function() {
-        Route::get('gig-list', [\App\Http\Controllers\Gigger\GigController::class, 'index'])
-            ->name('gig.list');
+        Route::get('gig-app-list', [\App\Http\Controllers\Gigger\GigController::class, 'index'])
+            ->name('gigApp.list');
     });
 
     Route::group(['middleware' => 'role:Gig Host', 'prefix' => 'gigHost', 'as' => 'gigHost.'], function() {

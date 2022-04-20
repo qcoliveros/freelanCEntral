@@ -2,7 +2,7 @@
     <app-layout title="Gigs">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Gigs
+                Gig Applications
             </h2>
         </template>
 
@@ -12,17 +12,22 @@
                     <table class="w-full table-auto">
                         <thead>
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                            <th class="py-3 px-6 text-left">Gig Host</th>
                             <th class="py-3 px-6 text-left">Job Title</th>
-                            <th class="py-3 px-6 text-left">Duration</th>
+                            <th class="py-3 px-6 text-left">Date Applied</th>
                             <th class="py-3 px-6 text-center">Actions</th>
                         </tr>
                         </thead>
                         <tbody class="text-gray-600 text-sm font-light">
-                        <tr class="border-b border-gray-200 hover:bg-gray-100"
-                            v-if="!!$page.props.gigList && !$page.props.gigList.length">
+                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-if="!!gigAppList && !gigAppList.length">
                             <td class="py-3 px-6 text-left whitespace-nowrap">No records found.</td>
                         </tr>
-                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-for="row in $page.props.gigList">
+                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-for="row in gigAppList">
+                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <span class="font-medium">{{ row.user.name }}</span>
+                                </div>
+                            </td>
                             <td class="py-3 px-6 text-left whitespace-nowrap">
                                 <div class="flex items-center">
                                     <span class="font-medium">{{ row.job_title }}</span>
@@ -30,7 +35,7 @@
                             </td>
                             <td class="py-3 px-6 text-center">
                                 <div class="flex items-center">
-                                    <span class="font-medium">{{ moment(row.start_date).format("YYYY MMM") }} to {{ moment(row.end_date).format("YYYY MMM") }}</span>
+                                    <span class="font-medium">{{ moment(row.date_applied).format("YYYY MMM") }}</span>
                                 </div>
                             </td>
                             <td class="py-3 px-6 text-center">
@@ -54,6 +59,10 @@
     import moment from "moment"
 
     export default defineComponent({
+        props: {
+            gigAppList: Array,
+        },
+
         components: {
             AppLayout,
             JetIcon,
