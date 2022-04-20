@@ -123,7 +123,7 @@
 
         props: [
             'user',
-            'roles'
+            'roles',
         ],
 
         data() {

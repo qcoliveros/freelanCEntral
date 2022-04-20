@@ -23,11 +23,10 @@
                         </tr>
                         </thead>
                         <tbody class="text-gray-600 text-sm font-light">
-                        <tr class="border-b border-gray-200 hover:bg-gray-100"
-                            v-if="!!$page.props.gigAdList.data && !$page.props.gigAdList.data.length">
+                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-if="!!gigAdList.data && !gigAdList.data.length">
                             <td class="py-3 px-6 text-left whitespace-nowrap">No records found.</td>
                         </tr>
-                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-for="row in $page.props.gigAdList.data">
+                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-for="row in gigAdList.data">
                             <td class="py-3 px-6 text-left whitespace-nowrap">
                                 <div class="flex items-center">
                                     <span class="font-medium">{{ row.job_title }}</span>
@@ -106,6 +105,10 @@
             JetIcon,
             JetPagination,
             JetSecondaryButton,
+        },
+
+        props: {
+            gigAdList: Array,
         },
 
         data() {

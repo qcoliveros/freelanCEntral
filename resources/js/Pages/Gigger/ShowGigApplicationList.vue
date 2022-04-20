@@ -59,13 +59,13 @@
     import moment from "moment"
 
     export default defineComponent({
-        props: {
-            gigAppList: Array,
-        },
-
         components: {
             AppLayout,
             JetIcon,
+        },
+
+        props: {
+            gigAppList: Array,
         },
 
         data() {
