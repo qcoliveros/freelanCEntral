@@ -2,7 +2,7 @@
     <app-layout title="Gigs">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Gig Applications
+                Find a Gig
             </h2>
         </template>
 
