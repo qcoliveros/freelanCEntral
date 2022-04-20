@@ -83,7 +83,6 @@ export default defineComponent({
             moment: moment,
 
             form: this.$inertia.form({
-                _method: 'POST',
                 id: null,
             })
         }

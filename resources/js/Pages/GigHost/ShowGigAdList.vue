@@ -114,7 +114,6 @@
                 isOpenConfirmDeleteRecord: false,
 
                 form: this.$inertia.form({
-                    _method: 'POST',
                     id: null,
                 })
             }

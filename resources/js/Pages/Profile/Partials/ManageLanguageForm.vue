@@ -179,7 +179,6 @@
                 saveRoute: null,
 
                 form: this.$inertia.form({
-                    _method: 'POST',
                     id: null,
                     language_id: null,
                     speaking_proficiency_id: null,

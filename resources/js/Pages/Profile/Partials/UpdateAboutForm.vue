@@ -52,7 +52,6 @@
         data() {
             return {
                 form: this.$inertia.form({
-                    _method: 'POST',
                     about: this.user.about,
                 }),
             }

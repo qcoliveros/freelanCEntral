@@ -193,7 +193,6 @@
                 saveRoute: null,
 
                 form: this.$inertia.form({
-                    _method: 'POST',
                     id: null,
                     school: null,
                     degree: null,
