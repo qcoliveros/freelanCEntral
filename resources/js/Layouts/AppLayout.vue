@@ -32,6 +32,11 @@
                                               v-if="$page.props.user.roles.includes('Gigger')">
                                     Gig Application
                                 </jet-nav-link>
+                                <jet-nav-link :href="route('gigger.gigAd.find')"
+                                              :active="route().current('gigger.gigAd.find')"
+                                              v-if="$page.props.user.roles.includes('Gigger')">
+                                    Find Gig
+                                </jet-nav-link>
                                 <jet-nav-link :href="route('gigHost.gigAd.list')"
                                               :active="route().current('gigHost.gigAd.list')"
                                               v-if="$page.props.user.roles.includes('Gig Host')">

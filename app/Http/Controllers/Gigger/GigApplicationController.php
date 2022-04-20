@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Laravel\Jetstream\Jetstream;
 
-class GigController extends Controller
+class GigApplicationController extends Controller
 {
     public function index(Request $request)
     {
