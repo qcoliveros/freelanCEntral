@@ -4,7 +4,7 @@
             <input type="text" name="search" autocomplete="off" placeholder="Search"
                    :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" ref="search"
                    @keyup.enter="onClickSearch"
-                   class="px-4 py-2 border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 shadow-sm" />
+                   class="px-4 py-2 border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 shadow-sm w-80" />
 
             <button v-if="!searched" class="flex items-center justify-center px-4 border-l" @click="onClickSearch">
                 <jet-icon name="search-icon" />
