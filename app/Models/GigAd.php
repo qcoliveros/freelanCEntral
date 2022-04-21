@@ -12,7 +12,7 @@ class GigAd extends Model
     use HasFactory;
 
     protected $fillable = [
-        'gig_host_id',
+        'user_id',
         'job_title',
         'description',
         'job_function_id',
@@ -44,5 +44,12 @@ class GigAd extends Model
     public function commitmentDuration()
     {
         return $this->hasOne(Duration::class, 'id', 'commitment_duration_id');
+    }
+
+    public function scopeFilter($query, $filter)
+    {
+        $query->when($filter ?? null, function ($query, $search) {
+            $query->where('job_title', 'like', '%'.$search.'%');
+        });
     }
 }

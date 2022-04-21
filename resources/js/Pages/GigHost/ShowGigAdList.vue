@@ -9,6 +9,8 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6">
                 <div class="px-4 py-5 sm:p-6 bg-white shadow sm:rounded-lg">
+                    <jet-search-bar v-model="form.search" v-on:keyup.enter="searchRecord" />
+
                     <div class="flex justify-end mb-2 mr-2">
                         <jet-icon name="add-icon" tooltip="Post Gig Ad" @click="addRecord" />
                     </div>
@@ -91,6 +93,7 @@
     import JetDialogModal from '@/Jetstream/DialogModal.vue'
     import JetIcon from '@/Jetstream/Icon'
     import JetPagination from '@/Jetstream/Pagination'
+    import JetSearchBar from '@/Jetstream/SearchBar'
     import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
     import moment from "moment"
     import ToastMessage from "../../../mixins/toast-message"
@@ -104,10 +107,14 @@
             JetDialogModal,
             JetIcon,
             JetPagination,
+            JetSearchBar,
             JetSecondaryButton,
         },
 
-        props: [ 'gigAdList' ],
+        props: [
+            'search',
+            'gigAdList',
+        ],
 
         data() {
             return {
@@ -115,6 +122,7 @@
                 isOpenConfirmDeleteRecord: false,
 
                 form: this.$inertia.form({
+                    search: this.search,
                     id: null,
                 })
             }
@@ -153,6 +161,10 @@
                         this.showSuccessMessage('Deleted')
                     }
                 });
+            },
+
+            searchRecord() {
+                this.form.get('/gigHost/gig-ad-list')
             }
         }
     })

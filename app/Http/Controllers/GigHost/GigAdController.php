@@ -17,8 +17,10 @@ class GigAdController extends Controller
     public function index(Request $request)
     {
         return Jetstream::inertia()->render($request, 'GigHost/ShowGigAdList', [
+            'search' => $request['search'],
             'gigAdList' => GigAd::where('user_id', $request->user()->id)
                 ->orderByRaw('ISNULL(publish_date) DESC')
+                ->filter($request['search'])
                 ->paginate(10)
                 ->withQueryString()
                 ->through(fn ($gigAdList) => [
