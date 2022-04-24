@@ -20,7 +20,7 @@
                             <!-- Description -->
                             <div class="mt-4">
                                 <jet-label for="description" value="Job Description" />
-                                {{ gigAd.description }}
+                                <div v-html="gigAd.description" />
                             </div>
 
                             <!-- Job Function -->

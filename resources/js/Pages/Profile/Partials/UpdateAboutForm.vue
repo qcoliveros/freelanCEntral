@@ -11,7 +11,7 @@
         <template #form>
             <!-- About -->
             <div class="col-span-6 sm:col-span-4">
-                <jet-textarea id="about" class="mt-1 block w-full" v-model="form.about" autocomplete="about" />
+                <jet-rich-text-editor id="about" class="mt-1 block w-full" v-model="form.about" autocomplete="about" />
                 <jet-input-error :message="form.errors.about" class="mt-2" />
             </div>
         </template>
@@ -30,19 +30,19 @@
 
 <script>
     import { defineComponent } from 'vue'
-    import JetButton from '@/Jetstream/Button.vue'
-    import JetFormSection from '@/Jetstream/FormSection.vue'
-    import JetTextarea from '@/Jetstream/Textarea.vue'
-    import JetInputError from '@/Jetstream/InputError.vue'
-    import JetLabel from '@/Jetstream/Label.vue'
-    import JetActionMessage from '@/Jetstream/ActionMessage.vue'
+    import JetActionMessage from '@/Jetstream/ActionMessage'
+    import JetButton from '@/Jetstream/Button'
+    import JetFormSection from '@/Jetstream/FormSection'
+    import JetInputError from '@/Jetstream/InputError'
+    import JetLabel from '@/Jetstream/Label'
+    import JetRichTextEditor from '@/Jetstream/RichTextEditor'
 
     export default defineComponent({
         components: {
             JetActionMessage,
             JetButton,
             JetFormSection,
-            JetTextarea,
+            JetRichTextEditor,
             JetInputError,
             JetLabel,
         },
