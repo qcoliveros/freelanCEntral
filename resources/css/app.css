@@ -42,6 +42,10 @@
   height: 0.75rem; /* 12px */
 }
 
+.max-h-112 {
+  max-height: 40rem;
+}
+
 /* Datepicker */
 /*.mx-table-date .today {
   color: #166535;

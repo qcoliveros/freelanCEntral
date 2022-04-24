@@ -6,7 +6,7 @@
                 </slot>
             </div>
 
-            <div class="mt-4">
+            <div class="mt-4 max-h-112 overflow-auto">
                 <slot name="content">
                 </slot>
             </div>
