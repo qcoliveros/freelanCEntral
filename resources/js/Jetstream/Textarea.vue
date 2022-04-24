@@ -8,17 +8,34 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+    import { defineComponent } from 'vue'
+    import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
-export default defineComponent({
-    props: ['modelValue'],
+    export default defineComponent({
+        props: ['modelValue'],
 
-    emits: ['update:modelValue'],
+        emits: ['update:modelValue'],
 
-    methods: {
-        focus() {
-            this.$refs.input.focus()
+        mounted() {
+            ClassicEditor
+                .create(this.$el, {
+                    removePlugins: [
+                        'MediaEmbed',
+                        'Table', 'TableToolbar',
+                    ],
+                })
+                .then(editor => {
+                    this.instance = editor;
+                })
+                .catch(error => {
+                    console.error( error );
+                });
+        },
+
+        methods: {
+            focus() {
+                this.$refs.input.focus()
+            }
         }
-    }
-})
+    })
 </script>

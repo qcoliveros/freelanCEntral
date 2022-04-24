@@ -28,6 +28,8 @@
         "vue-loader": "^16.1.2"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^34.0.0",
+        "@ckeditor/ckeditor5-vue": "^4.0.0",
         "@vueform/multiselect": "^2.3.3",
         "moment": "^2.29.2",
         "vue-datepicker-next": "^1.0.2",

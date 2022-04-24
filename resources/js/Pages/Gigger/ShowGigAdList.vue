@@ -106,7 +106,7 @@
                     {{ gigAd.gig_host.name }}
                 </div>
                 <div class="mt-4">
-                    {{ gigAd.gig_host.about }}
+                    <div v-html="gigAd.gig_host.about" />
                 </div>
             </template>
 
