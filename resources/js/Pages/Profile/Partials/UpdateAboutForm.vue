@@ -11,7 +11,7 @@
         <template #form>
             <!-- About -->
             <div class="col-span-6 sm:col-span-4">
-                <jet-rich-text-editor id="about" class="mt-1 block w-full" v-model="form.about" autocomplete="about" />
+                <jet-rich-text-editor class="mt-1 block w-full" v-model="form.about" />
                 <jet-input-error :message="form.errors.about" class="mt-2" />
             </div>
         </template>

@@ -70,7 +70,7 @@
                 <!-- Description -->
                 <div>
                     <jet-label value="Job Description" />
-                    {{ gigAd.description }}
+                    <div v-html="gigAd.description" />
                 </div>
 
                 <!-- Job Function -->

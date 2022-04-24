@@ -22,7 +22,7 @@
                             <!-- Description -->
                             <div class="mt-4">
                                 <jet-label for="description" value="Job Description" />
-                                <jet-textarea id="description" class="mt-1 block w-full" v-model="form.description" autocomplete="description" />
+                                <jet-rich-text-editor class="mt-1 block w-full" v-model="form.description" />
                                 <jet-input-error :message="form.errors.description" class="mt-2" />
                             </div>
 
@@ -83,15 +83,15 @@
 
 <script>
     import { defineComponent } from 'vue'
-    import AppLayout from '@/Layouts/AppLayout.vue'
+    import AppLayout from '@/Layouts/AppLayout'
     import DatePicker from 'vue-datepicker-next'
-    import JetButton from '@/Jetstream/Button.vue'
+    import JetButton from '@/Jetstream/Button'
     import JetCheckbox from "@/Jetstream/Checkbox"
-    import JetInput from '@/Jetstream/Input.vue'
-    import JetInputError from '@/Jetstream/InputError.vue'
-    import JetLabel from '@/Jetstream/Label.vue'
-    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
-    import JetTextarea from '@/Jetstream/Textarea.vue'
+    import JetInput from '@/Jetstream/Input'
+    import JetInputError from '@/Jetstream/InputError'
+    import JetLabel from '@/Jetstream/Label'
+    import JetRichTextEditor from '@/Jetstream/RichTextEditor'
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton'
     import Multiselect from "@vueform/multiselect"
     import ToastMessage from "../../../mixins/toast-message"
 
@@ -106,8 +106,8 @@
             JetInput,
             JetInputError,
             JetLabel,
+            JetRichTextEditor,
             JetSecondaryButton,
-            JetTextarea,
             Multiselect,
         },
 

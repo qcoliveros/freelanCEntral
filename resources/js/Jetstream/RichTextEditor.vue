@@ -1,10 +1,5 @@
 <template>
-    <textarea class="border-gray-300 focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm"
-           :value="modelValue"
-           @input="$emit('update:modelValue', $event.target.value)"
-           ref="input"
-           rows="5">
-    </textarea>
+    <ckeditor :editor="editor" v-model="editorData" :config="editorConfig" />
 </template>
 
 <script>
@@ -16,20 +11,28 @@
 
         emits: ['update:modelValue'],
 
-        mounted() {
-            ClassicEditor
-                .create(this.$el, {
+        data() {
+            return {
+                editor: ClassicEditor,
+                editorData: this.modelValue,
+                editorConfig: {
                     removePlugins: [
                         'MediaEmbed',
                         'Table', 'TableToolbar',
                     ],
-                })
-                .then(editor => {
-                    this.instance = editor;
-                })
-                .catch(error => {
-                    console.error( error );
-                });
+                }
+            };
+        },
+
+        watch: {
+            editorData(value) {
+                const isSame = this.modelValue === value
+                if (isSame) {
+                    return
+                }
+
+                this.$emit('update:modelValue', value)
+            },
         },
 
         methods: {
