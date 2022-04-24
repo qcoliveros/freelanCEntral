@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Traits\HasContacts;
 use App\Traits\HasEducations;
 use App\Traits\HasGigAds;
+use App\Traits\HasIndustry;
 use App\Traits\HasLanguages;
 use App\Traits\HasSoftSkills;
 use App\Traits\HasTechnicalSkills;
@@ -25,6 +27,8 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     use TwoFactorAuthenticatable;
     use HasRoles;
+    use HasContacts;
+    use HasIndustry;
     use HasWorkExperiences;
     use HasEducations;
     use HasTechnicalSkills;
@@ -42,11 +46,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'phone',
-        'phone_type',
+        'phone_type_id',
         'messenger',
-        'messenger_type',
+        'messenger_type_id',
         'website_url',
-        'industry',
+        'industry_id',
         'about',
     ];
 

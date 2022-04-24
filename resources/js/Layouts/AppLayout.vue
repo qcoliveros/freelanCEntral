@@ -13,7 +13,7 @@
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('dashboard')">
-                                    <jet-banner-logo />
+                                    <jet-icon name="application-logo" class="block h-10 w-auto" />
                                 </Link>
                             </div>
 
@@ -22,10 +22,28 @@
                                 <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </jet-nav-link>
+
                                 <jet-nav-link :href="route('admin.user.list')"
                                               :active="route().current('admin.user.list')"
                                               v-if="$page.props.user.roles.includes('Administrator')">
                                     Manage Users
+                                </jet-nav-link>
+
+                                <jet-nav-link :href="route('gigHost.gigPlaybook.list')"
+                                              :active="route().current('gigHost.gigPlaybook.list')"
+                                              v-if="$page.props.user.roles.includes('Gig Host')">
+                                    Gig Playbook
+                                </jet-nav-link>
+                                <jet-nav-link :href="route('gigHost.gigAd.list')"
+                                              :active="route().current('gigHost.gigAd.list')"
+                                              v-if="$page.props.user.roles.includes('Gig Host')">
+                                    Gig Ad
+                                </jet-nav-link>
+
+                                <jet-nav-link :href="route('gigger.gigPlaybook.list')"
+                                              :active="route().current('gigger.gigPlaybook.list')"
+                                              v-if="$page.props.user.roles.includes('Gigger')">
+                                    Gig Playbook
                                 </jet-nav-link>
                                 <jet-nav-link :href="route('gigger.gigApp.list')"
                                               :active="route().current('gigger.gigApp.list')"
@@ -36,11 +54,6 @@
                                               :active="route().current('gigger.gigAd.find')"
                                               v-if="$page.props.user.roles.includes('Gigger')">
                                     Find Gig
-                                </jet-nav-link>
-                                <jet-nav-link :href="route('gigHost.gigAd.list')"
-                                              :active="route().current('gigHost.gigAd.list')"
-                                              v-if="$page.props.user.roles.includes('Gig Host')">
-                                    Gig Ad
                                 </jet-nav-link>
                             </div>
                         </div>
@@ -257,13 +270,13 @@
 
 <script>
     import { defineComponent } from 'vue'
-    import JetBannerLogo from '@/Jetstream/BannerLogo.vue'
+    import { Head, Link } from '@inertiajs/inertia-vue3'
     import JetBanner from '@/Jetstream/Banner.vue'
     import JetDropdown from '@/Jetstream/Dropdown.vue'
     import JetDropdownLink from '@/Jetstream/DropdownLink.vue'
+    import JetIcon from "@/Jetstream/Icon"
     import JetNavLink from '@/Jetstream/NavLink.vue'
     import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue'
-    import { Head, Link } from '@inertiajs/inertia-vue3';
 
     export default defineComponent({
         props: {
@@ -273,10 +286,10 @@
         components: {
             Head,
             Link,
-            JetBannerLogo,
             JetBanner,
             JetDropdown,
             JetDropdownLink,
+            JetIcon,
             JetNavLink,
             JetResponsiveNavLink,
         },
@@ -298,7 +311,7 @@
 
             logout() {
                 this.$inertia.post(route('logout'));
-            },
+            }
         }
     })
 </script>

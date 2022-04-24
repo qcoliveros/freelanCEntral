@@ -33,7 +33,7 @@ class GigAd extends Model
 
     public function gigHost()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function jobFunction()
@@ -46,10 +46,19 @@ class GigAd extends Model
         return $this->hasOne(Duration::class, 'id', 'commitment_duration_id');
     }
 
-    public function scopeFilter($query, $filter)
+    public function scopeFilterByJobTitle($query, $filter)
     {
         $query->when($filter ?? null, function ($query, $search) {
-            $query->where('job_title', 'like', '%'.$search.'%');
+            $query->where('job_title', 'LIKE', '%'.$search.'%');
+        });
+    }
+
+    public function scopeFilterByGigHostName($query, $filter)
+    {
+        $query->when($filter ?? null, function ($query, $search) {
+            $query->whereHas('gigHost', function($query) use ($search) {
+                $query->where('name', 'LIKE', '%'.$search.'%');
+            });
         });
     }
 }

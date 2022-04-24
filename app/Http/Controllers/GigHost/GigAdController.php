@@ -19,17 +19,17 @@ class GigAdController extends Controller
         return Jetstream::inertia()->render($request, 'GigHost/ShowGigAdList', [
             'search' => $request['search'],
             'gigAdList' => GigAd::where('user_id', $request->user()->id)
-                ->orderByRaw('ISNULL(publish_date) DESC')
-                ->filter($request['search'])
+                ->orderByRaw('ISNULL(close_date) DESC, ISNULL(publish_date) DESC, job_title ASC')
+                ->filterByJobTitle($request['search'])
                 ->paginate(10)
                 ->withQueryString()
-                ->through(fn ($gigAdList) => [
-                    'id' => $gigAdList->id,
-                    'job_title' => $gigAdList->job_title,
-                    'job_start_date' => $gigAdList->job_start_date,
-                    'job_end_date' => $gigAdList->job_end_date,
-                    'publish_date' => $gigAdList->publish_date,
-                    'close_date' => $gigAdList->close_date,
+                ->through(fn ($gigAd) => [
+                    'id' => $gigAd->id,
+                    'job_title' => $gigAd->job_title,
+                    'job_start_date' => $gigAd->job_start_date,
+                    'job_end_date' => $gigAd->job_end_date,
+                    'publish_date' => $gigAd->publish_date,
+                    'close_date' => $gigAd->close_date,
                 ]),
         ]);
     }
@@ -58,9 +58,6 @@ class GigAdController extends Controller
     public function view(Request $request)
     {
         return Jetstream::inertia()->render($request, 'GigHost/ViewGigAdDetail', [
-            'parameter.jobFunctions' => JobFunction::pluck('name', 'id'),
-            'parameter.durations' => Duration::pluck('name', 'id'),
-
             'gigAd' => GigAd::where('id', $request['id'])->with('jobFunction')->first(),
         ]);
     }

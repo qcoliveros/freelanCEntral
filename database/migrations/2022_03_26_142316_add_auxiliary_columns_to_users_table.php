@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->after('profile_photo_path', function ($table) {
                 $table->string('phone')->unique()->nullable();
-                $table->foreignId('phone_type')->nullable();
+                $table->foreignId('phone_type_id')->nullable();
                 $table->string('messenger')->unique()->nullable();
-                $table->foreignId('messenger_type')->nullable();
+                $table->foreignId('messenger_type_id')->nullable();
                 $table->string('website_url', 2048)->nullable();
-                $table->foreignId('industry')->nullable();
+                $table->foreignId('industry_id')->nullable();
                 $table->text('about')->nullable();
             });
         });

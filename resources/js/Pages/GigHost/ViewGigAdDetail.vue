@@ -20,7 +20,7 @@
                             <!-- Description -->
                             <div class="mt-4">
                                 <jet-label for="description" value="Job Description" />
-                                {{ gigAd.job_function.name }}
+                                {{ gigAd.description }}
                             </div>
 
                             <!-- Job Function -->
@@ -61,35 +61,35 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-import AppLayout from '@/Layouts/AppLayout.vue'
-import JetLabel from '@/Jetstream/Label.vue'
-import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
-import moment from "moment";
+    import { defineComponent } from 'vue'
+    import AppLayout from '@/Layouts/AppLayout.vue'
+    import JetLabel from '@/Jetstream/Label.vue'
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+    import moment from "moment";
 
-export default defineComponent({
-    components: {
-        AppLayout,
-        JetLabel,
-        JetSecondaryButton,
-    },
-
-    props: [ 'gigAd' ],
-
-    data() {
-        return {
-            moment: moment,
-
-            form: this.$inertia.form({
-                id: null,
-            })
-        }
-    },
-
-    methods: {
-        cancel() {
-            this.form.get(route('gigHost.gigAd.list'));
+    export default defineComponent({
+        components: {
+            AppLayout,
+            JetLabel,
+            JetSecondaryButton,
         },
-    }
-})
+
+        props: [ 'gigAd' ],
+
+        data() {
+            return {
+                moment: moment,
+
+                form: this.$inertia.form({
+                    id: null,
+                })
+            }
+        },
+
+        methods: {
+            cancel() {
+                this.form.get(route('gigHost.gigAd.list'));
+            },
+        }
+    })
 </script>

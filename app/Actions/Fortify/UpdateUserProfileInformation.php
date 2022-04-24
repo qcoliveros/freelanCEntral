@@ -18,17 +18,23 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
      */
     public function update($user, array $input)
     {
+        $customAttributes = array(
+            'phone_type_id' => 'phone type',
+            'messenger_type_id' => 'messenger type',
+            'industry_id', 'industry',
+        );
+
         Validator::make($input, [
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'phone' => ['required_with:phone_type', 'max:12', isset($input['phone']) ? Rule::unique('users')->ignore($user->id) : ''],
-            'phone_type' => ['required_with:phone'],
-            'messenger' => ['required_with:messenger_type', 'max:100', isset($input['messenger']) ? Rule::unique('users')->ignore($user->id) : ''],
-            'messenger_type' => ['required_with:messenger'],
+            'phone' => ['required_with:phone_type_id', 'max:12', isset($input['phone']) ? Rule::unique('users')->ignore($user->id) : ''],
+            'phone_type_id' => ['required_with:phone'],
+            'messenger' => ['required_with:messenger_type_id', 'max:100', isset($input['messenger']) ? Rule::unique('users')->ignore($user->id) : ''],
+            'messenger_type_id' => ['required_with:messenger'],
             'website_url' => ['nullable', 'string', 'max:2048'],
-            'industry' => ['nullable'],
-        ])->validateWithBag('updateProfileInformation');
+            'industry_id' => ['nullable'],
+            ], [], $customAttributes)->validateWithBag('updateProfileInformation');
 
         if (isset($input['photo'])) {
             $user->updateProfilePhoto($input['photo']);
@@ -42,11 +48,11 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'name' => $input['name'],
                 'email' => $input['email'],
                 'phone' => $input['phone'],
-                'phone_type' => $input['phone_type'],
+                'phone_type_id' => $input['phone_type_id'],
                 'messenger' => $input['messenger'],
-                'messenger_type' => $input['messenger_type'],
+                'messenger_type_id' => $input['messenger_type_id'],
                 'website_url' => $input['website_url'],
-                'industry' => $input['industry'],
+                'industry_id' => $input['industry_id'],
             ])->save();
         }
     }

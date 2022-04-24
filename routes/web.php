@@ -97,6 +97,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
         Route::get('gig-app-list', [\App\Http\Controllers\Gigger\GigApplicationController::class, 'index'])
             ->name('gigApp.list');
+
+        Route::get('gig-playbook-list', [\App\Http\Controllers\Gigger\GigPlaybookController::class, 'index'])
+            ->name('gigPlaybook.list');
     });
 
     Route::group(['middleware' => 'role:Gig Host', 'prefix' => 'gigHost', 'as' => 'gigHost.'], function() {
@@ -116,5 +119,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
             ->name('gigAd.close');
         Route::delete('gig-ad-delete', [\App\Http\Controllers\GigHost\GigAdController::class, 'delete'])
             ->name('gigAd.delete');
+
+        Route::get('gig-playbook-list', [\App\Http\Controllers\GigHost\GigPlaybookController::class, 'index'])
+            ->name('gigPlaybook.list');
     });
 });

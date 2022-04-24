@@ -54,10 +54,10 @@
                 <jet-label for="phone" value="Phone" />
                 <div class="flex flex-row gap-2">
                     <jet-input id="phone" type="text" class="mt-1 block w-full" v-model="form.phone" />
-                    <multiselect id="phone_type" v-model="form.phone_type" :options="$page.props.parameter.phoneTypes" :searchable="true" />
+                    <multiselect id="phone_type_id" v-model="form.phone_type_id" :options="$page.props.parameter.phoneTypes" :searchable="true" />
                 </div>
                 <jet-input-error :message="form.errors.phone" class="mt-2" />
-                <jet-input-error :message="form.errors.phone_type" class="mt-2" />
+                <jet-input-error :message="form.errors.phone_type_id" class="mt-2" />
             </div>
 
             <!-- Messenger -->
@@ -65,10 +65,10 @@
                 <jet-label for="messenger" value="Messenger" />
                 <div class="flex flex-row gap-2">
                     <jet-input id="messenger" type="text" class="mt-1 block w-full" v-model="form.messenger" />
-                    <multiselect id="messenger_type" v-model="form.messenger_type" :options="$page.props.parameter.messengerTypes" :searchable="true" />
+                    <multiselect id="messenger_type_id" v-model="form.messenger_type_id" :options="$page.props.parameter.messengerTypes" :searchable="true" />
                 </div>
                 <jet-input-error :message="form.errors.messenger" class="mt-2" />
-                <jet-input-error :message="form.errors.messenger_type" class="mt-2" />
+                <jet-input-error :message="form.errors.messenger_type_id" class="mt-2" />
             </div>
 
             <!-- LinkedIn URL -->
@@ -81,8 +81,8 @@
             <!-- Industry -->
             <div v-if="roles.includes('Gig Host')" class="col-span-6 sm:col-span-4">
                 <jet-label value="Industry" />
-                <multiselect id="industry" v-model="form.industry" :options="$page.props.parameter.industries" :searchable="true" />
-                <jet-input-error :message="form.errors.industry" class="mt-2" />
+                <multiselect id="industry_id" v-model="form.industry_id" :options="$page.props.parameter.industries" :searchable="true" />
+                <jet-input-error :message="form.errors.industry_id" class="mt-2" />
             </div>
         </template>
 
@@ -134,11 +134,11 @@
                     name: this.user.name,
                     email: this.user.email,
                     phone: this.user.phone,
-                    phone_type: this.user.phone_type,
+                    phone_type_id: this.user.phone_type_id,
                     messenger: this.user.messenger,
-                    messenger_type: this.user.messenger_type,
+                    messenger_type_id: this.user.messenger_type_id,
                     website_url: this.user.website_url,
-                    industry: this.user.industry,
+                    industry_id: this.user.industry_id,
                 }),
 
                 photoPreview: null,

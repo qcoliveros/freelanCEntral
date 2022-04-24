@@ -124,7 +124,7 @@
     import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
     import JetTextarea from "@/Jetstream/Textarea"
     import Multiselect from "@vueform/multiselect"
-    import ToastMessage from "../../../../mixins/toast-message";
+    import ToastMessage from "../../../../mixins/toast-message"
 
     export default defineComponent({
         mixins: [ ToastMessage ],

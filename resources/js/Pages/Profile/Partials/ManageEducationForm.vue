@@ -162,7 +162,7 @@
     import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
     import JetTextarea from "@/Jetstream/Textarea"
     import moment from "moment"
-    import ToastMessage from "../../../../mixins/toast-message";
+    import ToastMessage from "../../../../mixins/toast-message"
 
     export default defineComponent({
         mixins: [ ToastMessage ],
