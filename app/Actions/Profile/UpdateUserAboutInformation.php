@@ -10,7 +10,7 @@ class UpdateUserAboutInformation implements UpdatesUserAboutInformation
     public function update($user, array $input)
     {
         Validator::make($input, [
-            'about' => ['required', 'string', 'max:2048'],
+            'about' => ['required', 'string', 'max:4096'],
         ])->validateWithBag('updateAboutInformation');
 
         $user->forceFill([

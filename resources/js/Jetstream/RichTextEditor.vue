@@ -16,10 +16,15 @@
                 editor: ClassicEditor,
                 editorData: this.modelValue,
                 editorConfig: {
-                    removePlugins: [
-                        'MediaEmbed',
-                        'Table', 'TableToolbar',
-                    ],
+                    mediaEmbed: {
+                        previewsInData: true
+                    },
+                    ckfinder: {
+                        uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+                        options: {
+                            resourceType: 'Images'
+                        }
+                    },
                 }
             };
         },

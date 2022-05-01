@@ -106,7 +106,7 @@
                     {{ gigAd.gig_host.name }}
                 </div>
                 <div class="mt-4">
-                    <div v-html="gigAd.gig_host.about" />
+                    <div v-html="modifyEmbeddedVideo(gigAd.gig_host.about)" />
                 </div>
             </template>
 
@@ -167,6 +167,14 @@
         },
 
         methods: {
+            modifyEmbeddedVideo(content) {
+                content = content.replace('oembed', 'iframe')
+                content = content.replace('url', 'src')
+                content = content.replace('watch?v=', 'embed/')
+                content = content.replace('oembed', 'iframe')
+                return content
+            },
+
             searchRecord() {
                 this.form.get(route('gigger.gigAd.find'))
             },
