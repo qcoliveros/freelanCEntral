@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Profile\UserAboutInformationController;
 use App\Http\Controllers\Profile\UserEducationController;
-use \App\Http\Controllers\Profile\UserLanguageController;
+use App\Http\Controllers\Profile\UserLanguageController;
 use App\Http\Controllers\Profile\UserSettingsController;
 use App\Http\Controllers\Profile\UserSoftSkillController;
 use App\Http\Controllers\Profile\UserTechnicalSkillController;
@@ -40,11 +41,14 @@ Route::get('/gig-master-tips', function () {
     return Inertia::render('GigMasterTips');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
-
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
+    Route::post('/post', [DashboardController::class, 'publishPost'])
+        ->name('post.publish');
+    Route::post('/post-comment', [DashboardController::class, 'publishComment'])
+        ->name('post-comment.publish');
+
     Route::get('/user/settings', [UserSettingsController::class, 'show'])
         ->name('settings.show');
     // User's About Information

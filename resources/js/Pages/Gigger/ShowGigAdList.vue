@@ -55,13 +55,13 @@
                 </div>
             </div>
         </div>
-        <jet-pagination :links="$page.props.gigAdList.links" />
+        <jet-pagination :links="gigAdList.links" />
 
         <jet-dialog-modal :show="isOpenDetailModal" @close="closeDetailModal">
             <template #title>
                 <span class="text-xl">{{ gigAd.job_title }}</span>
                 <div class="mt-0">
-                    <jet-label isInline="true" value="Posted Date" class="" />
+                    <jet-label isInline="true" value="Posted Date" />
                     <span class="text-sm">{{ moment(gigAd.publish_date).format("DD MMM YYYY") }}</span>
                 </div>
             </template>

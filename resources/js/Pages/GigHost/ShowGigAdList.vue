@@ -63,7 +63,7 @@
                 </div>
             </div>
         </div>
-        <jet-pagination :links="$page.props.gigAdList.links" />
+        <jet-pagination :links="gigAdList.links" />
     </app-layout>
 
     <jet-dialog-modal :show="isOpenConfirmDeleteRecord" @close="closeConfirmDeleteRecord">
