@@ -133,9 +133,12 @@
     import JetPagination from '@/Jetstream/Pagination'
     import JetSearchBar from '@/Jetstream/SearchBar'
     import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+    import EmbeddedMedia from "../../../mixins/embedded-media"
     import moment from "moment"
 
     export default defineComponent({
+        mixins: [ EmbeddedMedia ],
+
         components: {
             AppLayout,
             JetButton,
@@ -167,14 +170,6 @@
         },
 
         methods: {
-            modifyEmbeddedVideo(content) {
-                content = content.replace('oembed', 'iframe')
-                content = content.replace('url', 'src')
-                content = content.replace('watch?v=', 'embed/')
-                content = content.replace('oembed', 'iframe')
-                return content
-            },
-
             searchRecord() {
                 this.form.get(route('gigger.gigAd.find'))
             },
