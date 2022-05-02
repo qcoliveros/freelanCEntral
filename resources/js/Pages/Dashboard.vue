@@ -15,7 +15,7 @@
                                 <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3" >
                                     <img class="h-10 w-10 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name" />
                                 </div>
-                                <jet-secondary-button @click="openDetailModal" class="items-end">
+                                <jet-secondary-button @click="openPostModal" class="items-end">
                                     Start a post
                                 </jet-secondary-button>
                             </div>
@@ -32,26 +32,17 @@
                                 </div>
                                 <div>
                                     <div class="font-bold">{{ post.user.name }}</div>
-                                    <div class="text-sm">{{ moment(post.publish_date).format("DD MMM YYYY") }}</div>
+                                    <div class="text-xs">{{ moment(post.publish_date).format("DD MMM YYYY") }}</div>
                                 </div>
                             </div>
                             <div class="mt-4" v-html="modifyEmbeddedVideo(post.message)" />
 
                             <jet-section-border />
 
-                            <div class="flex flex-row">
-                                <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3 flex-none">
-                                    <img class="h-10 w-10 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name" />
-                                </div>
-                                <div class="flex-1">
-                                    <jet-rich-text-editor class="mt-1 block w-full" v-model="form.comment" />
-                                    <jet-input-error :message="form.errors.comment" class="mt-2" />
-                                </div>
-                                <div class="flex-none">
-                                    <jet-button class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="publishComment(post.id)">
-                                        Post
-                                    </jet-button>
-                                </div>
+                            <div class="flex">
+                                <jet-button-link><span class="inline-flex align-middle"><jet-icon name="like-icon" />&nbsp;Like</span></jet-button-link>
+                                <jet-button-link @click="openCommentModal(post.id)"><span class="inline-flex align-middle"><jet-icon name="chat-icon" />&nbsp;Comment</span></jet-button-link>
+                                <jet-button-link><span class="inline-flex align-middle"><jet-icon name="share-icon" />&nbsp;Share</span></jet-button-link>
                             </div>
 
                             <div class="mt-4 flex flex-row" v-for="comment in post.comments">
@@ -60,8 +51,8 @@
                                 </div>
                                 <div class="flex flex-col bg-gray-100 sm:rounded-lg p-2 w-full">
                                     <div class="font-bold">{{ comment.user.name }}</div>
-                                    <div class="text-sm">{{ moment(comment.publish_date).format("DD MMM YYYY") }}</div>
-                                    <div class="mt-4" v-html="modifyEmbeddedVideo(comment.comment)" />
+                                    <div class="text-xs">{{ moment(comment.publish_date).format("DD MMM YYYY") }}</div>
+                                    <div class="mt-4" v-html="modifyEmbeddedVideo(comment.message)" />
                                 </div>
                             </div>
                         </div>
@@ -69,7 +60,7 @@
                 </div>
                 <jet-pagination :links="postList.links" />
 
-                <jet-dialog-modal :show="isOpenDetailModal" @close="closeDetailModal">
+                <jet-dialog-modal :show="isOpenPostModal" @close="closePostModal">
                     <template #title>
                         Create a post
                     </template>
@@ -83,11 +74,35 @@
                     </template>
 
                     <template #footer>
-                        <jet-secondary-button @click="closeDetailModal">
+                        <jet-secondary-button @click="closePostModal">
                             Cancel
                         </jet-secondary-button>
 
                         <jet-button class="ml-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="publishPost">
+                            Post
+                        </jet-button>
+                    </template>
+                </jet-dialog-modal>
+
+                <jet-dialog-modal :show="isOpenCommentModal" @close="closeCommentModal">
+                    <template #title>
+                        Add comment
+                    </template>
+
+                    <template #content>
+                        <div class="mb-4">
+                            <jet-label for="message" value="Message" />
+                            <jet-rich-text-editor class="mt-1 block w-full" v-model="form.message" />
+                            <jet-input-error :message="form.errors.message" class="mt-2" />
+                        </div>
+                    </template>
+
+                    <template #footer>
+                        <jet-secondary-button @click="closeCommentModal">
+                            Cancel
+                        </jet-secondary-button>
+
+                        <jet-button class="ml-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="publishComment">
                             Post
                         </jet-button>
                     </template>
@@ -100,18 +115,20 @@
 <script>
     import { defineComponent } from 'vue'
     import AppLayout from '@/Layouts/AppLayout.vue'
-    import JetButton from "@/Jetstream/Button"
+    import JetButton from '@/Jetstream/Button'
+    import JetButtonLink from '@/Jetstream/ButtonLink'
     import JetDialogModal from '@/Jetstream/DialogModal'
-    import JetInput from "@/Jetstream/Input"
-    import JetInputError from "@/Jetstream/InputError"
-    import JetLabel from "@/Jetstream/Label"
-    import JetRichTextEditor from "@/Jetstream/RichTextEditor"
+    import JetIcon from '@/Jetstream/Icon'
+    import JetInput from '@/Jetstream/Input'
+    import JetInputError from '@/Jetstream/InputError'
+    import JetLabel from '@/Jetstream/Label'
+    import JetRichTextEditor from '@/Jetstream/RichTextEditor'
     import JetPagination from '@/Jetstream/Pagination'
-    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
-    import JetSectionBorder from "@/Jetstream/SectionBorder"
-    import EmbeddedMedia from "../../mixins/embedded-media"
-    import moment from "moment"
-    import ToastMessage from "../../mixins/toast-message"
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton'
+    import JetSectionBorder from '@/Jetstream/SectionBorder'
+    import EmbeddedMedia from '../../mixins/embedded-media'
+    import moment from 'moment'
+    import ToastMessage from '../../mixins/toast-message'
 
     export default defineComponent({
         mixins: [
@@ -122,7 +139,9 @@
         components: {
             AppLayout,
             JetButton,
+            JetButtonLink,
             JetDialogModal,
+            JetIcon,
             JetInput,
             JetInputError,
             JetLabel,
@@ -140,24 +159,25 @@
             return {
                 moment: moment,
 
-                isOpenDetailModal: false,
+                isOpenPostModal: false,
+                isOpenCommentModal: false,
 
                 form: this.$inertia.form({
                     id: null,
                     message: null,
-                    comment: null,
                     publish_date: null,
                 })
             }
         },
 
         methods: {
-            openDetailModal() {
-                this.isOpenDetailModal = true
+            openPostModal() {
+                this.isOpenPostModal = true
+                this.closeCommentModal()
             },
 
-            closeDetailModal() {
-                this.isOpenDetailModal = false
+            closePostModal() {
+                this.isOpenPostModal = false
                 this.form.reset()
                 this.form.clearErrors()
             },
@@ -167,10 +187,21 @@
                     errorBag: 'postError',
                     preserveScroll: true,
                     onSuccess: () => {
-                        this.closeDetailModal()
+                        this.closePostModal()
                         this.showSuccessMessage('Published')
                     }
                 });
+            },
+
+            openCommentModal() {
+                this.isOpenCommentModal = true
+                this.closePostModal()
+            },
+
+            closeCommentModal() {
+                this.isOpenCommentModal = false
+                this.form.reset()
+                this.form.clearErrors()
             },
 
             publishComment(postId) {
@@ -179,7 +210,7 @@
                     errorBag: 'postCommentError',
                     preserveScroll: true,
                     onSuccess: () => {
-                        this.form.reset()
+                        this.closeCommentModal()
                         this.showSuccessMessage('Published')
                     }
                 });

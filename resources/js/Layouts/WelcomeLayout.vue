@@ -55,7 +55,7 @@
 
 <script>
     import { defineComponent } from 'vue'
-    import { Head, Link } from '@inertiajs/inertia-vue3';
+    import { Head, Link } from '@inertiajs/inertia-vue3'
     import JetBannerLogo from '@/Jetstream/BannerLogo.vue'
     import JetBanner from '@/Jetstream/Banner.vue'
     import JetNavLink from '@/Jetstream/NavLink.vue'

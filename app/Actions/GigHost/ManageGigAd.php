@@ -55,7 +55,7 @@ class ManageGigAd implements ManagesGigAd
 
         Validator::make($input, [
             'job_title' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string', 'max:2048'],
+            'description' => ['required', 'string', 'max:4096'],
             'job_function_id' => ['required'],
             'other_job_function' => ['nullable', 'string', 'max:255'],
             'commitment_time' => ['required', 'integer', 'between:5,40'],
@@ -69,7 +69,7 @@ class ManageGigAd implements ManagesGigAd
         if (!isset($input['id'])) {
             $user->gigAds()->create($input);
         } else {
-            GigAd::find($input['id'])->update($input);
+            GigAd::find($input['id'])->firstOrFail()->update($input);
         }
     }
 }

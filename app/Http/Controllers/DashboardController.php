@@ -21,7 +21,7 @@ class DashboardController extends Controller
                     'message' => $post->message,
                     'publish_date' => $post->publish_date,
                     'user' => $post->user,
-                    'comments' => $post->comments()->orderByPublishDate()->get()->map->only('id', 'user', 'comment')
+                    'comments' => $post->comments()->orderByPublishDate()->get()->map->only('id', 'user', 'message')
                 ]),
         ]);
     }

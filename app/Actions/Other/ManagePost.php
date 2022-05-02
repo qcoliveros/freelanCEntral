@@ -20,7 +20,7 @@ class ManagePost implements ManagesPost
         if (!isset($input['id'])) {
             $user->posts()->create($input);
         } else {
-            Post::find($input['id'])->update($input);
+            Post::find($input['id'])->firstOrFail()->update($input);
         }
     }
 
@@ -34,12 +34,12 @@ class ManagePost implements ManagesPost
     public function publishComment($user, array $input)
     {
         Validator::make($input, [
-            'comment' => ['required', 'string', 'max:2048'],
+            'message' => ['required', 'string', 'max:2048'],
         ])->validateWithBag('postCommentError');
 
         $input['publish_date'] = Date::now();
         $input['user_id'] = $user->id;
 
-        Post::find($input['id'])->comments()->create($input);
+        Post::find($input['id'])->firstOrFail()->comments()->create($input);
     }
 }

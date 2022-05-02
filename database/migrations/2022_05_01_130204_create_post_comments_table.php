@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('post_id');
-            $table->text('comment');
+            $table->text('message');
             $table->date('publish_date');
             $table->timestamps();
         });
