@@ -4,6 +4,7 @@ namespace App\Actions\Other;
 
 use App\Contracts\Other\ManagesPost;
 use App\Models\Post;
+use App\Models\PostComment;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,7 +21,7 @@ class ManagePost implements ManagesPost
         if (!isset($input['id'])) {
             $user->posts()->create($input);
         } else {
-            Post::find($input['id'])->firstOrFail()->update($input);
+            Post::find($input['id'])->update($input);
         }
     }
 
@@ -40,6 +41,17 @@ class ManagePost implements ManagesPost
         $input['publish_date'] = Date::now();
         $input['user_id'] = $user->id;
 
-        Post::find($input['id'])->firstOrFail()->comments()->create($input);
+        if (!isset($input['id'])) {
+            Post::find($input['post_id'])->comments()->create($input);
+        } else {
+            PostComment::find($input['id'])->update($input);
+        }
+    }
+
+    public function deleteComment(array $input)
+    {
+        if (isset($input['id'])) {
+            PostComment::find($input['id'])->delete();
+        }
     }
 }

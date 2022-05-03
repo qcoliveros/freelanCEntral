@@ -69,7 +69,7 @@ class ManageGigAd implements ManagesGigAd
         if (!isset($input['id'])) {
             $user->gigAds()->create($input);
         } else {
-            GigAd::find($input['id'])->firstOrFail()->update($input);
+            GigAd::find($input['id'])->update($input);
         }
     }
 }

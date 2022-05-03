@@ -9,4 +9,6 @@ interface ManagesPost
     public function deletePost(array $input);
 
     public function publishComment($user, array $input);
+
+    public function deleteComment(array $input);
 }

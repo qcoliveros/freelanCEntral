@@ -7,6 +7,7 @@ use App\Traits\HasEducations;
 use App\Traits\HasGigAds;
 use App\Traits\HasIndustry;
 use App\Traits\HasLanguages;
+use App\Traits\HasPostComments;
 use App\Traits\HasPosts;
 use App\Traits\HasSoftSkills;
 use App\Traits\HasTechnicalSkills;
@@ -37,6 +38,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasLanguages;
     use HasGigAds;
     use HasPosts;
+    use HasPostComments;
 
     /**
      * The attributes that are mass assignable.

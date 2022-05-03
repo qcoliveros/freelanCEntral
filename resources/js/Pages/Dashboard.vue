@@ -164,6 +164,7 @@
 
                 form: this.$inertia.form({
                     id: null,
+                    post_id: null,
                     message: null,
                     publish_date: null,
                 })
@@ -172,8 +173,8 @@
 
         methods: {
             openPostModal() {
-                this.isOpenPostModal = true
                 this.closeCommentModal()
+                this.isOpenPostModal = true
             },
 
             closePostModal() {
@@ -193,9 +194,10 @@
                 });
             },
 
-            openCommentModal() {
-                this.isOpenCommentModal = true
+            openCommentModal(postId) {
                 this.closePostModal()
+                this.isOpenCommentModal = true
+                this.form.post_id = postId
             },
 
             closeCommentModal() {
@@ -204,8 +206,8 @@
                 this.form.clearErrors()
             },
 
-            publishComment(postId) {
-                this.form.id = postId
+            publishComment() {
+                console.log('publish form post id ' + this.form.post_id)
                 this.form.post(route('post-comment.publish'), {
                     errorBag: 'postCommentError',
                     preserveScroll: true,
