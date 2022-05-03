@@ -107,7 +107,7 @@
                     Cancel
                 </jet-secondary-button>
 
-                <jet-button class="ml-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="applyGigAd(gigAd)">
+                <jet-button class="ml-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="applyGigAd(gigAd.id)">
                     Apply
                 </jet-button>
             </template>
@@ -156,9 +156,13 @@
     import JetSecondaryButton from '@/Jetstream/SecondaryButton'
     import EmbeddedMedia from "../../../mixins/embedded-media"
     import moment from 'moment'
+    import ToastMessage from '../../../mixins/toast-message'
 
     export default defineComponent({
-        mixins: [ EmbeddedMedia ],
+        mixins: [
+            EmbeddedMedia,
+            ToastMessage
+        ],
 
         components: {
             AppLayout,
@@ -187,7 +191,8 @@
 
                 form: this.$inertia.form({
                     search: this.search,
-                    id: null,
+                    gig_ad_id: null,
+                    follow_user_id: null,
                 })
             }
         },
@@ -212,8 +217,15 @@
                 this.isOpenGigAdModal = false
             },
 
-            applyGigAd(row) {
-
+            applyGigAd(gigAdId) {
+                this.form.gig_ad_id = gigAdId
+                this.form.post(route('gigger.gigAd.apply'), {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.closeGigAdModal()
+                        this.showSuccessMessage('Application submitted')
+                    }
+                });
             },
 
             openGigHostModal(row) {
@@ -227,7 +239,14 @@
             },
 
             followGigHost(gigHostId) {
-
+                this.form.follow_user_id = gigHostId
+                this.form.post(route('user-circle.follow'), {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.closeGigHostModal()
+                        this.showSuccessMessage('Following')
+                    }
+                });
             }
         }
     })

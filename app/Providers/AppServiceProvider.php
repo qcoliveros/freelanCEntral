@@ -2,16 +2,20 @@
 
 namespace App\Providers;
 
+use App\Actions\Gigger\ManageGigApplication;
 use App\Actions\GigHost\ManageGigAd;
 use App\Actions\Other\ManagePost;
+use App\Actions\Other\ManageUserCircle;
 use App\Actions\Profile\ManageUserEducation;
 use App\Actions\Profile\ManageUserLanguage;
 use App\Actions\Profile\ManageUserSoftSkill;
 use App\Actions\Profile\ManageUserTechnicalSkill;
 use App\Actions\Profile\ManageUserWorkExperience;
 use App\Actions\Profile\UpdateUserAboutInformation;
+use App\Contracts\Gigger\ManagesGigApplication;
 use App\Contracts\GigHost\ManagesGigAd;
 use App\Contracts\Other\ManagesPost;
+use App\Contracts\Other\ManagesUserCircle;
 use App\Contracts\Profile\ManagesUserEducation;
 use App\Contracts\Profile\ManagesUserLanguage;
 use App\Contracts\Profile\ManagesUserSoftSkill;
@@ -37,8 +41,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ManagesUserLanguage::class, ManageUserLanguage::class);
 
         $this->app->bind(ManagesGigAd::class, ManageGigAd::class);
+        $this->app->bind(ManagesGigApplication::class, ManageGigApplication::class);
 
         $this->app->bind(ManagesPost::class, ManagePost::class);
+        $this->app->bind(ManagesUserCircle::class, ManageUserCircle::class);
     }
 
     /**

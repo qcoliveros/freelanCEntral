@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Traits\HasCircles;
 use App\Traits\HasContacts;
 use App\Traits\HasEducations;
 use App\Traits\HasGigAds;
+use App\Traits\HasGigApplications;
 use App\Traits\HasIndustry;
 use App\Traits\HasLanguages;
 use App\Traits\HasPostComments;
@@ -36,9 +38,11 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasTechnicalSkills;
     use HasSoftSkills;
     use HasLanguages;
-    use HasGigAds;
     use HasPosts;
     use HasPostComments;
+    use HasCircles;
+    use HasGigAds;
+    use HasGigApplications;
 
     /**
      * The attributes that are mass assignable.

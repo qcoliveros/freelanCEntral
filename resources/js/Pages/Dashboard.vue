@@ -207,7 +207,6 @@
             },
 
             publishComment() {
-                console.log('publish form post id ' + this.form.post_id)
                 this.form.post(route('post-comment.publish'), {
                     errorBag: 'postCommentError',
                     preserveScroll: true,

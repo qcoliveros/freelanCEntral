@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button :class="classes" class="w-full text-left block rounded-md focus:outline-none focus:text-green-800 transition hover:scale-110 hover:text-gray-500" v-if="as == 'button'">
+        <button class="w-full text-left block rounded-md focus:outline-none focus:text-green-800 transition hover:scale-110 hover:text-gray-500" v-if="as == 'button'">
             <slot></slot>
         </button>
 

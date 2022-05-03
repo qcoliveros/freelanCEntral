@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserCircleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Profile\UserAboutInformationController;
 use App\Http\Controllers\Profile\UserEducationController;
@@ -48,6 +49,11 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         ->name('post.publish');
     Route::post('/post-comment', [DashboardController::class, 'publishComment'])
         ->name('post-comment.publish');
+
+    Route::post('/user-circle-follow', [UserCircleController::class, 'followUser'])
+        ->name('user-circle.follow');
+    Route::post('/user-circle-unfollow', [UserCircleController::class, 'unfollowUser'])
+        ->name('user-circle.unfollow');
 
     Route::get('/user/settings', [UserSettingsController::class, 'show'])
         ->name('settings.show');
@@ -98,6 +104,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::group(['middleware' => 'role:Gigger', 'prefix' => 'gigger', 'as' => 'gigger.'], function() {
         Route::get('gig-ad-find', [\App\Http\Controllers\Gigger\GigAdController::class, 'find'])
             ->name('gigAd.find');
+        Route::post('gig-ad-apply', [\App\Http\Controllers\Gigger\GigAdController::class, 'apply'])
+            ->name('gigAd.apply');
 
         Route::get('gig-app-list', [\App\Http\Controllers\Gigger\GigApplicationController::class, 'index'])
             ->name('gigApp.list');
