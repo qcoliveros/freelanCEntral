@@ -223,7 +223,7 @@
                     preserveScroll: true,
                     onSuccess: () => {
                         this.closeGigAdModal()
-                        this.showErrorMessage('Application submitted')
+                        this.showSuccessMessage('Application submitted')
                     },
                     onError: (errors) => {
                         this.showErrorMessage(errors.submitApplicationError)
