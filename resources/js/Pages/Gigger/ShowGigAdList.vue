@@ -27,26 +27,30 @@
                         </tr>
                         <tr class="border-b border-gray-200 hover:bg-gray-100" v-for="row in gigAdList.data">
                             <td class="py-3 px-6 text-left whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <span class="font-medium">{{ row.job_title }}</span>
+                                <div class="flex">
+                                    <jet-responsive-link as="button" @click="openGigAdModal(row)">
+                                        <span class="font-medium">{{ row.job_title }}</span>
+                                    </jet-responsive-link>
                                 </div>
                             </td>
                             <td class="py-3 px-6 text-center">
-                                <div class="flex items-center">
-                                    <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3" >
-                                        <img class="h-10 w-10 rounded-full object-cover" :src="row.gig_host.profile_photo_url" :alt="row.gig_host.name" />
-                                    </div>
-                                    <span class="font-medium">{{ row.gig_host.name }}</span>
+                                <div class="flex">
+                                    <jet-responsive-link as="button" @click="openGigHostModal(row)">
+                                        <span class="inline-flex items-center font-medium">
+                                            <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3" >
+                                                <img class="h-8 w-8 rounded-full object-cover" :src="row.gig_host.profile_photo_url" :alt="row.gig_host.name" />
+                                            </div>{{ row.gig_host.name }}</span>
+                                    </jet-responsive-link>
                                 </div>
                             </td>
                             <td class="py-3 px-6 text-left whitespace-nowrap">
-                                <div class="flex items-center">
+                                <div class="flex">
                                     <span class="font-medium">{{ moment(row.publish_date).format("DD MMM YYYY") }}</span>
                                 </div>
                             </td>
                             <td class="py-3 px-6 text-center">
                                 <div class="flex item-center justify-center">
-                                    <jet-icon name="view-icon" tooltip="View Gig Ad" @click="viewSearchGigAd(row)" />
+                                    <jet-icon name="view-icon" tooltip="View Gig Ad" @click="openGigAdModal(row)" />
                                 </div>
                             </td>
                         </tr>
@@ -96,18 +100,6 @@
                     <jet-label isInline="true" value="Job Duration" />&nbsp;
                     {{ moment(gigAd.job_start_date).format("DD MMM YYYY") }} to {{ moment(gigAd.job_end_date).format("DD MMM YYYY") }}
                 </div>
-
-                <!-- About Gig Host -->
-                <div class="mt-4">
-                    <jet-label value="About Gig Host" />
-                    <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3" >
-                        <img class="h-10 w-10 rounded-full object-cover" :src="gigAd.gig_host.profile_photo_url" :alt="gigAd.gig_host.name" />
-                    </div>
-                    {{ gigAd.gig_host.name }}
-                </div>
-                <div class="mt-4">
-                    <div v-html="modifyEmbeddedVideo(gigAd.gig_host.about)" />
-                </div>
             </template>
 
             <template #footer>
@@ -120,21 +112,50 @@
                 </jet-button>
             </template>
         </jet-dialog-modal>
+
+        <jet-dialog-modal :show="isOpenGigHostModal" @close="closeGigHostModal">
+            <template #title>
+                About Gig Host
+            </template>
+
+            <template #content>
+                <div>
+                    <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3" >
+                        <img class="h-10 w-10 rounded-full object-cover" :src="gigAd.gig_host.profile_photo_url" :alt="gigAd.gig_host.name" />
+                    </div>
+                    {{ gigAd.gig_host.name }}
+                </div>
+                <div class="mt-4">
+                    <div v-html="modifyEmbeddedVideo(gigAd.gig_host.about)" />
+                </div>
+            </template>
+
+            <template #footer>
+                <jet-secondary-button @click="closeGigHostModal">
+                    Cancel
+                </jet-secondary-button>
+
+                <jet-button class="ml-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="followGigHost(gigAd.gig_host.id)">
+                    Follow
+                </jet-button>
+            </template>
+        </jet-dialog-modal>
     </app-layout>
 </template>
 
 <script>
     import { defineComponent } from 'vue'
     import AppLayout from '@/Layouts/AppLayout'
-    import JetButton from '@/Jetstream/Button.vue'
+    import JetButton from '@/Jetstream/Button'
     import JetDialogModal from '@/Jetstream/DialogModal'
     import JetIcon from '@/Jetstream/Icon'
     import JetLabel from '@/Jetstream/Label.vue'
     import JetPagination from '@/Jetstream/Pagination'
+    import JetResponsiveLink from '@/Jetstream/ResponsiveLink'
     import JetSearchBar from '@/Jetstream/SearchBar'
-    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton'
     import EmbeddedMedia from "../../../mixins/embedded-media"
-    import moment from "moment"
+    import moment from 'moment'
 
     export default defineComponent({
         mixins: [ EmbeddedMedia ],
@@ -146,6 +167,7 @@
             JetIcon,
             JetLabel,
             JetPagination,
+            JetResponsiveLink,
             JetSearchBar,
             JetSecondaryButton,
         },
@@ -160,6 +182,7 @@
                 moment: moment,
 
                 isOpenGigAdModal: false,
+                isOpenGigHostModal: false,
                 gigAd: new Object(),
 
                 form: this.$inertia.form({
@@ -179,21 +202,31 @@
                 this.searchGigAd()
             },
 
-            openGigAdModal() {
+            openGigAdModal(row) {
+                Object.assign(this.gigAd, row)
                 this.isOpenGigAdModal = true
             },
 
             closeGigAdModal() {
-                this.isOpenGigAdModal = false
                 Object.assign(this.gigAd, null)
-            },
-
-            viewSearchGigAd(row) {
-                Object.assign(this.gigAd, row)
-                this.openGigAdModal()
+                this.isOpenGigAdModal = false
             },
 
             applyGigAd(row) {
+
+            },
+
+            openGigHostModal(row) {
+                Object.assign(this.gigAd, row)
+                this.isOpenGigHostModal = true
+            },
+
+            closeGigHostModal() {
+                Object.assign(this.gigAd, null)
+                this.isOpenGigHostModal = false
+            },
+
+            followGigHost(gigHostId) {
 
             }
         }

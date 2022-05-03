@@ -40,9 +40,9 @@
                             <jet-section-border />
 
                             <div class="flex">
-                                <jet-button-link><span class="inline-flex align-middle"><jet-icon name="like-icon" />&nbsp;Like</span></jet-button-link>
-                                <jet-button-link @click="openCommentModal(post.id)"><span class="inline-flex align-middle"><jet-icon name="chat-icon" />&nbsp;Comment</span></jet-button-link>
-                                <jet-button-link><span class="inline-flex align-middle"><jet-icon name="share-icon" />&nbsp;Share</span></jet-button-link>
+                                <jet-responsive-nav-link><span class="inline-flex align-middle"><jet-icon name="like-icon" />&nbsp;Like</span></jet-responsive-nav-link>
+                                <jet-responsive-nav-link as="button" @click="openCommentModal(post.id)"><span class="inline-flex align-middle"><jet-icon name="chat-icon" />&nbsp;Comment</span></jet-responsive-nav-link>
+                                <jet-responsive-nav-link><span class="inline-flex align-middle"><jet-icon name="share-icon" />&nbsp;Share</span></jet-responsive-nav-link>
                             </div>
 
                             <div class="mt-4 flex flex-row" v-for="comment in post.comments">
@@ -116,12 +116,12 @@
     import { defineComponent } from 'vue'
     import AppLayout from '@/Layouts/AppLayout.vue'
     import JetButton from '@/Jetstream/Button'
-    import JetButtonLink from '@/Jetstream/ButtonLink'
     import JetDialogModal from '@/Jetstream/DialogModal'
     import JetIcon from '@/Jetstream/Icon'
     import JetInput from '@/Jetstream/Input'
     import JetInputError from '@/Jetstream/InputError'
     import JetLabel from '@/Jetstream/Label'
+    import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink'
     import JetRichTextEditor from '@/Jetstream/RichTextEditor'
     import JetPagination from '@/Jetstream/Pagination'
     import JetSecondaryButton from '@/Jetstream/SecondaryButton'
@@ -139,13 +139,13 @@
         components: {
             AppLayout,
             JetButton,
-            JetButtonLink,
             JetDialogModal,
             JetIcon,
             JetInput,
             JetInputError,
             JetLabel,
             JetPagination,
+            JetResponsiveNavLink,
             JetRichTextEditor,
             JetSecondaryButton,
             JetSectionBorder,

@@ -122,7 +122,7 @@
                                             <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                                                 <img class="h-6 w-6 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name" />
                                             </button>
-                                            Me
+                                            <span class="text-gray-500">Me</span>
                                         </div>
 
                                         <span v-else class="inline-flex rounded-md">
