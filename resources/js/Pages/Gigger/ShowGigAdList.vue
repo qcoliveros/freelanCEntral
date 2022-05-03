@@ -37,7 +37,7 @@
                                 <div class="flex">
                                     <jet-responsive-link as="button" @click="openGigHostModal(row)">
                                         <span class="inline-flex items-center font-medium">
-                                            <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3" >
+                                            <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
                                                 <img class="h-8 w-8 rounded-full object-cover" :src="row.gig_host.profile_photo_url" :alt="row.gig_host.name" />
                                             </div>{{ row.gig_host.name }}</span>
                                     </jet-responsive-link>
@@ -120,7 +120,7 @@
 
             <template #content>
                 <div>
-                    <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3" >
+                    <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
                         <img class="h-10 w-10 rounded-full object-cover" :src="gigAd.gig_host.profile_photo_url" :alt="gigAd.gig_host.name" />
                     </div>
                     {{ gigAd.gig_host.name }}
@@ -146,15 +146,15 @@
 <script>
     import { defineComponent } from 'vue'
     import AppLayout from '@/Layouts/AppLayout'
+    import EmbeddedMedia from '../../../mixins/embedded-media'
     import JetButton from '@/Jetstream/Button'
     import JetDialogModal from '@/Jetstream/DialogModal'
     import JetIcon from '@/Jetstream/Icon'
-    import JetLabel from '@/Jetstream/Label.vue'
+    import JetLabel from '@/Jetstream/Label'
     import JetPagination from '@/Jetstream/Pagination'
     import JetResponsiveLink from '@/Jetstream/ResponsiveLink'
     import JetSearchBar from '@/Jetstream/SearchBar'
     import JetSecondaryButton from '@/Jetstream/SecondaryButton'
-    import EmbeddedMedia from "../../../mixins/embedded-media"
     import moment from 'moment'
     import ToastMessage from '../../../mixins/toast-message'
 

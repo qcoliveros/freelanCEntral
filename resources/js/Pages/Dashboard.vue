@@ -12,7 +12,7 @@
                     <div>
                         <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                             <div class="mt-2 text-2xl flex">
-                                <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3" >
+                                <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
                                     <img class="h-10 w-10 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name" />
                                 </div>
                                 <jet-secondary-button @click="openPostModal" class="items-end">
@@ -27,7 +27,7 @@
                     <div>
                         <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                             <div class="mt-2 flex flex-row">
-                                <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3" >
+                                <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
                                     <img class="h-15 w-15 rounded-full object-cover" :src="post.user.profile_photo_url" :alt="post.user.name" />
                                 </div>
                                 <div>

@@ -104,11 +104,13 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::group(['middleware' => 'role:Gigger', 'prefix' => 'gigger', 'as' => 'gigger.'], function() {
         Route::get('gig-ad-find', [\App\Http\Controllers\Gigger\GigAdController::class, 'find'])
             ->name('gigAd.find');
-        Route::post('gig-ad-apply', [\App\Http\Controllers\Gigger\GigAdController::class, 'apply'])
-            ->name('gigAd.apply');
 
+        Route::post('gig-ad-apply', [\App\Http\Controllers\Gigger\GigApplicationController::class, 'apply'])
+            ->name('gigAd.apply');
         Route::get('gig-app-list', [\App\Http\Controllers\Gigger\GigApplicationController::class, 'index'])
             ->name('gigApp.list');
+        Route::post('gig-app-withdraw', [\App\Http\Controllers\Gigger\GigApplicationController::class, 'withdraw'])
+            ->name('gigApp.withdraw');
 
         Route::get('gig-playbook-list', [\App\Http\Controllers\Gigger\GigPlaybookController::class, 'index'])
             ->name('gigPlaybook.list');

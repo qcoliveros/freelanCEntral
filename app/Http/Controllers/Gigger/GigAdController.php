@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Gigger;
 
-use App\Contracts\Gigger\ManagesGigApplication;
 use App\Http\Controllers\Controller;
 use App\Models\GigAd;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Laravel\Jetstream\Jetstream;
 
@@ -33,14 +31,5 @@ class GigAdController extends Controller
                     'gig_host' => $gigAd->gigHost,
                 ]),
         ]);
-    }
-
-    public function apply(Request $request, ManagesGigApplication $updater)
-    {
-        $updater->apply($request->user(), $request->all());
-
-        return $request->wantsJson()
-            ? new JsonResponse('', 200)
-            : back()->with('status', 'gig-ad-applied');
     }
 }

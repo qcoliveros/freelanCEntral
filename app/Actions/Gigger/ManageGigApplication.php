@@ -17,8 +17,10 @@ class ManageGigApplication implements ManagesGigApplication
     {
         $gigApp = GigApplication::where([
             'user_id' => $user->id,
-            'gig_ad_id' => $input['gig_ad_id']
-        ])->first();
+            'gig_ad_id' => $input['gig_ad_id'],
+        ])->whereNotIn(
+            'status', ['Withdrawn']
+        )->first();
 
         if ($gigApp === null) {
             $input['applied_date'] = Date::now();
@@ -29,6 +31,19 @@ class ManageGigApplication implements ManagesGigApplication
             $this->insertTrail($user, $gigApp);
         } else {
             throw ValidationException::withMessages(['submitApplicationError' => 'Application already submitted.']);
+        }
+    }
+
+    public function withdraw($user, array $input)
+    {
+        $gigApp = GigApplication::find($input['id']);
+
+        if ($gigApp !== null) {
+            $gigApp->update([
+                'status' => 'Withdrawn'
+            ]);
+
+            $this->insertTrail($user, $gigApp);
         }
     }
 
