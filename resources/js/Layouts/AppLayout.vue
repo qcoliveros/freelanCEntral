@@ -18,42 +18,42 @@
                             </div>
 
                             <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <div class="space-x-12 sm:-my-px sm:ml-10 sm:flex place-content-end">
                                 <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
+                                    <jet-icon name="home-icon" label="Home" />
                                 </jet-nav-link>
 
                                 <jet-nav-link :href="route('admin.user.list')"
                                               :active="route().current('admin.user.list')"
                                               v-if="$page.props.user.roles.includes('Administrator')">
-                                    Manage Users
+                                    <jet-icon name="users-icon" label="Users" />
                                 </jet-nav-link>
 
                                 <jet-nav-link :href="route('gigHost.gigPlaybook.list')"
                                               :active="route().current('gigHost.gigPlaybook.list')"
                                               v-if="$page.props.user.roles.includes('Gig Host')">
-                                    Gig Playbook
+                                    <jet-icon name="playbook-icon" label="Playbook" />
                                 </jet-nav-link>
                                 <jet-nav-link :href="route('gigHost.gigAd.list')"
                                               :active="route().current('gigHost.gigAd.list')"
                                               v-if="$page.props.user.roles.includes('Gig Host')">
-                                    Gig Ad
+                                    <jet-icon name="gig-ad-icon" label="Gig Ad" />
                                 </jet-nav-link>
 
                                 <jet-nav-link :href="route('gigger.gigPlaybook.list')"
                                               :active="route().current('gigger.gigPlaybook.list')"
                                               v-if="$page.props.user.roles.includes('Gigger')">
-                                    Gig Playbook
+                                    <jet-icon name="playbook-icon" label="Playbook" />
                                 </jet-nav-link>
                                 <jet-nav-link :href="route('gigger.gigApp.list')"
                                               :active="route().current('gigger.gigApp.list')"
                                               v-if="$page.props.user.roles.includes('Gigger')">
-                                    Gig Application
+                                    <jet-icon name="application-icon" label="Application" />
                                 </jet-nav-link>
                                 <jet-nav-link :href="route('gigger.gigAd.find')"
                                               :active="route().current('gigger.gigAd.find')"
                                               v-if="$page.props.user.roles.includes('Gigger')">
-                                    Find Gig
+                                    <jet-icon name="find-gig-icon" label="Find Gig" />
                                 </jet-nav-link>
                             </div>
                         </div>
@@ -118,9 +118,12 @@
                             <div class="ml-3 relative">
                                 <jet-dropdown align="right" width="48">
                                     <template #trigger>
-                                        <button v-if="$page.props.jetstream.managesProfilePhotos" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                            <img class="h-8 w-8 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name" />
-                                        </button>
+                                        <div v-if="$page.props.jetstream.managesProfilePhotos" class="w-8 transform text-sm hover:text-gray-500 hover:scale-110 relative flex flex-col items-center group whitespace-nowrap">
+                                            <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                                <img class="h-6 w-6 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name" />
+                                            </button>
+                                            Me
+                                        </div>
 
                                         <span v-else class="inline-flex rounded-md">
                                             <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
@@ -271,12 +274,12 @@
 <script>
     import { defineComponent } from 'vue'
     import { Head, Link } from '@inertiajs/inertia-vue3'
-    import JetBanner from '@/Jetstream/Banner.vue'
-    import JetDropdown from '@/Jetstream/Dropdown.vue'
-    import JetDropdownLink from '@/Jetstream/DropdownLink.vue'
-    import JetIcon from "@/Jetstream/Icon"
-    import JetNavLink from '@/Jetstream/NavLink.vue'
-    import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue'
+    import JetBanner from '@/Jetstream/Banner'
+    import JetDropdown from '@/Jetstream/Dropdown'
+    import JetDropdownLink from '@/Jetstream/DropdownLink'
+    import JetIcon from '@/Jetstream/Icon'
+    import JetNavLink from '@/Jetstream/NavLink'
+    import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink'
 
     export default defineComponent({
         props: {

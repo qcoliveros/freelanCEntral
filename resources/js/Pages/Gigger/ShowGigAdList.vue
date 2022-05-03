@@ -11,7 +11,7 @@
                 <div class="px-4 py-5 sm:p-6 bg-white shadow sm:rounded-lg">
                     <jet-search-bar v-model="form.search" v-if="$page.props.user.roles.includes('Gigger')"
                                     placeholder="Search by job title"
-                                    @clickSearch="searchRecord" @clickClearSearch="clearSearchRecord" />
+                                    @clickSearch="searchGigAd" @clickClearSearch="clearSearchGigAd" />
                     <table class="w-full table-auto mt-4">
                         <thead>
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -46,7 +46,7 @@
                             </td>
                             <td class="py-3 px-6 text-center">
                                 <div class="flex item-center justify-center">
-                                    <jet-icon name="view-icon" tooltip="View Gig Ad" @click="viewRecord(row)" />
+                                    <jet-icon name="view-icon" tooltip="View Gig Ad" @click="viewSearchGigAd(row)" />
                                 </div>
                             </td>
                         </tr>
@@ -57,11 +57,11 @@
         </div>
         <jet-pagination :links="gigAdList.links" />
 
-        <jet-dialog-modal :show="isOpenDetailModal" @close="closeDetailModal">
+        <jet-dialog-modal :show="isOpenGigAdModal" @close="closeGigAdModal">
             <template #title>
                 <span class="text-xl">{{ gigAd.job_title }}</span>
                 <div class="mt-0">
-                    <jet-label isInline="true" value="Posted Date" />
+                    <jet-label isInline="true" value="Posted Date" />&nbsp;
                     <span class="text-sm">{{ moment(gigAd.publish_date).format("DD MMM YYYY") }}</span>
                 </div>
             </template>
@@ -75,25 +75,25 @@
 
                 <!-- Job Function -->
                 <div class="mt-4">
-                    <jet-label isInline="true" value="Job Function" />
+                    <jet-label isInline="true" value="Job Function" />&nbsp;
                     {{ gigAd.job_function }}
                 </div>
 
                 <!-- Other Job Function -->
                 <div class="mt-4" v-if="gigAd.job_function == 'Other'">
-                    <jet-label isInline="true" value="Others (please specify)" />
+                    <jet-label isInline="true" value="Others (please specify)" />&nbsp;
                     {{ gigAd.other_job_function }}
                 </div>
 
                 <!-- Commitment Time -->
                 <div class="mt-4">
-                    <jet-label isInline="true" value="Time Commitment Required (hours per week)" />
+                    <jet-label isInline="true" value="Time Commitment Required (hours per week)" />&nbsp;
                     {{ gigAd.commitment_time }}
                 </div>
 
                 <!-- Job Duration -->
                 <div class="mt-4">
-                    <jet-label isInline="true" value="Job Duration" />
+                    <jet-label isInline="true" value="Job Duration" />&nbsp;
                     {{ moment(gigAd.job_start_date).format("DD MMM YYYY") }} to {{ moment(gigAd.job_end_date).format("DD MMM YYYY") }}
                 </div>
 
@@ -111,11 +111,11 @@
             </template>
 
             <template #footer>
-                <jet-secondary-button @click="closeDetailModal">
+                <jet-secondary-button @click="closeGigAdModal">
                     Cancel
                 </jet-secondary-button>
 
-                <jet-button class="ml-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="apply(gigAd.id)">
+                <jet-button class="ml-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="applyGigAd(gigAd)">
                     Apply
                 </jet-button>
             </template>
@@ -159,7 +159,7 @@
             return {
                 moment: moment,
 
-                isOpenDetailModal: false,
+                isOpenGigAdModal: false,
                 gigAd: new Object(),
 
                 form: this.$inertia.form({
@@ -170,29 +170,30 @@
         },
 
         methods: {
-            searchRecord() {
+            searchGigAd() {
                 this.form.get(route('gigger.gigAd.find'))
             },
 
-            clearSearchRecord() {
+            clearSearchGigAd() {
                 this.form.search = null
-                this.searchRecord()
+                this.searchGigAd()
             },
 
-            openDetailModal() {
-                this.isOpenDetailModal = true
+            openGigAdModal() {
+                this.isOpenGigAdModal = true
             },
 
-            closeDetailModal() {
-                this.isOpenDetailModal = false
+            closeGigAdModal() {
+                this.isOpenGigAdModal = false
+                Object.assign(this.gigAd, null)
             },
 
-            viewRecord(row) {
+            viewSearchGigAd(row) {
                 Object.assign(this.gigAd, row)
-                this.openDetailModal()
+                this.openGigAdModal()
             },
 
-            apply(row) {
+            applyGigAd(row) {
 
             }
         }
