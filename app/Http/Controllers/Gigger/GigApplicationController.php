@@ -43,6 +43,6 @@ class GigApplicationController extends Controller
 
         return $request->wantsJson()
             ? new JsonResponse('', 200)
-            : back()->with('status', 'gig-ad-applied');
+            : back()->with('status', 'gig-app-withdraw');
     }
 }
