@@ -6,9 +6,13 @@ use App\Contracts\Gigger\ManagesGigApplication;
 use App\Models\GigApplication;
 use App\Models\GigApplicationTrail;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Validation\ValidationException;
 
 class ManageGigApplication implements ManagesGigApplication
 {
+    /**
+     * @throws ValidationException
+     */
     public function apply($user, array $input)
     {
         $gigApp = GigApplication::where([
@@ -23,6 +27,8 @@ class ManageGigApplication implements ManagesGigApplication
             $gigApp = $user->gigApplications()->create($input);
 
             $this->insertTrail($user, $gigApp);
+        } else {
+            throw ValidationException::withMessages(['submitApplicationError' => 'Application already submitted.']);
         }
     }
 

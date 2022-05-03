@@ -223,7 +223,10 @@
                     preserveScroll: true,
                     onSuccess: () => {
                         this.closeGigAdModal()
-                        this.showSuccessMessage('Application submitted')
+                        this.showErrorMessage('Application submitted')
+                    },
+                    onError: (errors) => {
+                        this.showErrorMessage(errors.submitApplicationError)
                     }
                 });
             },
@@ -245,6 +248,9 @@
                     onSuccess: () => {
                         this.closeGigHostModal()
                         this.showSuccessMessage('Following')
+                    },
+                    onError: (errors) => {
+                        this.showErrorMessage(errors.followUserError)
                     }
                 });
             }

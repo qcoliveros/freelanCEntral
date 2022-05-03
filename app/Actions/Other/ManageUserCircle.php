@@ -4,9 +4,13 @@ namespace App\Actions\Other;
 
 use App\Contracts\Other\ManagesUserCircle;
 use App\Models\UserCircle;
+use Illuminate\Validation\ValidationException;
 
 class ManageUserCircle implements ManagesUserCircle
 {
+    /**
+     * @throws ValidationException
+     */
     public function followUser($user, array $input)
     {
         $userCircle = UserCircle::where([
@@ -16,6 +20,8 @@ class ManageUserCircle implements ManagesUserCircle
 
         if ($userCircle === null) {
             $user->circles()->create($input);
+        } else {
+            throw ValidationException::withMessages(['followUserError' => 'Already following the user.']);
         }
     }
 
