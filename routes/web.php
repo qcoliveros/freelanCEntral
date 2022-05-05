@@ -134,6 +134,11 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         Route::delete('gig-ad-delete', [\App\Http\Controllers\GigHost\GigAdController::class, 'delete'])
             ->name('gigAd.delete');
 
+        Route::get('gig-app-list', [\App\Http\Controllers\GigHost\GigApplicationController::class, 'index'])
+            ->name('gigApp.list');
+        Route::get('gig-applicant-view', [\App\Http\Controllers\GigHost\GigApplicationController::class, 'view'])
+            ->name('gigApplicant.view');
+
         Route::get('gig-playbook-list', [\App\Http\Controllers\GigHost\GigPlaybookController::class, 'index'])
             ->name('gigPlaybook.list');
     });

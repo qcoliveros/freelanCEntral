@@ -271,6 +271,16 @@
         </div>
     </div>
 
+    <div v-else-if="name === 'applicants-icon'" class="w-4 mr-2 transform hover:text-indigo-500 hover:scale-110 relative flex flex-col items-center group">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <div v-if="!!tooltip" class="absolute bottom-0 flex flex-col items-center hidden mb-6 group-hover:flex">
+            <span class="relative z-10 p-2 text-xs leading-none text-white whitespace-nowrap bg-black rounded-md shadow-lg">{{ tooltip }}</span>
+            <div class="w-3 h-3 -mt-2 rotate-45 bg-black"></div>
+        </div>
+    </div>
+
     <svg v-else-if="name === 'like-icon'" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
     </svg>

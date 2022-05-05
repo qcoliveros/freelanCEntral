@@ -55,6 +55,7 @@
                                     <jet-icon v-if="row.close_date == null" name="edit-icon" tooltip="Update Gig Ad" @click="editRecord(row)" />
                                     <jet-icon v-if="row.close_date != null" name="view-icon" tooltip="View Gig Ad" @click="viewRecord(row)" />
                                     <jet-icon v-if="row.publish_date == null" name="delete-icon" tooltip="Remove Gig Ad" @click="confirmDeleteRecord(row)" />
+                                    <jet-icon v-if="row.publish_date != null" name="applicants-icon" tooltip="View Applicants" @click="viewApplicants(row)" />
                                 </div>
                             </td>
                         </tr>
@@ -171,6 +172,11 @@
             clearSearchRecord() {
                 this.form.search = null
                 this.searchRecord()
+            },
+
+            viewApplicants(row) {
+                Object.assign(this.form, row)
+                this.form.get(route('gigHost.gigApp.list'));
             }
         }
     })

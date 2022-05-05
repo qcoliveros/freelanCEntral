@@ -37,7 +37,9 @@
                                         <span class="inline-flex items-center font-medium">
                                             <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
                                                 <img class="h-8 w-8 rounded-full object-cover" :src="row.gig_ad.gig_host.profile_photo_url" :alt="row.gig_ad.gig_host.name" />
-                                            </div>{{ row.gig_ad.gig_host.name }}</span>
+                                            </div>
+                                            {{ row.gig_ad.gig_host.name }}
+                                        </span>
                                     </jet-responsive-link>
                                 </div>
                             </td>

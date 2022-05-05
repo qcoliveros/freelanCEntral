@@ -62,10 +62,10 @@
 
 <script>
     import { defineComponent } from 'vue'
-    import AppLayout from '@/Layouts/AppLayout.vue'
+    import AppLayout from '@/Layouts/AppLayout'
     import JetLabel from '@/Jetstream/Label.vue'
-    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
-    import moment from "moment";
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton'
+    import moment from 'moment'
 
     export default defineComponent({
         components: {
