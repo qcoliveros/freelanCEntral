@@ -19,7 +19,7 @@
                                 {{ applicant.name }}
                             </div>
                             <div class="text-sm">
-                                {{ applicant.email }} | {{ applicant.phone }} ({{ applicant.phone_type.name }})
+                                {{ applicant.email }} <span v-if="applicant.phone != null">| {{ applicant.phone }} ({{ applicant.phone_type.name }})</span>
                             </div>
                             <div class="text-sm" v-if="applicant.website_url != null">
                                 <Link :href="applicant.website_url">{{ applicant.website_url }}</Link>
