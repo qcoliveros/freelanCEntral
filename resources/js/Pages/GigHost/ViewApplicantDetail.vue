@@ -34,7 +34,7 @@
                                     <table class="w-full table-auto">
                                         <thead>
                                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                                            <th class="py-3 px-6 text-left">Title</th>
+                                            <th class="py-3 px-6 text-left w-1/3">Title</th>
                                             <th class="py-3 px-6 text-left">Company</th>
                                             <th class="py-3 px-6 text-left">Duration</th>
                                         </tr>
@@ -43,24 +43,36 @@
                                         <tr class="border-b border-gray-200 hover:bg-gray-100" v-if="!!applicant.workExperiences && !applicant.workExperiences.length">
                                             <td class="py-3 px-6 text-left whitespace-nowrap">No records found.</td>
                                         </tr>
-                                        <tr class="border-b border-gray-200" v-for="row in applicant.workExperiences">
-                                            <td class="py-3 px-6 text-center">
-                                                <div class="flex items-center">
-                                                    <span class="font-medium">{{ row.title }}</span>
-                                                </div>
-                                            </td>
-                                            <td class="py-3 px-6 text-center">
-                                                <div class="flex items-center">
-                                                    <span>{{ row.company_name }}</span>
-                                                </div>
-                                            </td>
-                                            <td class="py-3 px-6 text-center">
-                                                <div class="flex items-center">
-                                                    <span v-if="!!row.end_date">{{ moment(row.start_date).format("MMM YYYY") }} to {{ moment(row.end_date).format("MMM YYYY") }}</span>
-                                                    <span v-else>{{ moment(row.start_date).format("MMM YYYY") }} to Present</span>
-                                                </div>
+                                        <tr v-for="row in applicant.workExperiences">
+                                            <td colspan="3">
+                                                <table class="w-full table-auto">
+                                                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                                        <td class="py-3 px-6 text-left w-1/3">
+                                                            <div class="flex items-center">
+                                                                <span class="font-medium">{{ row.title }}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td class="py-3 px-6 text-left">
+                                                            <div class="flex items-center">
+                                                                <span>{{ row.company_name }}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td class="py-3 px-6 text-center">
+                                                            <div class="flex items-center">
+                                                                <span v-if="!!row.end_date">{{ moment(row.start_date).format("MMM YYYY") }} to {{ moment(row.end_date).format("MMM YYYY") }}</span>
+                                                                <span v-else>{{ moment(row.start_date).format("MMM YYYY") }} to Present</span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="py-3 px-6 text-left hover:bg-gray-100" colspan="3">
+                                                            <span>{{ row.description }}</span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
                                             </td>
                                         </tr>
+
                                         </tbody>
                                     </table>
                                 </MDBAccordionItem>
@@ -215,6 +227,10 @@
                     </jet-button>
                 </div>
             </div>
+        </div>
+
+        <div class="py-12">
+
         </div>
     </app-layout>
 </template>
