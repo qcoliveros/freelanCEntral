@@ -12,10 +12,10 @@
                     <div class="md:grid md:grid-cols-5 md:gap-2">
                         <div class="md:mt-0 md:col-span-4">
                             <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
-                                <img class="h-16 w-16 rounded-full object-cover" :src="applicant.profile_photo_url" :alt="applicant.name" />
+                                <img class="h-20 w-20 rounded-full object-cover" :src="applicant.profile_photo_url" :alt="applicant.name" />
                             </div>
 
-                            <div class="mt-4 font-bold">
+                            <div class="mt-2 font-bold">
                                 {{ applicant.name }}
                             </div>
                             <div class="text-sm">
