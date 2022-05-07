@@ -70,7 +70,7 @@
             <template #title>
                 <span class="text-xl">{{ gigApp.gig_ad.job_title }}</span>
                 <div class="mt-0">
-                    <span v-if="gigApp.gig_ad.close_date == null">
+                    <span v-if="gigApp.gig_ad.status != 'Published'">
                         <jet-label isInline="true" value="Posted Date" />&nbsp;
                         <span class="text-sm">{{ moment(gigApp.gig_ad.publish_date).format("DD MMM YYYY") }}</span>
                     </span>
@@ -119,7 +119,7 @@
                 </jet-secondary-button>
 
                 <jet-button class="ml-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
-                            @click="withdraw(gigApp.id)" v-if="gigApp.status == 'Submitted' && gigApp.gig_ad.close_date == null">
+                            @click="withdraw(gigApp.id)" v-if="gigApp.status == 'Submitted' && gigApp.gig_ad.status != 'Closed'">
                     Withdraw
                 </jet-button>
             </template>

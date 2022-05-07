@@ -30,6 +30,7 @@ class GigAdController extends Controller
                     'job_end_date' => $gigAd->job_end_date,
                     'publish_date' => $gigAd->publish_date,
                     'close_date' => $gigAd->close_date,
+                    'status' => $gigAd->status,
                 ]),
         ]);
     }

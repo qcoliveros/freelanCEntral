@@ -217,11 +217,11 @@
                     <jet-secondary-button @click="cancel">
                         Cancel
                     </jet-secondary-button>
-                    <jet-button v-if="gigAd.close_date == null && gigApp.status === 'Submitted'"
+                    <jet-button v-if="gigAd.status == 'Published' && gigApp.status === 'Submitted'"
                                 class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="reject">
                         Reject
                     </jet-button>
-                    <jet-button v-if="gigAd.close_date == null && gigApp.status === 'Submitted'"
+                    <jet-button v-if="gigAd.status == 'Published' && gigApp.status === 'Submitted'"
                                 class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="shortlist">
                         Shortlist
                     </jet-button>

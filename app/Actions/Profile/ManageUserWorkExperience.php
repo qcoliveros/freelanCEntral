@@ -33,15 +33,21 @@ class ManageUserWorkExperience implements ManagesUserWorkExperience
 
     private function validate(array $input)
     {
+        $customAttributes = array(
+            'employment_type_id' => 'employment type',
+            'location_id' => 'location',
+            'industry_id' => 'industry',
+        );
+
         Validator::make($input, [
             'title' => ['required', 'string', 'max:255'],
-            'employment_type' => ['required'],
+            'employment_type_id' => ['required'],
             'company_name' => ['required', 'string', 'max:255'],
-            'location' => ['required'],
+            'location_id' => ['required'],
             'start_date' => ['required', 'date', 'before:now'],
             'end_date' => [($input['is_current']) ? 'nullable' : 'required', 'date', 'after:start_date'],
-            'industry' => ['required'],
+            'industry_id' => ['required'],
             'description' => ['required', 'string', 'max:2048'],
-        ])->validateWithBag('workExpereienceError');
+            ], [], $customAttributes)->validateWithBag('workExpereienceError');
     }
 }

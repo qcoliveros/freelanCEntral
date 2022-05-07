@@ -22,13 +22,9 @@ class GigAd extends Model
         'job_start_date',
         'job_end_date',
         'posted_date',
-        'is_draft',
         'publish_date',
         'close_date',
-    ];
-
-    protected $casts = [
-        'is_draft' => 'boolean',
+        'status',
     ];
 
     public function gigHost()

@@ -79,9 +79,9 @@
 
                     <!-- Employment Type -->
                     <div class="mt-2">
-                        <jet-label for="employment_type" value="Employment Type" />
-                        <multiselect id="employment_type" v-model="form.employment_type" :options="$page.props.parameter.employmentTypes" :searchable="true" />
-                        <jet-input-error :message="form.errors.employment_type" class="mt-2" />
+                        <jet-label for="employment_type_id" value="Employment Type" />
+                        <multiselect id="employment_type_id" v-model="form.employment_type_id" :options="$page.props.parameter.employmentTypes" :searchable="true" />
+                        <jet-input-error :message="form.errors.employment_type_id" class="mt-2" />
                     </div>
 
                     <!-- Company Name -->
@@ -93,9 +93,9 @@
 
                     <!-- Location -->
                     <div class="mt-2">
-                        <jet-label for="location" value="Location" />
-                        <multiselect id="location" v-model="form.location" :options="$page.props.parameter.countries" :searchable="true" />
-                        <jet-input-error :message="form.errors.location" class="mt-2" />
+                        <jet-label for="location_id" value="Location" />
+                        <multiselect id="location_id" v-model="form.location_id" :options="$page.props.parameter.countries" :searchable="true" />
+                        <jet-input-error :message="form.errors.location_id" class="mt-2" />
                     </div>
 
                     <!-- Start/End Date -->
@@ -122,9 +122,9 @@
 
                     <!-- Industry -->
                     <div class="mt-2">
-                        <jet-label for="industry" value="Industry" />
-                        <multiselect id="industry" v-model="form.industry" :options="$page.props.parameter.industries" :searchable="true" />
-                        <jet-input-error :message="form.errors.industry" class="mt-2" />
+                        <jet-label for="industry_id" value="Industry" />
+                        <multiselect id="industry_id" v-model="form.industry_id" :options="$page.props.parameter.industries" :searchable="true" />
+                        <jet-input-error :message="form.errors.industry_id" class="mt-2" />
                     </div>
 
                     <div class="mt-2">
@@ -217,13 +217,13 @@
                 form: this.$inertia.form({
                     id: null,
                     title: null,
-                    employment_type: null,
+                    employment_type_id: null,
                     company_name: null,
-                    location: null,
+                    location_id: null,
                     start_date: null,
                     end_date: null,
                     is_current: null,
-                    industry: null,
+                    industry_id: null,
                     description: null,
                 })
             }

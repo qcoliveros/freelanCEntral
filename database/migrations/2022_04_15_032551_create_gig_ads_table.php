@@ -26,9 +26,9 @@ return new class extends Migration
             $table->date('job_start_date');
             $table->date('job_end_date');
             // posting details
-            $table->boolean('is_draft')->nullable();
             $table->date('publish_date')->nullable();
             $table->date('close_date')->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }

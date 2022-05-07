@@ -65,14 +65,15 @@
                     <jet-secondary-button class="mr-2" @click="cancel">
                         Cancel
                     </jet-secondary-button>
-                    <jet-button v-if="form.publish_date === null" class="mr-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="saveRecord">
+                    <jet-button v-if="form.status === null || form.status === 'Draft'"
+                                class="mr-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="saveRecord">
                         Save as Draft
                     </jet-button>
                     <jet-button v-else class="mr-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="closeRecord">
                         Close
                     </jet-button>
                     <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="publishRecord">
-                        <span v-if="form.publish_date === null">Publish</span>
+                        <span v-if="form.status === 'Draft'">Publish</span>
                         <span v-else>Republish</span>
                     </jet-button>
                 </div>
@@ -128,9 +129,9 @@
                     commitment_duration: this.gigAd ? this.gigAd.commitment_duration : null,
                     job_start_date: this.gigAd ? this.gigAd.job_start_date : null,
                     job_end_date: this.gigAd ? this.gigAd.job_end_date : null,
-                    is_draft: this.gigAd ? this.gigAd.is_draft : null,
                     publish_date: this.gigAd ? this.gigAd.publish_date : null,
                     close_date: this.gigAd ? this.gigAd.close_date : null,
+                    status: this.gigAd ? this.gigAd.status : null,
                 })
             }
         },

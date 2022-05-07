@@ -17,7 +17,7 @@ class GigApplicationController extends Controller
     public function index(Request $request)
     {
         return Jetstream::inertia()->render($request, 'GigHost/ShowGigApplicationList', [
-            'gigAd' => GigAd::select('id', 'job_title', 'close_date')->where('id', $request['id'])->first(),
+            'gigAd' => GigAd::select('id', 'job_title', 'status')->where('id', $request['id'])->first(),
             'gigAppList' => GigApplication::where('gig_ad_id', $request['id'])
                 ->whereNotIn('status', ['Withdrawn'])
                 ->orderBy('applied_date')
@@ -36,7 +36,7 @@ class GigApplicationController extends Controller
     {
         $applicant = User::where('id', $request['user_id'])->with('phoneType')->first();
         return Jetstream::inertia()->render($request, 'GigHost/ViewApplicantDetail', [
-            'gigAd' => GigAd::select('id', 'job_title', 'close_date')->where('id', $request['id'])->first(),
+            'gigAd' => GigAd::select('id', 'job_title', 'status')->where('id', $request['id'])->first(),
             'gigApp' => GigApplication::select('id', 'status')->where('id', $request['gig_app_id'])->first(),
             'applicant' => $applicant,
             'applicant.workExperiences' => $applicant->userWorkExperiences()->latest('start_date')->get(),
@@ -62,6 +62,10 @@ class GigApplicationController extends Controller
 
         return $request->wantsJson()
             ? new JsonResponse('', 200)
-            : back()->with('status', 'gig-applicant-rejected');
+            : Redirect::route('gigHost.gigApp.list', [
+                    'id' => $request['id'],
+                    'gig_app_id' => $request['gig_app_id'],
+                    'user_id' => $request['user_id'],
+                ])->with('status', 'gig-applicant-rejected');
     }
 }

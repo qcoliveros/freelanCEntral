@@ -17,13 +17,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('title');
-            $table->foreignId('employment_type');
+            $table->foreignId('employment_type_id');
             $table->string('company_name');
-            $table->foreignId('location');
+            $table->foreignId('location_id');
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->boolean('is_current')->nullable();
-            $table->foreignId('industry');
+            $table->foreignId('industry_id');
             $table->text('description', 2048);
             $table->timestamps();
         });

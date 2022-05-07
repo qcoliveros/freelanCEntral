@@ -15,7 +15,7 @@ class ManageGigAd implements ManagesGigAd
         $this->validate($input);
 
         $input['commitment_duration_id'] = Duration::where('name', 'Hour(s)')->value('id');
-        $input['is_draft'] = true;
+        $input['status'] = 'Draft';
 
         $this->createOrUpdate($user, $input);
     }
@@ -25,8 +25,8 @@ class ManageGigAd implements ManagesGigAd
         $this->validate($input);
 
         $input['commitment_duration_id'] = Duration::where('name', 'Hour(s)')->value('id');
-        $input['is_draft'] = false;
         $input['publish_date'] = Date::now();
+        $input['status'] = 'Published';
 
         $this->createOrUpdate($user, $input);
     }
@@ -36,6 +36,7 @@ class ManageGigAd implements ManagesGigAd
         $this->validate($input);
 
         $input['close_date'] = Date::now();
+        $input['status'] = 'Closed';
 
         $this->createOrUpdate($user, $input);
     }
