@@ -10,7 +10,7 @@
             <div class="max-w-7xl mx-auto sm:px-6">
                 <div class="px-4 py-5 bg-white sm:p-6 shadow sm:rounded-tl-md sm:rounded-tr-md">
                     <div class="md:grid md:grid-cols-4 md:gap-2">
-                        <div class="mt-5 md:mt-0 md:col-span-3">
+                        <div class="md:mt-0 md:col-span-3">
                             <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
                                 <img class="h-16 w-16 rounded-full object-cover" :src="applicant.profile_photo_url" :alt="applicant.name" />
                             </div>
@@ -25,9 +25,11 @@
                                 <Link :href="applicant.website_url">{{ applicant.website_url }}</Link>
                             </div>
 
-                            <div class="mt-4" v-if="applicant.about != null">
-                                <div v-html="applicant.about" />
-                            </div>
+                            <MDBAccordion v-model="activeItem" flush class="mt-4">
+                                <MDBAccordionItem headerTitle="About" collapseId="profile-about">
+                                    <div v-html="applicant.about" />
+                                </MDBAccordionItem>
+                            </MDBAccordion>
                         </div>
                     </div>
                 </div>
@@ -43,11 +45,12 @@
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
+    import { defineComponent, ref } from 'vue'
     import { Link } from '@inertiajs/inertia-vue3'
     import AppLayout from '@/Layouts/AppLayout'
     import JetLabel from '@/Jetstream/Label.vue'
     import JetSecondaryButton from '@/Jetstream/SecondaryButton'
+    import { MDBAccordion, MDBAccordionItem } from "mdb-vue-ui-kit"
     import moment from 'moment'
 
     export default defineComponent({
@@ -56,12 +59,20 @@
             Link,
             JetLabel,
             JetSecondaryButton,
+            MDBAccordion,
+            MDBAccordionItem,
         },
 
         props: [
             'gigAd',
             'applicant'
         ],
+
+        methods: {
+            cancel() {
+                this.form.get(route('gigHost.gigApp.list'));
+            },
+        },
 
         data() {
             return {
@@ -73,10 +84,11 @@
             }
         },
 
-        methods: {
-            cancel() {
-                this.form.get(route('gigHost.gigApp.list'));
-            },
+        setup(){
+            const activeItem = ref('profile-about');
+            return {
+                activeItem
+            }
         }
     })
 </script>

@@ -4,6 +4,7 @@
 @import "@vueform/multiselect/themes/default.css";
 @import 'vue-datepicker-next/index.css';
 @import 'sweetalert2/dist/sweetalert2.min.css';
+@import 'mdb-vue-ui-kit/css/mdb.min.css';
 
 /* Tailwind */
 .h-15 {
