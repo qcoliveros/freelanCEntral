@@ -39,9 +39,7 @@ class ManageGigApplication implements ManagesGigApplication
         $gigApp = GigApplication::find($input['id']);
 
         if ($gigApp !== null) {
-            $gigApp->update([
-                'status' => 'Withdrawn'
-            ]);
+            $gigApp->update(['status' => 'Withdrawn']);
 
             $this->insertTrail($user, $gigApp);
         }

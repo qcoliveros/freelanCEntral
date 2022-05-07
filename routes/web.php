@@ -138,6 +138,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
             ->name('gigApp.list');
         Route::get('gig-applicant-view', [\App\Http\Controllers\GigHost\GigApplicationController::class, 'view'])
             ->name('gigApplicant.view');
+        Route::post('gig-applicant-shortlist', [\App\Http\Controllers\GigHost\GigApplicationController::class, 'shortlist'])
+            ->name('gigApplicant.shortlist');
+        Route::post('gig-applicant-reject', [\App\Http\Controllers\GigHost\GigApplicationController::class, 'reject'])
+            ->name('gigApplicant.reject');
 
         Route::get('gig-playbook-list', [\App\Http\Controllers\GigHost\GigPlaybookController::class, 'index'])
             ->name('gigPlaybook.list');

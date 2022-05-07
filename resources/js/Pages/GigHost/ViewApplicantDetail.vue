@@ -25,7 +25,7 @@
                                 <Link :href="applicant.website_url">{{ applicant.website_url }}</Link>
                             </div>
 
-                            <MDBAccordion v-model="activeItem" flush    class="mt-4">
+                            <MDBAccordion v-model="activeItem" flush class="mt-4">
                                 <MDBAccordionItem headerTitle="About" collapseId="profile-about">
                                     <div v-html="applicant.about" />
                                 </MDBAccordionItem>
@@ -205,6 +205,14 @@
                     <jet-secondary-button @click="cancel">
                         Cancel
                     </jet-secondary-button>
+                    <jet-button v-if="gigAd.close_date == null && gigApp.status === 'Submitted'"
+                                class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="reject">
+                        Reject
+                    </jet-button>
+                    <jet-button v-if="gigAd.close_date == null && gigApp.status === 'Submitted'"
+                                class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="shortlist">
+                        Shortlist
+                    </jet-button>
                 </div>
             </div>
         </div>
@@ -215,15 +223,20 @@
     import { defineComponent, ref } from 'vue'
     import { Link } from '@inertiajs/inertia-vue3'
     import AppLayout from '@/Layouts/AppLayout'
+    import JetButton from '@/Jetstream/Button'
     import JetLabel from '@/Jetstream/Label.vue'
     import JetSecondaryButton from '@/Jetstream/SecondaryButton'
     import { MDBAccordion, MDBAccordionItem } from "mdb-vue-ui-kit"
     import moment from 'moment'
+    import ToastMessage from "../../../mixins/toast-message"
 
     export default defineComponent({
+        mixins: [ ToastMessage ],
+
         components: {
             AppLayout,
             Link,
+            JetButton,
             JetLabel,
             JetSecondaryButton,
             MDBAccordion,
@@ -232,14 +245,9 @@
 
         props: [
             'gigAd',
+            'gigApp',
             'applicant'
         ],
-
-        methods: {
-            cancel() {
-                this.form.get(route('gigHost.gigApp.list'));
-            },
-        },
 
         data() {
             return {
@@ -247,6 +255,8 @@
 
                 form: this.$inertia.form({
                     id: this.gigAd.id,
+                    gig_app_id: this.gigApp.id,
+                    user_id: this.applicant.id,
                 })
             }
         },
@@ -255,6 +265,30 @@
             const activeItem = ref('profile-about');
             return {
                 activeItem
+            }
+        },
+
+        methods: {
+            cancel() {
+                this.form.get(route('gigHost.gigApp.list'));
+            },
+
+            reject() {
+                this.form.post(route('gigHost.gigApplicant.reject'), {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.showSuccessMessage('Rejected')
+                    }
+                });
+            },
+
+            shortlist() {
+                this.form.post(route('gigHost.gigApplicant.shortlist'), {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.showSuccessMessage('Shortlisted')
+                    }
+                });
             }
         }
     })
