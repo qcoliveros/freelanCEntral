@@ -9,8 +9,8 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6">
                 <div class="px-4 py-5 bg-white sm:p-6 shadow sm:rounded-tl-md sm:rounded-tr-md">
-                    <div class="md:grid md:grid-cols-4 md:gap-2">
-                        <div class="md:mt-0 md:col-span-3">
+                    <div class="md:grid md:grid-cols-5 md:gap-2">
+                        <div class="md:mt-0 md:col-span-4">
                             <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
                                 <img class="h-16 w-16 rounded-full object-cover" :src="applicant.profile_photo_url" :alt="applicant.name" />
                             </div>
@@ -25,10 +25,177 @@
                                 <Link :href="applicant.website_url">{{ applicant.website_url }}</Link>
                             </div>
 
-                            <MDBAccordion v-model="activeItem" flush class="mt-4">
+                            <MDBAccordion v-model="activeItem" flush    class="mt-4">
                                 <MDBAccordionItem headerTitle="About" collapseId="profile-about">
                                     <div v-html="applicant.about" />
                                 </MDBAccordionItem>
+
+                                <MDBAccordionItem headerTitle="Work Experience" collapseId="work-experience">
+                                    <table class="w-full table-auto">
+                                        <thead>
+                                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                                            <th class="py-3 px-6 text-left">Title</th>
+                                            <th class="py-3 px-6 text-left">Company</th>
+                                            <th class="py-3 px-6 text-left">Duration</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-gray-600 text-sm font-light">
+                                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-if="!!applicant.workExperiences && !applicant.workExperiences.length">
+                                            <td class="py-3 px-6 text-left whitespace-nowrap">No records found.</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-200" v-for="row in applicant.workExperiences">
+                                            <td class="py-3 px-6 text-center">
+                                                <div class="flex items-center">
+                                                    <span class="font-medium">{{ row.title }}</span>
+                                                </div>
+                                            </td>
+                                            <td class="py-3 px-6 text-center">
+                                                <div class="flex items-center">
+                                                    <span>{{ row.company_name }}</span>
+                                                </div>
+                                            </td>
+                                            <td class="py-3 px-6 text-center">
+                                                <div class="flex items-center">
+                                                    <span v-if="!!row.end_date">{{ moment(row.start_date).format("MMM YYYY") }} to {{ moment(row.end_date).format("MMM YYYY") }}</span>
+                                                    <span v-else>{{ moment(row.start_date).format("MMM YYYY") }} to Present</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </MDBAccordionItem>
+
+                                <MDBAccordionItem headerTitle="Education" collapseId="education">
+                                    <table class="w-full table-auto">
+                                        <thead>
+                                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                                            <th class="py-3 px-6 text-left">School</th>
+                                            <th class="py-3 px-6 text-left">Degree / Field</th>
+                                            <th class="py-3 px-6 text-left">Duration</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-gray-600 text-sm font-light">
+                                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-if="!!applicant.educations && !applicant.educations.length">
+                                            <td class="py-3 px-6 text-left whitespace-nowrap">No records found.</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-for="row in applicant.educations">
+                                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <span class="font-medium">{{ row.school }}</span>
+                                                </div>
+                                            </td>
+                                            <td class="py-3 px-6 text-left">
+                                                <div class="flex items-center">
+                                                    <span>{{ row.degree }} {{ row.field }}</span>
+                                                </div>
+                                            </td>
+                                            <td class="py-3 px-6 text-center">
+                                                <div class="flex items-center">
+                                                    <span v-if="!!row.end_date">{{ moment(row.start_date).format("MMM YYYY") }} to {{ moment(row.end_date).format("MMM YYYY") }}</span>
+                                                    <span v-else>{{ moment(row.start_date).format("MMM YYYY") }} to -</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </MDBAccordionItem>
+
+                                <MDBAccordionItem headerTitle="Technical Skill" collapseId="technical-skill">
+                                    <table class="w-full table-auto">
+                                        <thead>
+                                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                                            <th class="py-3 px-6 text-left">Skill</th>
+                                            <th class="py-3 px-6 text-left">Proficiency</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-gray-600 text-sm font-light">
+                                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-if="!!applicant.technicalSkills && !applicant.technicalSkills.length">
+                                            <td class="py-3 px-6 text-left whitespace-nowrap">No records found.</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-for="row in applicant.technicalSkills">
+                                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <span class="font-medium">{{ row.skill.name }}</span>
+                                                </div>
+                                            </td>
+                                            <td class="py-3 px-6 text-left">
+                                                <div class="flex items-center">
+                                                    <span>{{ row.proficiency.name }}</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </MDBAccordionItem>
+
+                                <MDBAccordionItem headerTitle="Soft Skill" collapseId="soft-skill">
+                                    <table class="w-full table-auto">
+                                        <thead>
+                                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                                            <th class="py-3 px-6 text-left">Skill</th>
+                                            <th class="py-3 px-6 text-left">Proficiency</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-gray-600 text-sm font-light">
+                                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-if="!!applicant.softSkills && !applicant.softSkills.length">
+                                            <td class="py-3 px-6 text-left whitespace-nowrap">No records found.</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-for="row in applicant.softSkills">
+                                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <span class="font-medium">{{ row.skill.name }}</span>
+                                                </div>
+                                            </td>
+                                            <td class="py-3 px-6 text-left">
+                                                <div class="flex items-center">
+                                                    <span>{{ row.proficiency.name }}</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </MDBAccordionItem>
+
+                                <MDBAccordionItem headerTitle="Language" collapseId="language">
+                                    <table class="w-full table-auto">
+                                        <thead>
+                                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                                            <th class="py-3 px-6 text-left">Language</th>
+                                            <th class="py-3 px-6 text-left">Speaking Proficiency</th>
+                                            <th class="py-3 px-6 text-left">Writing Proficiency</th>
+                                            <th class="py-3 px-6 text-left">Reading Proficiency</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-gray-600 text-sm font-light">
+                                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-if="!!applicant.languages && !applicant.languages.length">
+                                            <td class="py-3 px-6 text-left whitespace-nowrap">No records found.</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-for="row in applicant.languages">
+                                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <span class="font-medium">{{ row.language.name }}</span>
+                                                </div>
+                                            </td>
+                                            <td class="py-3 px-6 text-left">
+                                                <div class="flex items-center">
+                                                    <span>{{ row.speaking_proficiency.name }}</span>
+                                                </div>
+                                            </td>
+                                            <td class="py-3 px-6 text-left">
+                                                <div class="flex items-center">
+                                                    <span>{{ row.writing_proficiency.name }}</span>
+                                                </div>
+                                            </td>
+                                            <td class="py-3 px-6 text-left">
+                                                <div class="flex items-center">
+                                                    <span>{{ row.reading_proficiency.name }}</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </MDBAccordionItem>
+
                             </MDBAccordion>
                         </div>
                     </div>

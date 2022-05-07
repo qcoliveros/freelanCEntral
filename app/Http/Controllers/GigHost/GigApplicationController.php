@@ -31,10 +31,16 @@ class GigApplicationController extends Controller
 
     public function view(Request $request)
     {
+        $applicant = User::where('id', $request['user_id'])->with('phoneType')->first();
         return Jetstream::inertia()->render($request, 'GigHost/ViewApplicantDetail', [
             'gigAd' => GigAd::select('id', 'job_title')->where('id', $request['id'])->first(),
             'gigApp' => GigApplication::select('id', 'status')->where('id', $request['gig_app_id'])->first(),
-            'applicant' => User::where('id', $request['user_id'])->with('phoneType')->first(),
+            'applicant' => $applicant,
+            'applicant.workExperiences' => $applicant->userWorkExperiences()->latest('start_date')->get(),
+            'applicant.educations' => $applicant->userEducations()->latest('start_date')->get(),
+            'applicant.technicalSkills' => $applicant->userTechnicalSkills()->with('skill', 'proficiency')->get(),
+            'applicant.softSkills' => $applicant->userSoftSkills()->with('skill', 'proficiency')->get(),
+            'applicant.languages' => $applicant->userLanguages()->with('language', 'speakingProficiency', 'writingProficiency', 'readingProficiency')->get(),
         ]);
     }
 }

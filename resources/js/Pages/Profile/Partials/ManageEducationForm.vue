@@ -18,7 +18,7 @@
                         <thead>
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                             <th class="py-3 px-6 text-left">School</th>
-                            <th class="py-3 px-6 text-left">Degree</th>
+                            <th class="py-3 px-6 text-left">Degree / Field</th>
                             <th class="py-3 px-6 text-left">Duration</th>
                             <th class="py-3 px-6 text-center">Actions</th>
                         </tr>
@@ -35,7 +35,7 @@
                             </td>
                             <td class="py-3 px-6 text-left">
                                 <div class="flex items-center">
-                                    <span>{{ row.degree }}</span>
+                                    <span>{{ row.degree }} {{ row.field }}</span>
                                 </div>
                             </td>
                             <td class="py-3 px-6 text-center">
