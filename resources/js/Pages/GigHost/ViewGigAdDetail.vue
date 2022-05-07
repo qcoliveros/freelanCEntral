@@ -10,7 +10,7 @@
             <div class="max-w-7xl mx-auto sm:px-6">
                 <div class="px-4 py-5 bg-white sm:p-6 shadow sm:rounded-tl-md sm:rounded-tr-md">
                     <div class="md:grid md:grid-cols-4 md:gap-2">
-                        <div class="mt-5 md:mt-0 md:col-span-3">
+                        <div class="md:mt-0 md:col-span-3">
                             <!-- Job Title -->
                             <div>
                                 <jet-label for="job_title" value="Job Title" />
