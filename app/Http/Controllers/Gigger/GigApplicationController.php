@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Gigger;
 
 use App\Contracts\Gigger\ManagesGigApplication;
 use App\Http\Controllers\Controller;
+use App\Models\GigAd;
 use App\Models\GigApplication;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Redirect;
 use Laravel\Jetstream\Jetstream;
 
@@ -30,13 +30,15 @@ class GigApplicationController extends Controller
         ]);
     }
 
-    public function apply(Request $request, ManagesGigApplication $updater)
+    public function view(Request $request)
     {
-        $updater->apply($request->user(), $request->all());
-
-        return $request->wantsJson()
-            ? new JsonResponse('', 200)
-            : Redirect::route('gigger.gigApp.list')->with('status', 'gig-ad-applied');
+        $gigApp = GigApplication::where('id', $request['id'])->first();
+        $gigAd = GigAd::where('id', $gigApp->gigAd->id)->with('jobFunction')->first();
+        return Jetstream::inertia()->render($request, 'Gigger/ShowGigApplicationDetail', [
+            'gigApp' => $gigApp,
+            'gigAd' => $gigAd,
+            'gigHost' => $gigApp->gigAd->gigHost,
+        ]);
     }
 
     public function withdraw(Request $request, ManagesGigApplication $updater)
@@ -45,6 +47,6 @@ class GigApplicationController extends Controller
 
         return $request->wantsJson()
             ? new JsonResponse('', 200)
-            : back()->with('status', 'gig-app-withdraw');
+            : Redirect::route('gigger.gigApp.list')->with('status', 'gig-app-withdraw');
     }
 }

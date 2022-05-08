@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Gigger;
 
+use App\Contracts\Gigger\ManagesGigApplication;
 use App\Http\Controllers\Controller;
 use App\Models\GigAd;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Laravel\Jetstream\Jetstream;
 
 class GigAdController extends Controller
 {
     public function find(Request $request)
     {
-        return Jetstream::inertia()->render($request, 'Gigger/ShowGigAdList',[
+        return Jetstream::inertia()->render($request, 'Gigger/ShowGigAdList', [
             'search' => $request['search'],
             'gigAdList' => GigAd::whereRaw('publish_date IS NOT NULL AND close_date IS NULL')
                 ->orderByRaw('ISNULL(publish_date) DESC, job_title ASC')
@@ -21,15 +24,28 @@ class GigAdController extends Controller
                 ->through(fn ($gigAd) => [
                     'id' => $gigAd->id,
                     'job_title' => $gigAd->job_title,
-                    'description' => $gigAd->description,
-                    'job_function' => $gigAd->jobFunction->name,
-                    'other_job_function' => $gigAd->other_job_function,
-                    'commitment_time' => $gigAd->commitment_time,
-                    'job_start_date' => $gigAd->job_start_date,
-                    'job_end_date' => $gigAd->job_end_date,
                     'publish_date' => $gigAd->publish_date,
                     'gig_host' => $gigAd->gigHost,
                 ]),
         ]);
+    }
+
+    public function view(Request $request)
+    {
+        $gigAd = GigAd::where('id', $request['id'])->with('jobFunction')->first();
+        return Jetstream::inertia()->render($request, 'Gigger/ShowGigAdDetail', [
+            'search' => $request['search'],
+            'gigAd' => $gigAd,
+            'gigHost' => $gigAd->gigHost,
+        ]);
+    }
+
+    public function apply(Request $request, ManagesGigApplication $updater)
+    {
+        $updater->apply($request->user(), $request->all());
+
+        return $request->wantsJson()
+            ? new JsonResponse('', 200)
+            : Redirect::route('gigger.gigApp.list')->with('status', 'gig-ad-applied');
     }
 }
