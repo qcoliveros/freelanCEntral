@@ -9,9 +9,27 @@ use Illuminate\Http\Request;
 
 class GigInterviewController extends Controller
 {
-    public function submit(Request $request, ManagesGigInterview $updater)
+    public function schedule(Request $request, ManagesGigInterview $updater)
     {
         $updater->schedule($request->user(), $request->all());
+
+        return $request->wantsJson()
+            ? new JsonResponse('', 200)
+            : back()->with('status', 'gig-interview-scheduled');
+    }
+
+    public function delete(Request $request, ManagesGigInterview $updater)
+    {
+        $updater->delete($request->all());
+
+        return $request->wantsJson()
+            ? new JsonResponse('', 200)
+            : back()->with('status', 'gig-interview-deleted');
+    }
+
+    public function submit(Request $request, ManagesGigInterview $updater)
+    {
+        $updater->submit($request->user(), $request->all());
 
         return $request->wantsJson()
             ? new JsonResponse('', 200)

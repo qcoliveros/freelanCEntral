@@ -143,6 +143,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         Route::post('gig-applicant-reject', [\App\Http\Controllers\GigHost\GigApplicationController::class, 'reject'])
             ->name('gigApplicant.reject');
 
+        Route::post('gig-interview-schedule', [\App\Http\Controllers\GigHost\GigInterviewController::class, 'schedule'])
+            ->name('gigInterview.schedule');
+        Route::post('gig-interview-delete', [\App\Http\Controllers\GigHost\GigInterviewController::class, 'delete'])
+            ->name('gigInterview.delete');
         Route::post('gig-interview-submit', [\App\Http\Controllers\GigHost\GigInterviewController::class, 'submit'])
             ->name('gigInterview.submit');
         Route::post('gig-interview-accept', [\App\Http\Controllers\GigHost\GigInterviewController::class, 'accept'])

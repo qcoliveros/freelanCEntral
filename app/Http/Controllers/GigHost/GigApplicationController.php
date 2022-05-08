@@ -63,11 +63,7 @@ class GigApplicationController extends Controller
 
         return $request->wantsJson()
             ? new JsonResponse('', 200)
-            : Redirect::route('gigHost.gigApp.list', [
-                'id' => $request['id'],
-                'gig_app_id' => $request['gig_app_id'],
-                'user_id' => $request['user_id'],
-            ])->with('status', 'gig-applicant-shortlisted');
+            : back()->with('status', 'gig-applicant-shortlisted');
     }
 
     public function reject(Request $request, ManagesGigApplicant $updater)

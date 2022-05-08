@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\GigApplication;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Redirect;
 use Laravel\Jetstream\Jetstream;
 
 class GigApplicationController extends Controller
@@ -34,7 +36,7 @@ class GigApplicationController extends Controller
 
         return $request->wantsJson()
             ? new JsonResponse('', 200)
-            : back()->with('status', 'gig-ad-applied');
+            : Redirect::route('gigger.gigApp.list')->with('status', 'gig-ad-applied');
     }
 
     public function withdraw(Request $request, ManagesGigApplication $updater)

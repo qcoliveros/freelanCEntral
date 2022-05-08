@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('gig_interviews', function (Blueprint $table) {
             $table->id();
             $table->foreignId('gig_app_id');
-            $table->date('interview_date');
+            $table->dateTime('interview_date');
             $table->text('comment')->nullable();
             $table->string('status');
             $table->timestamps();
