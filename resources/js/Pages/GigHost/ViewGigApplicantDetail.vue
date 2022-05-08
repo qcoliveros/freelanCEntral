@@ -229,9 +229,70 @@
             </div>
         </div>
 
-        <div class="py-12">
-
+        <div class="py-6">
+            <div class="max-w-7xl mx-auto sm:px-6">
+                <div class="px-4 py-5 sm:p-6 bg-white shadow sm:rounded-md">
+                    <div class="flex justify-end mb-2 mr-2">
+                        <jet-icon name="add-icon" tooltip="Add interview schedule" @click="openInterviewModal" />
+                    </div>
+                    <table class="w-full table-auto">
+                        <thead>
+                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                            <th class="py-3 px-6 text-left">Interview Schedule</th>
+                            <th class="py-3 px-6 text-left">Status</th>
+                            <th class="py-3 px-6 text-center">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-gray-600 text-sm font-light">
+                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-if="!!interviewList.data && !interviewList.data.length">
+                            <td class="py-3 px-6 text-left whitespace-nowrap">No records found.</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-for="row in interviewList.data">
+                            <td class="py-3 px-6 text-center">
+                                <div class="flex items-center">
+                                    <span class="font-medium">{{ moment(row.interview_date).format("DD MMM YYYY HH:MM A") }}</span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-center">
+                                <div class="flex items-center">
+                                    <span class="font-medium">{{ row.status }}</span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-center">
+                                <div class="flex item-center justify-center">
+                                    <jet-icon name="edit-icon" tooltip="Update interview schedule" @click="openInterviewModal(row)" />
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
+
+        <jet-dialog-modal :show="isOpenInterviewModal" @close="closeInterviewModal">
+            <template #title>
+                Schedule an interview
+            </template>
+
+            <template #content>
+                <div>
+                    <jet-label value="Pick a date and time" />
+                    <date-picker v-model:value="form.interview_date" format="DD MMM YYYY HH:MM A" type="datetime" />
+                    <jet-input-error :message="form.errors.interview_date" class="mt-2" />
+                </div>
+            </template>
+
+            <template #footer>
+                <jet-secondary-button @click="closeInterviewModal">
+                    Cancel
+                </jet-secondary-button>
+
+                <jet-button class="ml-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="submitInterview">
+                    Submit
+                </jet-button>
+            </template>
+        </jet-dialog-modal>
     </app-layout>
 </template>
 
@@ -239,8 +300,12 @@
     import { defineComponent, ref } from 'vue'
     import { Link } from '@inertiajs/inertia-vue3'
     import AppLayout from '@/Layouts/AppLayout'
+    import DatePicker from 'vue-datepicker-next'
     import JetButton from '@/Jetstream/Button'
-    import JetLabel from '@/Jetstream/Label.vue'
+    import JetDialogModal from '@/Jetstream/DialogModal'
+    import JetIcon from '@/Jetstream/Icon'
+    import JetInputError from '@/Jetstream/InputError'
+    import JetLabel from '@/Jetstream/Label'
     import JetSecondaryButton from '@/Jetstream/SecondaryButton'
     import { MDBAccordion, MDBAccordionItem } from "mdb-vue-ui-kit"
     import moment from 'moment'
@@ -251,9 +316,13 @@
 
         components: {
             AppLayout,
+            DatePicker,
             Link,
             JetButton,
+            JetDialogModal,
             JetLabel,
+            JetIcon,
+            JetInputError,
             JetSecondaryButton,
             MDBAccordion,
             MDBAccordionItem,
@@ -262,17 +331,22 @@
         props: [
             'gigAd',
             'gigApp',
-            'applicant'
+            'applicant',
+            'interviewList',
         ],
 
         data() {
             return {
                 moment: moment,
 
+                isOpenInterviewModal: false,
+
                 form: this.$inertia.form({
                     id: this.gigAd.id,
                     gig_app_id: this.gigApp.id,
                     user_id: this.applicant.id,
+                    interview_id: null,
+                    interview_date: null,
                 })
             }
         },
@@ -303,6 +377,32 @@
                     preserveScroll: true,
                     onSuccess: () => {
                         this.showSuccessMessage('Shortlisted')
+                    }
+                });
+            },
+
+            openInterviewModal(row) {
+                console.log(row)
+                if (row != null) {
+                    this.form.interview_id = row.id
+                    this.form.interview_date = row.interview_date
+                }
+                this.isOpenInterviewModal = true
+            },
+
+            closeInterviewModal() {
+                this.form.interview_id = null
+                this.form.interview_date = null
+                this.isOpenInterviewModal = false
+            },
+
+            submitInterview() {
+                this.form.post(route('gigHost.gigInterview.submit'), {
+                    errorBag: 'gigInterviewError',
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.closeInterviewModal()
+                        this.showSuccessMessage('Scheduled')
                     }
                 });
             }

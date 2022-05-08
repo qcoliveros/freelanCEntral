@@ -54,8 +54,8 @@
                                 <div class="flex item-center justify-center">
                                     <jet-icon v-if="row.status != 'Closed'" name="edit-icon" tooltip="Update Gig Ad" @click="editRecord(row)" />
                                     <jet-icon v-if="row.status == 'Closed'" name="view-icon" tooltip="View Gig Ad" @click="viewRecord(row)" />
-                                    <jet-icon v-if="row.status == 'Draft'" name="delete-icon" tooltip="Remove Gig Ad" @click="confirmDeleteRecord(row)" />
                                     <jet-icon v-if="row.status != 'Draft'" name="applicants-icon" tooltip="View Applicants" @click="viewApplicants(row)" />
+                                    <jet-icon v-if="row.status == 'Draft'" name="delete-icon" tooltip="Remove Gig Ad" @click="confirmDeleteRecord(row)" />
                                 </div>
                             </td>
                         </tr>

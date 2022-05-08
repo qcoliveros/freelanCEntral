@@ -45,7 +45,7 @@
                             </td>
                             <td class="py-3 px-6 text-center">
                                 <div class="flex item-center justify-center">
-                                    <jet-icon name="view-icon" tooltip="View Applicant Details" @click="viewApplicant(row)" />
+                                    <jet-icon name="applicant-icon" tooltip="View Applicant Details" @click="viewApplicant(row)" />
                                 </div>
                             </td>
                         </tr>
@@ -106,7 +106,7 @@
                 this.form.gig_app_id = row.id
                 this.form.user_id = row.applicant.id
                 this.form.get(route('gigHost.gigApplicant.view'));
-            },
+            }
         }
     })
 </script>

@@ -62,7 +62,7 @@ class ManageGigAd implements ManagesGigAd
             'commitment_time' => ['required', 'integer', 'between:5,40'],
             'job_start_date' => ['required', 'date', 'after:now'],
             'job_end_date' => ['required', 'date', 'after:job_start_date'],
-            ], [], $customAttributes)->validateWithBag('gigError');
+            ], [], $customAttributes)->validateWithBag('gigAdError');
     }
 
     private function createOrUpdate($user, array $input)

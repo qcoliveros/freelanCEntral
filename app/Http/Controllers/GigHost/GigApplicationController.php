@@ -6,6 +6,7 @@ use App\Contracts\GigHost\ManagesGigApplicant;
 use App\Http\Controllers\Controller;
 use App\Models\GigAd;
 use App\Models\GigApplication;
+use App\Models\GigInterview;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -35,7 +36,7 @@ class GigApplicationController extends Controller
     public function view(Request $request)
     {
         $applicant = User::where('id', $request['user_id'])->with('phoneType')->first();
-        return Jetstream::inertia()->render($request, 'GigHost/ViewApplicantDetail', [
+        return Jetstream::inertia()->render($request, 'GigHost/ViewGigApplicantDetail', [
             'gigAd' => GigAd::select('id', 'job_title', 'status')->where('id', $request['id'])->first(),
             'gigApp' => GigApplication::select('id', 'status')->where('id', $request['gig_app_id'])->first(),
             'applicant' => $applicant,
@@ -44,6 +45,15 @@ class GigApplicationController extends Controller
             'applicant.technicalSkills' => $applicant->userTechnicalSkills()->with('skill', 'proficiency')->get(),
             'applicant.softSkills' => $applicant->userSoftSkills()->with('skill', 'proficiency')->get(),
             'applicant.languages' => $applicant->userLanguages()->with('language', 'speakingProficiency', 'writingProficiency', 'readingProficiency')->get(),
+            'interviewList' => GigInterview::where('gig_app_id', $request['gig_app_id'])
+                ->paginate(10)
+                ->withQueryString()
+                ->through(fn ($gigApp) => [
+                    'id' => $gigApp->id,
+                    'interview_date' => $gigApp->interview_date,
+                    'comment' => $gigApp->comment,
+                    'status' => $gigApp->status,
+                ]),
         ]);
     }
 
@@ -53,7 +63,11 @@ class GigApplicationController extends Controller
 
         return $request->wantsJson()
             ? new JsonResponse('', 200)
-            : back()->with('status', 'gig-applicant-shortlisted');
+            : Redirect::route('gigHost.gigApp.list', [
+                'id' => $request['id'],
+                'gig_app_id' => $request['gig_app_id'],
+                'user_id' => $request['user_id'],
+            ])->with('status', 'gig-applicant-shortlisted');
     }
 
     public function reject(Request $request, ManagesGigApplicant $updater)

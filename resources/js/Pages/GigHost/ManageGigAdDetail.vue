@@ -51,8 +51,8 @@
                             <div class="mt-4">
                                 <jet-label value="Job Duration" />
                                 <div class="flex flex-row gap-2">
-                                    <date-picker v-model:value="form.job_start_date" value-type="YYYY-MM-DD" format="DD/MM/YYYY" placeholder="Start Date" />
-                                    <date-picker v-model:value="form.job_end_date" value-type="YYYY-MM-DD" format="DD/MM/YYYY" placeholder="End Date" />
+                                    <date-picker v-model:value="form.job_start_date" value-type="YYYY-MM-DD" format="DD MMM YYYY" placeholder="Start Date" />
+                                    <date-picker v-model:value="form.job_end_date" value-type="YYYY-MM-DD" format="DD MMM YYYY" placeholder="End Date" />
                                 </div>
                                 <jet-input-error :message="form.errors.job_start_date" class="mt-2" />
                                 <jet-input-error :message="form.errors.job_end_date" class="mt-2" />
@@ -73,7 +73,7 @@
                         Close
                     </jet-button>
                     <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="publishRecord">
-                        <span v-if="form.status === 'Draft'">Publish</span>
+                        <span v-if="form.status == null || form.status === 'Draft'">Publish</span>
                         <span v-else>Republish</span>
                     </jet-button>
                 </div>
@@ -143,7 +143,7 @@
 
             saveRecord() {
                 this.form.post(route('gigHost.gigAd.save'), {
-                    errorBag: 'gigError',
+                    errorBag: 'gigAdError',
                     preserveScroll: true,
                     onSuccess: () => {
                         this.showSuccessMessage('Saved')
@@ -153,7 +153,7 @@
 
             publishRecord() {
                 this.form.post(route('gigHost.gigAd.publish'), {
-                    errorBag: 'gigError',
+                    errorBag: 'gigAdError',
                     preserveScroll: true,
                     onSuccess: () => {
                         this.showSuccessMessage('Published')
@@ -163,7 +163,7 @@
 
             closeRecord() {
                 this.form.post(route('gigHost.gigAd.close'), {
-                    errorBag: 'gigError',
+                    errorBag: 'gigAdError',
                     preserveScroll: true,
                     onSuccess: () => {
                         this.showSuccessMessage('Closed')

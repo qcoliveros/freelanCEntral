@@ -30,4 +30,9 @@ class GigApplication extends Model
     {
         return $this->hasMany(GigApplicationTrail::class);
     }
+
+    public function interviews()
+    {
+        return $this->hasMany(GigInterview::class);
+    }
 }
