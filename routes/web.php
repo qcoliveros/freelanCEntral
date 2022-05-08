@@ -134,13 +134,13 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         Route::delete('gig-ad-delete', [\App\Http\Controllers\GigHost\GigAdController::class, 'delete'])
             ->name('gigAd.delete');
 
-        Route::get('gig-app-list', [\App\Http\Controllers\GigHost\GigApplicationController::class, 'index'])
+        Route::get('gig-app-list', [\App\Http\Controllers\GigHost\GigApplicantController::class, 'index'])
             ->name('gigApp.list');
-        Route::get('gig-applicant-view', [\App\Http\Controllers\GigHost\GigApplicationController::class, 'view'])
+        Route::get('gig-applicant-view', [\App\Http\Controllers\GigHost\GigApplicantController::class, 'view'])
             ->name('gigApplicant.view');
-        Route::post('gig-applicant-shortlist', [\App\Http\Controllers\GigHost\GigApplicationController::class, 'shortlist'])
+        Route::post('gig-applicant-shortlist', [\App\Http\Controllers\GigHost\GigApplicantController::class, 'shortlist'])
             ->name('gigApplicant.shortlist');
-        Route::post('gig-applicant-reject', [\App\Http\Controllers\GigHost\GigApplicationController::class, 'reject'])
+        Route::post('gig-applicant-reject', [\App\Http\Controllers\GigHost\GigApplicantController::class, 'reject'])
             ->name('gigApplicant.reject');
 
         Route::post('gig-interview-schedule', [\App\Http\Controllers\GigHost\GigInterviewController::class, 'schedule'])

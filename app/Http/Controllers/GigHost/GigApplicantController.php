@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Laravel\Jetstream\Jetstream;
 
-class GigApplicationController extends Controller
+class GigApplicantController extends Controller
 {
     public function index(Request $request)
     {
