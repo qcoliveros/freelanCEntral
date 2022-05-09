@@ -35,7 +35,11 @@
                                     <jet-icon name="playbook-icon" label="Playbook" />
                                 </jet-nav-link>
                                 <jet-nav-link :href="route('gigHost.gigAd.list')"
-                                              :active="route().current('gigHost.gigAd.list')"
+                                              :active="route().current('gigHost.gigAd.list')
+                                                || route().current('gigHost.gigAd.edit')
+                                                || route().current('gigHost.gigAd.view')
+                                                || route().current('gigHost.gigApp.list')
+                                                || route().current('gigHost.gigApplicant.view')"
                                               v-if="$page.props.user.roles.includes('Gig Host')">
                                     <jet-icon name="gig-ad-icon" label="Gig Ad" />
                                 </jet-nav-link>
