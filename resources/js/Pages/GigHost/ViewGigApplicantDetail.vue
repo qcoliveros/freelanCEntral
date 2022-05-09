@@ -358,6 +358,7 @@
         },
 
         props: [
+            'search',
             'gigAd',
             'gigApp',
             'applicant',
@@ -372,6 +373,7 @@
                 isOpenDeleteInterviewModal: false,
 
                 form: this.$inertia.form({
+                    search: this.search,
                     id: this.gigAd.id,
                     gig_app_id: this.gigApp.id,
                     user_id: this.applicant.id,

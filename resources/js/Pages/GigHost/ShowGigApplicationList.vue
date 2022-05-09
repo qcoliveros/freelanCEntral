@@ -81,6 +81,7 @@
         },
 
         props: [
+            'search',
             'gigAd',
             'gigAppList',
         ],
@@ -90,6 +91,7 @@
                 moment: moment,
 
                 form: this.$inertia.form({
+                    search: this.search,
                     id: this.gigAd.id,
                     gig_app_id: null,
                     user_id: null,

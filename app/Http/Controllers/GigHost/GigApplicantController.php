@@ -18,6 +18,7 @@ class GigApplicantController extends Controller
     public function index(Request $request)
     {
         return Jetstream::inertia()->render($request, 'GigHost/ShowGigApplicationList', [
+            'search' => $request['search'],
             'gigAd' => GigAd::select('id', 'job_title', 'status')->where('id', $request['id'])->first(),
             'gigAppList' => GigApplication::where('gig_ad_id', $request['id'])
                 ->whereNotIn('status', ['Withdrawn'])
@@ -37,6 +38,7 @@ class GigApplicantController extends Controller
     {
         $applicant = User::where('id', $request['user_id'])->with('phoneType')->first();
         return Jetstream::inertia()->render($request, 'GigHost/ViewGigApplicantDetail', [
+            'search' => $request['search'],
             'gigAd' => GigAd::select('id', 'job_title', 'status')->where('id', $request['id'])->first(),
             'gigApp' => GigApplication::select('id', 'status')->where('id', $request['gig_app_id'])->first(),
             'applicant' => $applicant,

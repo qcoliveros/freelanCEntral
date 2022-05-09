@@ -74,13 +74,17 @@
             JetSecondaryButton,
         },
 
-        props: [ 'gigAd' ],
+        props: [
+            'search',
+            'gigAd',
+        ],
 
         data() {
             return {
                 moment: moment,
 
                 form: this.$inertia.form({
+                    search: this.search,
                     id: null,
                 })
             }

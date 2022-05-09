@@ -113,13 +113,15 @@
         },
 
         props: [
+            'search',
             'gigAd',
-            'isEdit'
+            'isEdit',
         ],
 
         data() {
             return {
                 form: this.$inertia.form({
+                    search: this.search,
                     id: this.gigAd ? this.gigAd.id : null,
                     job_title: this.gigAd ? this.gigAd.job_title : null,
                     description: this.gigAd ? this.gigAd.description : null,

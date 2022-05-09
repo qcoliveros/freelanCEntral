@@ -48,9 +48,9 @@ class GigAdController extends Controller
     public function edit(Request $request)
     {
         return Jetstream::inertia()->render($request, 'GigHost/ManageGigAdDetail', [
+            'search' => $request['search'],
             'parameter.jobFunctions' => JobFunction::pluck('name', 'id'),
             'parameter.durations' => Duration::pluck('name', 'id'),
-
             'gigAd' => GigAd::where('id', $request['id'])->first(),
             'isEdit' => true,
         ]);
@@ -59,6 +59,7 @@ class GigAdController extends Controller
     public function view(Request $request)
     {
         return Jetstream::inertia()->render($request, 'GigHost/ViewGigAdDetail', [
+            'search' => $request['search'],
             'gigAd' => GigAd::where('id', $request['id'])->with('jobFunction')->first(),
         ]);
     }
