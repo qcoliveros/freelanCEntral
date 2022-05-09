@@ -46,12 +46,14 @@
                                     <jet-icon name="playbook-icon" label="Playbook" />
                                 </jet-nav-link>
                                 <jet-nav-link :href="route('gigger.gigApp.list')"
-                                              :active="route().current('gigger.gigApp.list')"
+                                              :active="route().current('gigger.gigApp.list')
+                                                || route().current('gigger.gigApp.view')"
                                               v-if="$page.props.user.roles.includes('Gigger')">
                                     <jet-icon name="application-icon" label="Application" />
                                 </jet-nav-link>
                                 <jet-nav-link :href="route('gigger.gigAd.find')"
-                                              :active="route().current('gigger.gigAd.find')"
+                                              :active="route().current('gigger.gigAd.find')
+                                                || route().current('gigger.gigAd.view')"
                                               v-if="$page.props.user.roles.includes('Gigger')">
                                     <jet-icon name="find-gig-icon" label="Find Gig" />
                                 </jet-nav-link>

@@ -10,6 +10,8 @@
             <div class="max-w-7xl mx-auto sm:px-6">
                 <div class="px-4 py-5 bg-white sm:p-6 shadow sm:rounded-tl-md sm:rounded-tr-md">
                     <view-gig-ad-detail :gigAd="gigAd" />
+
+                    <view-gig-host :gigHost="gigHost" />
                 </div>
 
                 <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
@@ -19,20 +21,6 @@
                     <jet-button class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
                                 @click="withdrawGigApp" v-if="gigApp.status != 'Withdrawn'">
                         Withdraw
-                    </jet-button>
-                </div>
-            </div>
-        </div>
-
-        <div class="py-6">
-            <div class="max-w-7xl mx-auto sm:px-6">
-                <div class="px-4 py-5 bg-white sm:p-6 shadow sm:rounded-tl-md sm:rounded-tr-md">
-                    <view-gig-host :gigHost="gigHost" />
-                </div>
-
-                <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
-                    <jet-button class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="followGigHost">
-                        Follow
                     </jet-button>
                 </div>
             </div>
@@ -73,7 +61,6 @@
                 form: this.$inertia.form({
                     id: this.gigApp.id,
                     gig_ad_id: this.gigAd.id,
-                    follow_user_id: this.gigHost.id,
                 })
             }
         },
@@ -91,18 +78,6 @@
                     },
                     onError: (errors) => {
                         this.showErrorMessage(errors.withdrawApplicationError)
-                    }
-                })
-            },
-
-            followGigHost() {
-                this.form.post(route('user-circle.follow'), {
-                    preserveScroll: true,
-                    onSuccess: () => {
-                        this.showSuccessMessage('Following')
-                    },
-                    onError: (errors) => {
-                        this.showErrorMessage(errors.followUserError)
                     }
                 })
             }

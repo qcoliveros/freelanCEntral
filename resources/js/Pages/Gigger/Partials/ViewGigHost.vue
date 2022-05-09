@@ -1,7 +1,8 @@
 <template>
     <div class="md:grid md:grid-cols-4 md:gap-2">
         <div class="md:mt-0 md:col-span-3">
-            <div>
+            <div class="mt-4">
+                <jet-label value="About Gig Host" />
                 <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
                     <img class="h-14 w-14 rounded-full object-cover" :src="gigHost.profile_photo_url" :alt="gigHost.name" />
                 </div>
