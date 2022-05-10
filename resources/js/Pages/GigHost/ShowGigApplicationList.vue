@@ -25,12 +25,14 @@
                         <tr class="border-b border-gray-200 hover:bg-gray-100" v-for="row in gigAppList.data">
                             <td class="py-3 px-6 text-left whitespace-nowrap">
                                 <div class="flex">
-                                    <span class="inline-flex items-center font-medium">
-                                        <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
-                                            <img class="h-8 w-8 rounded-full object-cover" :src="row.applicant.profile_photo_url" :alt="row.applicant.name" />
-                                        </div>
-                                        {{ row.applicant.name }}
-                                    </span>
+                                    <jet-responsive-link as="button" @click="viewApplicantPage(row)">
+                                        <span class="inline-flex items-center font-medium">
+                                            <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
+                                                <img class="h-8 w-8 rounded-full object-cover" :src="row.applicant.profile_photo_url" :alt="row.applicant.name" />
+                                            </div>
+                                            {{ row.applicant.name }}
+                                        </span>
+                                    </jet-responsive-link>
                                 </div>
                             </td>
                             <td class="py-3 px-6 text-center">
@@ -69,6 +71,7 @@
     import AppLayout from '@/Layouts/AppLayout'
     import JetIcon from '@/Jetstream/Icon'
     import JetPagination from '@/Jetstream/Pagination'
+    import JetResponsiveLink from '@/Jetstream/ResponsiveLink'
     import JetSecondaryButton from '@/Jetstream/SecondaryButton'
     import moment from 'moment'
 
@@ -77,6 +80,7 @@
             AppLayout,
             JetIcon,
             JetPagination,
+            JetResponsiveLink,
             JetSecondaryButton,
         },
 
@@ -102,6 +106,11 @@
         methods: {
             cancel() {
                 this.form.get(route('gigHost.gigAd.list'));
+            },
+
+            viewApplicantPage(row) {
+                this.form.user_id = row.applicant.id
+                this.form.get(route('user-page.view'));
             },
 
             viewApplicant(row) {
