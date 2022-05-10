@@ -28,6 +28,6 @@ class PostComment extends Model
 
     public function scopeOrderByPublishDate($query)
     {
-        $query->orderByDesc('publish_date')->orderByDesc('id');
+        $query->orderBy('publish_date');
     }
 }
