@@ -13,11 +13,11 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        $userCicles = UserCircle::where('user_id', $request->user()->id)->pluck('follow_user_id');
-        $userCicles[] = $request->user()->id;
+        $userCircles = UserCircle::where('user_id', $request->user()->id)->pluck('follow_user_id');
+        $userCircles[] = $request->user()->id;
         return Jetstream::inertia()->render($request, 'Dashboard', [
             'postList' => Post::orderByPublishDate()
-                ->filterByUser($userCicles)
+                ->filterByUser($userCircles)
                 ->paginate(10)
                 ->withQueryString()
                 ->through(fn ($post) => [
