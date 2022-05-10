@@ -15,11 +15,14 @@ class ManageUserCircle implements ManagesUserCircle
     {
         $userCircle = UserCircle::where([
                 'user_id' => $user->id,
-                'follow_user_id' => $input['follow_user_id']
+                'follow_user_id' => $input['user_id']
             ])->first();
 
         if ($userCircle === null) {
-            $user->circles()->create($input);
+            $user->circles()->create([
+                'user_id' => $user->id,
+                'follow_user_id' => $input['user_id']
+            ]);
         } else {
             throw ValidationException::withMessages(['followUserError' => 'Already following the user.']);
         }
@@ -27,10 +30,10 @@ class ManageUserCircle implements ManagesUserCircle
 
     public function unfollowUser($user, array $input)
     {
-        if (isset($input['follow_user_id'])) {
+        if (isset($input['user_id'])) {
             UserCircle::where([
                 'user_id' => $user->id,
-                'follow_user_id' => $input['follow_user_id']
+                'follow_user_id' => $input['user_id']
             ])->delete();
         }
     }

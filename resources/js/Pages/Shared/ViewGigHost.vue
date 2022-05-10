@@ -1,8 +1,8 @@
 <template>
     <div class="md:grid md:grid-cols-4 md:gap-2">
         <div class="md:mt-0 md:col-span-3">
-            <div class="mt-4">
-                <jet-label value="About Gig Host" />
+            <div :class="showLabel ? 'mt-4' : 'mt-0'">
+                <jet-label value="About Gig Host" v-if="showLabel" />
                 <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
                     <img class="h-14 w-14 rounded-full object-cover" :src="gigHost.profile_photo_url" :alt="gigHost.name" />
                 </div>
@@ -17,7 +17,7 @@
 
 <script>
     import { defineComponent } from 'vue'
-    import EmbeddedMedia from '../../../../mixins/embedded-media'
+    import EmbeddedMedia from '../../../mixins/embedded-media'
     import JetLabel from '@/Jetstream/Label.vue'
 
     export default defineComponent({
@@ -29,6 +29,12 @@
             JetLabel,
         },
 
-        props: [ 'gigHost' ]
+        props: {
+            showLabel: {
+                default: true,
+                type: Boolean,
+            },
+            gigHost: Object,
+        }
     })
 </script>

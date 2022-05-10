@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\UserCircleController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Other\UserPageController;
 use App\Http\Controllers\Profile\UserAboutInformationController;
 use App\Http\Controllers\Profile\UserEducationController;
 use App\Http\Controllers\Profile\UserLanguageController;
@@ -45,15 +45,18 @@ Route::get('/gig-master-tips', function () {
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
+
+    Route::get('/user-page-view', [UserPageController::class, 'view'])
+        ->name('user-page.view');
+    Route::post('/user-page-follow', [UserPageController::class, 'follow'])
+        ->name('user-page.follow');
+    Route::post('/user-page-unfollow', [UserPageController::class, 'unfollow'])
+        ->name('user-page.unfollow');
+
     Route::post('/post', [DashboardController::class, 'publishPost'])
         ->name('post.publish');
     Route::post('/post-comment', [DashboardController::class, 'publishComment'])
         ->name('post-comment.publish');
-
-    Route::post('/user-circle-follow', [UserCircleController::class, 'followUser'])
-        ->name('user-circle.follow');
-    Route::post('/user-circle-unfollow', [UserCircleController::class, 'unfollowUser'])
-        ->name('user-circle.unfollow');
 
     Route::get('/user/settings', [UserSettingsController::class, 'show'])
         ->name('settings.show');

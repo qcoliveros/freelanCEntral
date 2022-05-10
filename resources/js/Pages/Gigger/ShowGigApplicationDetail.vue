@@ -35,7 +35,7 @@
     import JetSecondaryButton from '@/Jetstream/SecondaryButton'
     import ToastMessage from '../../../mixins/toast-message'
     import ViewGigAdDetail from '@/Pages/Gigger/Partials/ViewGigAdDetail'
-    import ViewGigHost from '@/Pages/Gigger/Partials/ViewGigHost'
+    import ViewGigHost from '@/Pages/Shared/ViewGigHost'
 
     export default defineComponent({
         mixins: [

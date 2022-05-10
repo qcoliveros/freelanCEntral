@@ -33,12 +33,14 @@
                             </td>
                             <td class="py-3 px-6 text-left whitespace-nowrap">
                                 <div class="flex">
-                                    <span class="inline-flex items-center font-medium">
-                                        <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
-                                            <img class="h-8 w-8 rounded-full object-cover" :src="row.gig_ad.gig_host.profile_photo_url" :alt="row.gig_ad.gig_host.name" />
-                                        </div>
-                                        {{ row.gig_ad.gig_host.name }}
-                                    </span>
+                                    <jet-responsive-link as="button" @click="viewGigHost(row)">
+                                        <span class="inline-flex items-center font-medium">
+                                            <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 mr-3">
+                                                <img class="h-8 w-8 rounded-full object-cover" :src="row.gig_ad.gig_host.profile_photo_url" :alt="row.gig_ad.gig_host.name" />
+                                            </div>
+                                            {{ row.gig_ad.gig_host.name }}
+                                        </span>
+                                    </jet-responsive-link>
                                 </div>
                             </td>
                             <td class="py-3 px-6 text-center">
@@ -90,11 +92,17 @@
 
                 form: this.$inertia.form({
                     id: null,
+                    user_id: null,
                 })
             }
         },
 
         methods: {
+            viewGigHost(row) {
+                this.form.user_id = row.gig_ad.gig_host.id
+                this.form.get(route('user-page.view'));
+            },
+
             viewGigApp(row) {
                 this.form.id = row.id
                 this.form.get(route('gigger.gigApp.view'));
