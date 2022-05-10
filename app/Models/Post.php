@@ -34,4 +34,11 @@ class Post extends Model
     {
         $query->orderByDesc('publish_date')->orderByDesc('id');
     }
+
+    public function scopeFilterByUser($query, $filter)
+    {
+        $query->when($filter ?? null, function ($query, $users = []) {
+            $query->whereIn('user_id', $users);
+        });
+    }
 }

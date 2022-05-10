@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Other\ManagesPost;
 use App\Models\Post;
+use App\Models\UserCircle;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Laravel\Jetstream\Jetstream;
@@ -12,8 +13,11 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        $userCicles = UserCircle::where('user_id', $request->user()->id)->pluck('follow_user_id');
+        $userCicles[] = $request->user()->id;
         return Jetstream::inertia()->render($request, 'Dashboard', [
             'postList' => Post::orderByPublishDate()
+                ->filterByUser($userCicles)
                 ->paginate(10)
                 ->withQueryString()
                 ->through(fn ($post) => [
