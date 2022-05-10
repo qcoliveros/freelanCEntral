@@ -18,7 +18,8 @@
                     <jet-secondary-button @click="cancel">
                         Cancel
                     </jet-secondary-button>
-                    <jet-button class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="applyGigAd">
+                    <jet-button class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
+                                @click="applyGigAd" v-if="!hasApplied">
                         Apply
                     </jet-button>
                 </div>
@@ -50,6 +51,7 @@
         },
 
         props: [
+            'hasApplied',
             'search',
             'gigAd',
             'gigHost',
