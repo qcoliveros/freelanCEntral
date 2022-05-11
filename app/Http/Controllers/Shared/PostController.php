@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Shared;
 
 use App\Contracts\Other\ManagesPost;
 use App\Http\Controllers\Controller;
+use App\Models\Post;
+use App\Models\PostLike;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -43,5 +45,21 @@ class PostController extends Controller
         return $request->wantsJson()
             ? new JsonResponse('', 200)
             : back()->with('status', 'post-unliked');
+    }
+
+    protected function setupProps($post, $userId)
+    {
+        return [
+            'id' => $post->id,
+            'message' => $post->message,
+            'publish_date' => $post->publish_date,
+            'user' => $post->user,
+            'likes_count' => PostLike::where('post_id', $post->id)->whereNull('post_comment_id')->count(),
+            'like_indicator' => PostLike::where('post_id', $post->id)
+                    ->whereNull('post_comment_id')
+                    ->where('user_id', $userId)
+                    ->first() != null,
+            'comments' => $post->comments()->orderByPublishDate()->get()->map->only('id', 'user', 'message')
+        ];
     }
 }

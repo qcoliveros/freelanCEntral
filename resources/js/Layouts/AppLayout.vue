@@ -162,6 +162,12 @@
 
                                         <div class="border-t border-gray-100"></div>
 
+                                        <jet-dropdown-link :href="route('own-page.view')">
+                                            Activity
+                                        </jet-dropdown-link>
+
+                                        <div class="border-t border-gray-100"></div>
+
                                         <!-- Authentication -->
                                         <form @submit.prevent="logout">
                                             <jet-dropdown-link as="button">

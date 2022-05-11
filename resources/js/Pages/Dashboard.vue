@@ -91,7 +91,6 @@
                     id: null,
                     post_id: null,
                     message: null,
-                    publish_date: null,
                 })
             }
         },

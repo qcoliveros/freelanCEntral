@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Other\UserPageController;
+use App\Http\Controllers\Shared\PostController;
 use App\Http\Controllers\Profile\UserAboutInformationController;
 use App\Http\Controllers\Profile\UserEducationController;
 use App\Http\Controllers\Profile\UserLanguageController;
@@ -46,6 +47,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
 
+    Route::get('/own-page-view', [UserPageController::class, 'viewOwn'])
+        ->name('own-page.view');
     Route::get('/user-page-view', [UserPageController::class, 'view'])
         ->name('user-page.view');
     Route::post('/user-page-follow', [UserPageController::class, 'follow'])
@@ -53,13 +56,13 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::post('/user-page-unfollow', [UserPageController::class, 'unfollow'])
         ->name('user-page.unfollow');
 
-    Route::post('/post', [DashboardController::class, 'publishPost'])
+    Route::post('/post', [PostController::class, 'publishPost'])
         ->name('post.publish');
-    Route::post('/post-comment', [DashboardController::class, 'publishComment'])
+    Route::post('/post-comment', [PostController::class, 'publishComment'])
         ->name('post-comment.publish');
-    Route::post('/post-like', [DashboardController::class, 'likePost'])
+    Route::post('/post-like', [PostController::class, 'likePost'])
         ->name('post.like');
-    Route::post('/post-unlike', [DashboardController::class, 'unlikePost'])
+    Route::post('/post-unlike', [PostController::class, 'unlikePost'])
         ->name('post.unlike');
 
     Route::get('/user/settings', [UserSettingsController::class, 'show'])
