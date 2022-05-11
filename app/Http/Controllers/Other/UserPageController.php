@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Other;
 use App\Contracts\Other\ManagesUserCircle;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\PostLike;
 use App\Models\User;
 use App\Models\UserCircle;
 use Illuminate\Http\JsonResponse;
@@ -31,6 +32,11 @@ class UserPageController extends Controller
                     'message' => $post->message,
                     'publish_date' => $post->publish_date,
                     'user' => $post->user,
+                    'likes_count' => PostLike::where('post_id', $post->id)->whereNull('post_comment_id')->count(),
+                    'like_indicator' => PostLike::where('post_id', $post)
+                            ->whereNull('post_comment_id')
+                            ->where('user_id', $request->user()->id)
+                            ->first() != null,
                     'comments' => $post->comments()->orderByPublishDate()->get()->map->only('id', 'user', 'message')
                 ]),
         ]);

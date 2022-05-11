@@ -18,19 +18,19 @@
 
                     <div v-if="$page.props.user.roles.includes('Gigger')">
                         <jet-section-border />
-                        <manage-work-experience-form class="mt-10 sm:mt-0" :workExperiences="$page.props.user.workExperiences" />
+                        <manage-work-experience-form :workExperiences="$page.props.user.workExperiences" />
 
                         <jet-section-border />
-                        <manage-education-form class="mt-10 sm:mt-0" :educations="$page.props.user.educations" />
+                        <manage-education-form :educations="$page.props.user.educations" />
 
                         <jet-section-border />
-                        <manage-technical-skill-form class="mt-10 sm:mt-0" :technicalSkills="$page.props.user.technicalSkills" />
+                        <manage-technical-skill-form :technicalSkills="$page.props.user.technicalSkills" />
 
                         <jet-section-border />
-                        <manage-soft-skill-form class="mt-10 sm:mt-0" :softSkills="$page.props.user.softSkills" />
+                        <manage-soft-skill-form :softSkills="$page.props.user.softSkills" />
 
                         <jet-section-border />
-                        <manage-language-form class="mt-10 sm:mt-0" :languages="$page.props.user.languages" />
+                        <manage-language-form :languages="$page.props.user.languages" />
                     </div>
                 </div>
             </div>

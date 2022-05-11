@@ -8,7 +8,9 @@
                     </div>
                     <div>
                         <div class="font-bold">{{ post.user.name }}</div>
-                        <div class="text-xs">{{ moment(post.publish_date).format("DD MMM YYYY") }}</div>
+                        <div class="text-xs inline-flex align-top">
+                            {{ moment(post.publish_date).format("DD MMM YYYY") }} | {{ post.likes_count }}&nbsp;<jet-icon name="like-icon-sm" />
+                        </div>
                     </div>
                 </div>
                 <div class="mt-4" v-html="modifyEmbeddedVideo(post.message)" />
@@ -16,9 +18,15 @@
                 <jet-section-border />
 
                 <div class="flex">
-                    <jet-responsive-nav-link><span class="inline-flex align-middle"><jet-icon name="like-icon" />&nbsp;Like</span></jet-responsive-nav-link>
-                    <jet-responsive-nav-link as="button" @click="openCommentModal(post.id)"><span class="inline-flex align-middle"><jet-icon name="chat-icon" />&nbsp;Comment</span></jet-responsive-nav-link>
-                    <jet-responsive-nav-link><span class="inline-flex align-middle"><jet-icon name="share-icon" />&nbsp;Share</span></jet-responsive-nav-link>
+                    <jet-responsive-nav-link as="button" @click="likePost(post)" v-if="!post.like_indicator">
+                        <span class="inline-flex align-middle"><jet-icon name="like-icon" />&nbsp;Like</span>
+                    </jet-responsive-nav-link>
+                    <jet-responsive-nav-link as="button" @click="unlikePost(post)" v-else>
+                        <span class="inline-flex align-middle"><jet-icon name="like-icon" />&nbsp;Unlike</span>
+                    </jet-responsive-nav-link>
+                    <jet-responsive-nav-link as="button" @click="openCommentModal(post)">
+                        <span class="inline-flex align-middle"><jet-icon name="chat-icon" />&nbsp;Comment</span>
+                    </jet-responsive-nav-link>
                 </div>
 
                 <div class="mt-4 flex flex-row" v-for="comment in post.comments">
@@ -108,15 +116,14 @@
                     id: null,
                     post_id: null,
                     message: null,
-                    publish_date: null,
                 })
             }
         },
 
         methods: {
-            openCommentModal(postId) {
+            openCommentModal(post) {
                 this.isOpenCommentModal = true
-                this.form.post_id = postId
+                this.form.post_id = post.id
             },
 
             closeCommentModal() {
@@ -132,6 +139,26 @@
                     onSuccess: () => {
                         this.closeCommentModal()
                         this.showSuccessMessage('Published')
+                    }
+                });
+            },
+
+            likePost(post) {
+                this.form.post_id = post.id
+                this.form.post(route('post.like'), {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.showSuccessMessage('Liked')
+                    }
+                });
+            },
+
+            unlikePost(post) {
+                this.form.post_id = post.id
+                this.form.post(route('post.unlike'), {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.showSuccessMessage('Unliked')
                     }
                 });
             }

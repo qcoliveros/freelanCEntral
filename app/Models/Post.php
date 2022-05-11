@@ -30,6 +30,11 @@ class Post extends Model
         return $this->hasMany(PostComment::class);
     }
 
+    public function likes()
+    {
+        return $this->hasMany(PostLike::class);
+    }
+
     public function scopeOrderByPublishDate($query)
     {
         $query->orderByDesc('publish_date')->orderByDesc('id');

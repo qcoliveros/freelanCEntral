@@ -57,6 +57,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         ->name('post.publish');
     Route::post('/post-comment', [DashboardController::class, 'publishComment'])
         ->name('post-comment.publish');
+    Route::post('/post-like', [DashboardController::class, 'likePost'])
+        ->name('post.like');
+    Route::post('/post-unlike', [DashboardController::class, 'unlikePost'])
+        ->name('post.unlike');
 
     Route::get('/user/settings', [UserSettingsController::class, 'show'])
         ->name('settings.show');
