@@ -70,7 +70,9 @@ class ManagePost implements ManagesPost
 
     public function unlikePost($user, array $input)
     {
-        $input['user_id'] = $user->id;
-        Post::find($input['post_id'])->likes()->delete($input);
+        PostLike::where([
+            'post_id' => $input['post_id'],
+            'user_id' => $user->id,
+        ])->delete();
     }
 }
