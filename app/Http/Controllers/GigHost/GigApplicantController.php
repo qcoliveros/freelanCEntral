@@ -47,15 +47,6 @@ class GigApplicantController extends Controller
             'applicant.technicalSkills' => $applicant->userTechnicalSkills()->with('skill', 'proficiency')->get(),
             'applicant.softSkills' => $applicant->userSoftSkills()->with('skill', 'proficiency')->get(),
             'applicant.languages' => $applicant->userLanguages()->with('language', 'speakingProficiency', 'writingProficiency', 'readingProficiency')->get(),
-            'interviewList' => GigInterview::where('gig_app_id', $request['gig_app_id'])
-                ->paginate(10)
-                ->withQueryString()
-                ->through(fn ($gigApp) => [
-                    'id' => $gigApp->id,
-                    'interview_date' => $gigApp->interview_date,
-                    'comment' => $gigApp->comment,
-                    'status' => $gigApp->status,
-                ]),
         ]);
     }
 
@@ -65,7 +56,12 @@ class GigApplicantController extends Controller
 
         return $request->wantsJson()
             ? new JsonResponse('', 200)
-            : back()->with('status', 'gig-applicant-shortlisted');
+            : Redirect::route('gigHost.gigInterview.list', [
+                    'search' => $request['search'],
+                    'id' => $request['id'],
+                    'gig_app_id' => $request['gig_app_id'],
+                    'user_id' => $request['user_id'],
+                ])->with('status', 'gig-applicant-shortlisted');
     }
 
     public function reject(Request $request, ManagesGigApplicant $updater)

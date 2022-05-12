@@ -1,5 +1,5 @@
 <template>
-    <app-layout title="Gigs">
+    <app-layout title="Gig Applications">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Gig Applicants for {{ gigAd.job_title }}
@@ -48,6 +48,8 @@
                             <td class="py-3 px-6 text-center">
                                 <div class="flex item-center justify-center">
                                     <jet-icon name="applicant-icon" tooltip="View Applicant Details" @click="viewApplicant(row)" />
+                                    <jet-icon name="interview-icon" tooltip="View Interview Schedule"
+                                              @click="viewGigInterview(row)" v-if="!['Submitted', 'Withdrawn'].includes(row.status)" />
                                 </div>
                             </td>
                         </tr>
@@ -117,6 +119,12 @@
                 this.form.gig_app_id = row.id
                 this.form.user_id = row.applicant.id
                 this.form.get(route('gigHost.gigApplicant.view'));
+            },
+
+            viewGigInterview(row) {
+                this.form.gig_app_id = row.id
+                this.form.user_id = row.applicant.id
+                this.form.get(route('gigHost.gigInterview.list'));
             }
         }
     })
