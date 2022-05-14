@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class GigInterview extends Model
+class GigInterviewSchedule extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'gig_app_id',
-        'comment',
+        'gig_interview_id',
+        'created_by',
+        'interview_date',
         'status',
     ];
 
@@ -19,13 +20,13 @@ class GigInterview extends Model
         'interview_date' => 'datetime',
     ];
 
-    public function gigApplication()
+    public function gigInterview()
     {
-        return $this->belongsTo(GigApplication::class, 'gig_app_id', 'id');
+        return $this->belongsTo(GigInterview::class);
     }
 
-    public function schedules()
+    public function createdBy()
     {
-        return $this->hasMany(GigInterviewSchedule::class);
+        return $this->belongsTo(User::class);
     }
 }

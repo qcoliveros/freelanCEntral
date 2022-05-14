@@ -124,7 +124,7 @@
             viewGigInterview(row) {
                 this.form.gig_app_id = row.id
                 this.form.user_id = row.applicant.id
-                this.form.get(route('gigHost.gigInterview.list'));
+                this.form.get(route('gigHost.gigInterview.view'));
             }
         }
     })

@@ -126,6 +126,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         Route::post('gig-app-withdraw', [\App\Http\Controllers\Gigger\GigApplicationController::class, 'withdraw'])
             ->name('gigApp.withdraw');
 
+        Route::get('gig-interview-list', [\App\Http\Controllers\Gigger\GigInterviewController::class, 'index'])
+            ->name('gigInterview.list');
+
         Route::get('gig-playbook-list', [\App\Http\Controllers\Gigger\GigPlaybookController::class, 'index'])
             ->name('gigPlaybook.list');
     });
@@ -157,14 +160,15 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         Route::post('gig-applicant-reject', [\App\Http\Controllers\GigHost\GigApplicantController::class, 'reject'])
             ->name('gigApplicant.reject');
 
-        Route::get('gig-interview-list', [\App\Http\Controllers\GigHost\GigInterviewController::class, 'index'])
-            ->name('gigInterview.list');
-        Route::post('gig-interview-schedule', [\App\Http\Controllers\GigHost\GigInterviewController::class, 'schedule'])
-            ->name('gigInterview.schedule');
-        Route::post('gig-interview-delete', [\App\Http\Controllers\GigHost\GigInterviewController::class, 'delete'])
-            ->name('gigInterview.delete');
-        Route::post('gig-interview-submit', [\App\Http\Controllers\GigHost\GigInterviewController::class, 'submit'])
-            ->name('gigInterview.submit');
+        Route::get('gig-interview-view', [\App\Http\Controllers\GigHost\GigInterviewController::class, 'view'])
+            ->name('gigInterview.view');
+        Route::post('gig-interview-create-sched', [\App\Http\Controllers\GigHost\GigInterviewController::class, 'createSchedule'])
+            ->name('gigInterview.createSchedule');
+        Route::post('gig-interview-delete-sched', [\App\Http\Controllers\GigHost\GigInterviewController::class, 'deleteSchedule'])
+            ->name('gigInterview.deleteSchedule');
+        Route::post('gig-interview-send-invite', [\App\Http\Controllers\GigHost\GigInterviewController::class, 'sendInvite'])
+            ->name('gigInterview.sendInvite');
+
         Route::post('gig-interview-accept', [\App\Http\Controllers\GigHost\GigInterviewController::class, 'accept'])
             ->name('gigInterview.accept');
         Route::post('gig-interview-reject', [\App\Http\Controllers\GigHost\GigInterviewController::class, 'reject'])

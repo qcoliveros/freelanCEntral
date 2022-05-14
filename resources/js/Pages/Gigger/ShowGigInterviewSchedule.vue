@@ -2,7 +2,7 @@
     <app-layout title="Gig Interviews">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Gig Interview for {{ applicant.name }}
+                Gig Interview for {{ gigAd.job_title }}
             </h2>
         </template>
 
@@ -132,7 +132,6 @@
         },
 
         props: [
-            'search',
             'gigAd',
             'gigApp',
             'applicant',
@@ -147,12 +146,7 @@
                 isOpenDeleteInterviewModal: false,
 
                 form: this.$inertia.form({
-                    search: this.search,
-                    id: this.gigAd.id,
-                    gig_app_id: this.gigApp.id,
-                    user_id: this.applicant.id,
-                    interview_id: null,
-                    interview_date: null,
+                    id: this.gigApp.id,
                 })
             }
         },

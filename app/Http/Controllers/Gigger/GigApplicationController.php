@@ -17,7 +17,7 @@ class GigApplicationController extends Controller
     {
         return Jetstream::inertia()->render($request, 'Gigger/ShowGigApplicationList', [
             'gigAppList' => GigApplication::where('user_id', $request->user()->id)
-                ->orderByDesc('applied_date')
+                ->orderByRaw("FIELD(status, 'Shortlisted', 'Submitted', 'Withdrawn') ASC,  applied_date DESC")
                 ->paginate(10)
                 ->withQueryString()
                 ->through(fn ($gigApp) => [

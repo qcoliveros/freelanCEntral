@@ -5,6 +5,7 @@ namespace App\Actions\GigHost;
 use App\Contracts\GigHost\ManagesGigApplicant;
 use App\Models\GigApplication;
 use App\Models\GigApplicationTrail;
+use App\Models\GigInterview;
 use Illuminate\Support\Facades\Date;
 
 class ManageGigApplicant implements ManagesGigApplicant
@@ -17,6 +18,11 @@ class ManageGigApplicant implements ManagesGigApplicant
             $gigApp->update(['status' => 'Shortlisted']);
 
             $this->insertTrail($user, $gigApp);
+
+            GigInterview::create([
+                'gig_app_id' => $gigApp->id,
+                'status' => 'Pending',
+            ]);
         }
     }
 

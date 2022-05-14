@@ -14,50 +14,42 @@ use Laravel\Jetstream\Jetstream;
 
 class GigInterviewController extends Controller
 {
-    public function index(Request $request)
+    public function view(Request $request)
     {
-        return Jetstream::inertia()->render($request, 'GigHost/ShowGigInterviewSchedule', [
+        return Jetstream::inertia()->render($request, 'GigHost/ShowGigInterviewDetail', [
             'search' => $request['search'],
             'gigAd' => GigAd::select('id', 'job_title', 'status')->where('id', $request['id'])->first(),
             'gigApp' => GigApplication::select('id', 'status')->where('id', $request['gig_app_id'])->first(),
             'applicant' => User::where('id', $request['user_id'])->first(),
-            'interviewList' => GigInterview::where('gig_app_id', $request['gig_app_id'])
-                ->paginate(10)
-                ->withQueryString()
-                ->through(fn ($gigApp) => [
-                    'id' => $gigApp->id,
-                    'interview_date' => $gigApp->interview_date,
-                    'comment' => $gigApp->comment,
-                    'status' => $gigApp->status,
-                ]),
+            'interview' => GigInterview::where('gig_app_id', $request['gig_app_id'])->with('schedules')->first(),
         ]);
     }
 
-    public function schedule(Request $request, ManagesGigInterview $updater)
+    public function createSchedule(Request $request, ManagesGigInterview $updater)
     {
-        $updater->schedule($request->user(), $request->all());
+        $updater->createSchedule($request->user(), $request->all());
 
         return $request->wantsJson()
             ? new JsonResponse('', 200)
-            : back()->with('status', 'gig-interview-scheduled');
+            : back()->with('status', 'gig-interview-schedule-created');
     }
 
-    public function delete(Request $request, ManagesGigInterview $updater)
+    public function deleteSchedule(Request $request, ManagesGigInterview $updater)
     {
-        $updater->delete($request->all());
+        $updater->deleteSchedule($request->all());
 
         return $request->wantsJson()
             ? new JsonResponse('', 200)
-            : back()->with('status', 'gig-interview-deleted');
+            : back()->with('status', 'gig-interview-schedule-deleted');
     }
 
-    public function submit(Request $request, ManagesGigInterview $updater)
+    public function sendInvite(Request $request, ManagesGigInterview $updater)
     {
-        $updater->submit($request->user(), $request->all());
+        $updater->sendInvite($request->user(), $request->all());
 
         return $request->wantsJson()
             ? new JsonResponse('', 200)
-            : back()->with('status', 'gig-interview-submitted');
+            : back()->with('status', 'gig-interview-invite-sent');
     }
 
     public function accept(Request $request, ManagesGigInterview $updater)

@@ -4,7 +4,9 @@ namespace App\Contracts\GigHost;
 
 interface ManagesGigInterview
 {
-    public function schedule($user, array $input);
+    public function createSchedule($user, array $input);
 
-    public function submit($user, array $input);
+    public function deleteSchedule(array $input);
+
+    public function sendInvite($user, array $input);
 }

@@ -5,52 +5,60 @@ namespace App\Actions\GigHost;
 use App\Contracts\GigHost\ManagesGigInterview;
 use App\Models\GigApplication;
 use App\Models\GigInterview;
+use App\Models\GigInterviewSchedule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class ManageGigInterview implements ManagesGigInterview
 {
-    public function schedule($user, array $input)
+    public function createSchedule($user, array $input)
     {
-        $gigAppId = $input['gig_app_id'];
+        $gigInterviewId = $input['interview_id'];
         Validator::make($input, [
             'interview_date' => ['required', 'date', 'after:now',
-                Rule::unique('gig_interviews', 'interview_date')->where(
-                    function ($query) use ($gigAppId) {
-                        return $query->where('gig_app_id', $gigAppId);
+                Rule::unique('gig_interview_schedules', 'interview_date')->where(
+                    function ($query) use ($gigInterviewId) {
+                        return $query->where('gig_interview_id', $gigInterviewId);
                     })
                 ],
-        ])->validateWithBag('gigInterviewError');
+        ])->validateWithBag('gigInterviewScheduleError');
 
-        if (!isset($input['interview_id'])) {
-            $gigApp = GigApplication::find($input['gig_app_id']);
-            if ($gigApp !== null) {
-                GigInterview::create([
-                    'gig_app_id' => $gigApp->id,
-                    'interview_date' => strtotime($input['interview_date']),
-                    'status' => 'Draft',
-                ]);
-            }
+        if (!isset($input['schedule_id'])) {
+            GigInterview::find($gigInterviewId)->schedules()->create([
+                'created_by' => $input['user_id'],
+                'interview_date' => $input['interview_date'],
+                'status' => 'Draft'
+            ]);
         } else {
-            GigInterview::find($input['interview_id'])->update([
+            GigInterviewSchedule::find($input['interview_id'])->update([
                 'interview_date' => $input['interview_date'],
             ]);
         }
     }
 
-    public function delete(array $input)
+    public function deleteSchedule(array $input)
     {
-        if (isset($input['interview_id'])) {
-            GigInterview::find($input['interview_id'])->delete();
+        if (isset($input['schedule_id'])) {
+            GigInterviewSchedule::find($input['schedule_id'])->delete();
         }
     }
 
-    public function submit($user, array $input)
+    public function sendInvite($user, array $input)
     {
-        $gigInterviewList = GigInterview::where('gig_app_id', $input['gig_app_id'])->where('status', 'Draft')->get();
-        if ($gigInterviewList != null && count($gigInterviewList) > 0) {
-            foreach ($gigInterviewList as $gigInterview) {
-                $gigInterview->update(['status' => 'Submitted']);
+        $gigInterview = GigInterview::find($input['interview_id']);
+
+        if ($gigInterview != null) {
+            $gigInterview->update([
+                'status' => 'Sent Invite',
+            ]);
+
+            $gigInterviewScheduleList = GigInterviewSchedule::where('gig_interview_id', $input['interview_id'])->get();
+            if ($gigInterviewScheduleList != null) {
+                foreach ($gigInterviewScheduleList as $gigInterviewSchedule) {
+                    if ($gigInterviewSchedule->status == 'Draft') {
+                        $gigInterviewSchedule->update(['status' => 'Sent']);
+                    }
+                }
             }
         }
     }

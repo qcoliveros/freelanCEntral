@@ -22,7 +22,7 @@ class GigApplicantController extends Controller
             'gigAd' => GigAd::select('id', 'job_title', 'status')->where('id', $request['id'])->first(),
             'gigAppList' => GigApplication::where('gig_ad_id', $request['id'])
                 ->whereNotIn('status', ['Withdrawn'])
-                ->orderBy('applied_date')
+                ->orderByRaw("FIELD(status, 'Shortlisted', 'Submitted') ASC,  applied_date DESC")
                 ->paginate(10)
                 ->withQueryString()
                 ->through(fn ($gigApp) => [
@@ -56,7 +56,7 @@ class GigApplicantController extends Controller
 
         return $request->wantsJson()
             ? new JsonResponse('', 200)
-            : Redirect::route('gigHost.gigInterview.list', [
+            : Redirect::route('gigHost.gigInterview.view', [
                     'search' => $request['search'],
                     'id' => $request['id'],
                     'gig_app_id' => $request['gig_app_id'],
