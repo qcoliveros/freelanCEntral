@@ -51,22 +51,4 @@ class GigInterviewController extends Controller
             ? new JsonResponse('', 200)
             : back()->with('status', 'gig-interview-invite-sent');
     }
-
-    public function accept(Request $request, ManagesGigInterview $updater)
-    {
-        $updater->accept($request->user(), $request->all());
-
-        return $request->wantsJson()
-            ? new JsonResponse('', 200)
-            : back()->with('status', 'gig-interview-accepted');
-    }
-
-    public function reject(Request $request, ManagesGigInterview $updater)
-    {
-        $updater->reject($request->user(), $request->all());
-
-        return $request->wantsJson()
-            ? new JsonResponse('', 200)
-            : back()->with('status', 'gig-interview-rejected');
-    }
 }
