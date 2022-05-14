@@ -36,8 +36,10 @@
                             </td>
                             <td class="py-3 px-6 text-center">
                                 <div class="flex item-center justify-center">
-                                    <jet-icon v-if="row.status == 'Sent'" name="accept-icon" tooltip="Accept Interview Schedule" @click="acceptInterview(row)" />
-                                    <jet-icon v-if="row.status == 'Sent'" name="reject-icon" tooltip="Reject Interview Schedule" @click="rejectInterview(row)" />
+                                    <jet-icon v-if="interview.status == 'Sent Invite' && row.status == 'Sent'"
+                                              name="accept-icon" tooltip="Accept Interview Schedule" @click="acceptInterview(row)" />
+                                    <jet-icon v-if="interview.status == 'Sent Invite' && row.status == 'Sent'"
+                                              name="reject-icon" tooltip="Reject Interview Schedule" @click="rejectInterview(row)" />
                                 </div>
                             </td>
                         </tr>

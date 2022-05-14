@@ -58,6 +58,33 @@
             </div>
         </div>
 
+        <div v-if="interview.status != 'Pending'">
+            <div class="max-w-7xl mx-auto sm:px-6">
+                <div class="px-4 py-5 sm:p-6 bg-white shadow"
+                     :class="gigAd.status == 'Published' && gigApp.status === 'Shortlisted' && interview.status == 'Confirmed'
+                        ? 'sm:rounded-tl-md sm:rounded-tr-md' : 'sm:rounded-md'">
+                    <div v-if="gigApp.status === 'Shortlisted' && interview.status == 'Confirmed'">
+                        <jet-label value="Provide write-up about the interview" />
+                        <jet-rich-text-editor class="mt-1 block w-full" v-model="form.comment" />
+                        <jet-input-error :message="form.errors.comment" class="mt-2" />
+                    </div>
+                    <div v-else>
+                        <jet-label value="Write-up about the interview" />
+                        <div v-html="form.comment" />
+                    </div>
+                </div>
+                <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md"
+                     v-if="gigAd.status == 'Published' && gigApp.status === 'Shortlisted' && interview.status == 'Confirmed'">
+                    <jet-button class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="rejectApplicant">
+                        Reject
+                    </jet-button>
+                    <jet-button class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="acceptApplicant">
+                        Accept
+                    </jet-button>
+                </div>
+            </div>
+        </div>
+
         <jet-dialog-modal :show="isOpenAddInterviewSchedModal" @close="closeAddInterviewModal">
             <template #title>
                 Schedule an Interview
@@ -119,6 +146,7 @@
     import JetIcon from '@/Jetstream/Icon'
     import JetInputError from '@/Jetstream/InputError'
     import JetLabel from '@/Jetstream/Label'
+    import JetRichTextEditor from '@/Jetstream/RichTextEditor'
     import JetSecondaryButton from '@/Jetstream/SecondaryButton'
     import moment from 'moment'
     import ToastMessage from "../../../mixins/toast-message"
@@ -133,6 +161,7 @@
             JetButton,
             JetDialogModal,
             JetLabel,
+            JetRichTextEditor,
             JetIcon,
             JetInputError,
             JetSecondaryButton,
@@ -159,6 +188,7 @@
                     gig_app_id: this.gigApp.id,
                     user_id: this.applicant.id,
                     interview_id: this.interview.id,
+                    comment: this.interview.comment,
                     schedule_id: null,
                     interview_start: null,
                     interview_end: null,
@@ -218,7 +248,25 @@
                 this.form.post(route('gigHost.gigInterview.sendInvite'), {
                     preserveScroll: true,
                     onSuccess: () => {
-                        this.showSuccessMessage('Sent')
+                        this.showSuccessMessage('Sent invite.')
+                    }
+                });
+            },
+
+            acceptApplicant() {
+                this.form.post(route('gigHost.gigInterview.acceptApplicant'), {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.showSuccessMessage('Applicant accepted.')
+                    }
+                });
+            },
+
+            rejectApplicant() {
+                this.form.post(route('gigHost.gigInterview.rejectApplicant'), {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.showSuccessMessage('Applicant rejected.')
                     }
                 });
             }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\GigHost;
 
+use App\Contracts\GigHost\ManagesGigApplicant;
 use App\Contracts\GigHost\ManagesGigInterview;
 use App\Http\Controllers\Controller;
 use App\Models\GigAd;
@@ -10,6 +11,7 @@ use App\Models\GigInterview;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Laravel\Jetstream\Jetstream;
 
 class GigInterviewController extends Controller
@@ -50,5 +52,31 @@ class GigInterviewController extends Controller
         return $request->wantsJson()
             ? new JsonResponse('', 200)
             : back()->with('status', 'gig-interview-invite-sent');
+    }
+
+    public function acceptApplicant(Request $request, ManagesGigApplicant $updater)
+    {
+        $updater->accept($request->user(), $request->all());
+
+        return $request->wantsJson()
+            ? new JsonResponse('', 200)
+            : Redirect::route('gigHost.gigApp.list', [
+                'id' => $request['id'],
+                'gig_app_id' => $request['gig_app_id'],
+                'user_id' => $request['user_id'],
+            ])->with('status', 'gig-interview-accept-applicant');
+    }
+
+    public function rejectApplicant(Request $request, ManagesGigApplicant $updater)
+    {
+        $updater->reject($request->user(), $request->all());
+
+        return $request->wantsJson()
+            ? new JsonResponse('', 200)
+            : Redirect::route('gigHost.gigApp.list', [
+                'id' => $request['id'],
+                'gig_app_id' => $request['gig_app_id'],
+                'user_id' => $request['user_id'],
+            ])->with('status', 'gig-interview-reject-applicant');
     }
 }

@@ -19,7 +19,7 @@
                         Cancel
                     </jet-secondary-button>
                     <jet-button class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
-                                @click="withdrawGigApp" v-if="gigApp.status != 'Withdrawn'">
+                                @click="withdrawGigApp" v-if="!['Withdrawn', 'Rejected', 'Accepted'].includes(gigApp.status)">
                         Withdraw
                     </jet-button>
                 </div>

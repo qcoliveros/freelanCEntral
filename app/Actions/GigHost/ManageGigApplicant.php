@@ -13,11 +13,10 @@ class ManageGigApplicant implements ManagesGigApplicant
     public function shortlist($user, array $input)
     {
         $gigApp = GigApplication::find($input['gig_app_id']);
-
         if ($gigApp !== null) {
             $gigApp->update(['status' => 'Shortlisted']);
 
-            $this->insertTrail($user, $gigApp);
+            $this->createTrail($user, $gigApp);
 
             GigInterview::create([
                 'gig_app_id' => $gigApp->id,
@@ -29,15 +28,24 @@ class ManageGigApplicant implements ManagesGigApplicant
     public function reject($user, array $input)
     {
         $gigApp = GigApplication::find($input['gig_app_id']);
-
         if ($gigApp !== null) {
             $gigApp->update(['status' => 'Rejected']);
-
-            $this->insertTrail($user, $gigApp);
+            $this->updateInterviewComment($gigApp, $input['comment']);
+            $this->createTrail($user, $gigApp);
         }
     }
 
-    private function insertTrail($user, $gigApp)
+    public function accept($user, array $input)
+    {
+        $gigApp = GigApplication::find($input['gig_app_id']);
+        if ($gigApp !== null) {
+            $gigApp->update(['status' => 'Accepted']);
+            $this->updateInterviewComment($gigApp, $input['comment']);
+            $this->createTrail($user, $gigApp);
+        }
+    }
+
+    private function createTrail($user, $gigApp)
     {
         GigApplicationTrail::create([
             'gig_app_id' => $gigApp->id,
@@ -45,5 +53,15 @@ class ManageGigApplicant implements ManagesGigApplicant
             'trail_date' => Date::now(),
             'status' => $gigApp->status,
         ]);
+    }
+
+    private function updateInterviewComment($gigApp, $comment)
+    {
+        if (isset($comment)) {
+            $gigInterview = GigInterview::where('gig_app_id', $gigApp->id)->first();
+            if ($gigInterview != null) {
+                $gigInterview->update(['comment', $comment]);
+            }
+        }
     }
 }
