@@ -24,7 +24,9 @@ class GigInterviewController extends Controller
             'gigApp' => $gigApp,
             'applicant' => User::where('id', $gigApp->user_id)->first(),
             'interview' => $gigInterview,
-            'interview.schedules' => GigInterviewSchedule::where('gig_interview_id', $gigInterview->id)->whereNotIn('status', ['Draft'])->get(),
+            'interview.schedules' => $gigInterview != null
+                ? GigInterviewSchedule::where('gig_interview_id', $gigInterview->id)->whereNotIn('status', ['Draft'])->get()
+                : [],
         ]);
     }
 
