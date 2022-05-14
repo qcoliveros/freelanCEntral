@@ -112,7 +112,7 @@
 
             viewGigInterview(row) {
                 this.form.id = row.id
-                this.form.get(route('gigger.gigInterview.list'));
+                this.form.get(route('gigger.gigInterview.view'));
             }
         }
     })

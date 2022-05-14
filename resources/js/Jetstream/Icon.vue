@@ -316,6 +316,26 @@
             <div class="w-3 h-3 -mt-2 rotate-45 bg-black"></div>
         </div>
     </div>
+
+    <div v-else-if="name === 'accept-icon'" class="w-4 mr-2 transform hover:text-green-500 hover:scale-110 relative flex flex-col items-center group">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <div v-if="!!tooltip" class="absolute bottom-0 flex flex-col items-center hidden mb-6 group-hover:flex">
+            <span class="relative z-10 p-2 text-xs leading-none text-white whitespace-nowrap bg-black rounded-md shadow-lg">{{ tooltip }}</span>
+            <div class="w-3 h-3 -mt-2 rotate-45 bg-black"></div>
+        </div>
+    </div>
+
+    <div v-else-if="name === 'reject-icon'" class="w-4 mr-2 transform hover:text-red-500 hover:scale-110 relative flex flex-col items-center group">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <div v-if="!!tooltip" class="absolute bottom-0 flex flex-col items-center hidden mb-6 group-hover:flex">
+            <span class="relative z-10 p-2 text-xs leading-none text-white whitespace-nowrap bg-black rounded-md shadow-lg">{{ tooltip }}</span>
+            <div class="w-3 h-3 -mt-2 rotate-45 bg-black"></div>
+        </div>
+    </div>
 </template>
 
 <script>

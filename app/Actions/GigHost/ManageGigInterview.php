@@ -49,19 +49,54 @@ class ManageGigInterview implements ManagesGigInterview
     public function sendInvite($user, array $input)
     {
         $gigInterview = GigInterview::find($input['interview_id']);
-
         if ($gigInterview != null) {
             $gigInterview->update([
                 'status' => 'Sent Invite',
             ]);
 
-            $gigInterviewScheduleList = GigInterviewSchedule::where('gig_interview_id', $input['interview_id'])->get();
+            $gigInterviewScheduleList = GigInterviewSchedule::where('gig_interview_id', $gigInterview->id)->get();
             if ($gigInterviewScheduleList != null) {
                 foreach ($gigInterviewScheduleList as $gigInterviewSchedule) {
                     if ($gigInterviewSchedule->status == 'Draft') {
                         $gigInterviewSchedule->update(['status' => 'Sent']);
                     }
                 }
+            }
+        }
+    }
+
+    public function acceptSchedule(array $input)
+    {
+        if (isset($input['schedule_id'])) {
+            GigInterviewSchedule::find($input['schedule_id'])->update([
+                'status' => 'Accepted',
+            ]);
+        }
+    }
+
+    public function rejectSchedule(array $input)
+    {
+        if (isset($input['schedule_id'])) {
+            GigInterviewSchedule::find($input['schedule_id'])->update([
+                'status' => 'Rejected',
+            ]);
+        }
+    }
+
+    public function confirmInterview(array $input)
+    {
+        $gigInterview = GigInterview::find($input['interview_id']);
+        if ($gigInterview != null) {
+            $gigInterviewScheduleList = GigInterviewSchedule::where('gig_interview_id', $gigInterview->id)->get();
+            if ($gigInterviewScheduleList != null) {
+                foreach ($gigInterviewScheduleList as $gigInterviewSchedule) {
+                    if ($gigInterviewSchedule->status == 'Accepted') {
+                        $gigInterview->update(['status' => 'Confirmed']);
+                        return;
+                    }
+                }
+
+                $gigInterview->update(['status' => 'Rejected']);
             }
         }
     }

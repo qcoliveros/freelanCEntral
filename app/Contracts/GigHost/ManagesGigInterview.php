@@ -9,4 +9,8 @@ interface ManagesGigInterview
     public function deleteSchedule(array $input);
 
     public function sendInvite($user, array $input);
+
+    public function acceptSchedule(array $input);
+
+    public function rejectSchedule(array $input);
 }

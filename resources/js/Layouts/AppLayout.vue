@@ -39,7 +39,8 @@
                                                 || route().current('gigHost.gigAd.edit')
                                                 || route().current('gigHost.gigAd.view')
                                                 || route().current('gigHost.gigApp.list')
-                                                || route().current('gigHost.gigApplicant.view')"
+                                                || route().current('gigHost.gigApplicant.view')
+                                                || route().current('gigHost.gigInterview.view')"
                                               v-if="$page.props.user.roles.includes('Gig Host')">
                                     <jet-icon name="gig-ad-icon" label="Gig Ad" />
                                 </jet-nav-link>
@@ -57,7 +58,8 @@
                                 </jet-nav-link>
                                 <jet-nav-link :href="route('gigger.gigAd.find')"
                                               :active="route().current('gigger.gigAd.find')
-                                                || route().current('gigger.gigAd.view')"
+                                                || route().current('gigger.gigAd.view')
+                                                || route().current('gigger.gigInterview.view')"
                                               v-if="$page.props.user.roles.includes('Gigger')">
                                     <jet-icon name="find-gig-icon" label="Find Gig" />
                                 </jet-nav-link>

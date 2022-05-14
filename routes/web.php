@@ -126,8 +126,14 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         Route::post('gig-app-withdraw', [\App\Http\Controllers\Gigger\GigApplicationController::class, 'withdraw'])
             ->name('gigApp.withdraw');
 
-        Route::get('gig-interview-list', [\App\Http\Controllers\Gigger\GigInterviewController::class, 'index'])
-            ->name('gigInterview.list');
+        Route::get('gig-interview-view', [\App\Http\Controllers\Gigger\GigInterviewController::class, 'view'])
+            ->name('gigInterview.view');
+        Route::post('gig-interview-accept-sched', [\App\Http\Controllers\Gigger\GigInterviewController::class, 'acceptSchedule'])
+            ->name('gigInterview.acceptSchedule');
+        Route::post('gig-interview-reject-sched', [\App\Http\Controllers\Gigger\GigInterviewController::class, 'rejectSchedule'])
+            ->name('gigInterview.rejectSchedule');
+        Route::post('gig-interview-submit', [\App\Http\Controllers\Gigger\GigInterviewController::class, 'submit'])
+            ->name('gigInterview.submit');
 
         Route::get('gig-playbook-list', [\App\Http\Controllers\Gigger\GigPlaybookController::class, 'index'])
             ->name('gigPlaybook.list');
