@@ -12,7 +12,8 @@ class GigInterviewSchedule extends Model
     protected $fillable = [
         'gig_interview_id',
         'created_by',
-        'interview_date',
+        'interview_start',
+        'interview_end',
         'status',
     ];
 

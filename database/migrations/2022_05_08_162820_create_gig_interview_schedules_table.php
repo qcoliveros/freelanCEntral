@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('gig_interview_id');
             $table->foreignId('created_by');
-            $table->dateTime('interview_date');
+            $table->dateTime('interview_start');
+            $table->dateTime('interview_end');
             $table->string('status');
             $table->timestamps();
         });

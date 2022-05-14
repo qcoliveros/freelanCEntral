@@ -27,7 +27,9 @@
                         <tr class="border-b border-gray-200 hover:bg-gray-100" v-for="row in interview.schedules">
                             <td class="py-3 px-6 text-center">
                                 <div class="flex items-center">
-                                    <span class="font-medium">{{ moment.parseZone(row.interview_date).format("DD MMM YYYY hh:mm A") }}</span>
+                                    <span class="font-medium">
+                                        {{ moment.parseZone(row.interview_start).format("DD MMM YYYY hh:mm A") }} to {{ moment.parseZone(row.interview_end).format("DD MMM YYYY hh:mm A") }}
+                                    </span>
                                 </div>
                             </td>
                             <td class="py-3 px-6 text-center">
@@ -48,9 +50,9 @@
                     <jet-secondary-button @click="cancel">
                         Cancel
                     </jet-secondary-button>
-                    <jet-button v-if="gigAd.status == 'Published' && gigApp.status === 'Shortlisted' && interview.status == 'Pending'"
+                    <jet-button v-if="gigAd.status == 'Published' && gigApp.status === 'Shortlisted' && interview.status == 'Pending' && interview.schedules.length > 0"
                                 class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="submitInterview">
-                        Submit
+                        Send Invite
                     </jet-button>
                 </div>
             </div>
@@ -63,9 +65,14 @@
 
             <template #content>
                 <div>
-                    <jet-label value="Pick a date and time" />
-                    <date-picker v-model:value="form.interview_date" value-type="YYYY-MM-DD HH:mm:ss" format="DD MMM YYYY hh:mm A" type="datetime" />
-                    <jet-input-error :message="form.errors.interview_date" class="mt-2" />
+                    <jet-label value="Pick start date and time" />
+                    <date-picker v-model:value="form.interview_start" value-type="YYYY-MM-DD HH:mm:ss" format="DD MMM YYYY hh:mm A" type="datetime" />
+                    <jet-input-error :message="form.errors.interview_start" class="mt-2" />
+                </div>
+                <div class="mt-2">
+                    <jet-label value="Pick end date and time" />
+                    <date-picker v-model:value="form.interview_end" value-type="YYYY-MM-DD HH:mm:ss" format="DD MMM YYYY hh:mm A" type="datetime" />
+                    <jet-input-error :message="form.errors.interview_end" class="mt-2" />
                 </div>
             </template>
 
@@ -153,7 +160,8 @@
                     user_id: this.applicant.id,
                     interview_id: this.interview.id,
                     schedule_id: null,
-                    interview_date: null,
+                    interview_start: null,
+                    interview_end: null,
                 })
             }
         },
@@ -168,7 +176,8 @@
             },
 
             closeAddInterviewModal() {
-                this.form.interview_date = null
+                this.form.interview_start = null
+                this.form.interview_end = null
                 this.form.clearErrors()
                 this.isOpenAddInterviewSchedModal = false
             },

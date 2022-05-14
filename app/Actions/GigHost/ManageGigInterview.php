@@ -15,23 +15,26 @@ class ManageGigInterview implements ManagesGigInterview
     {
         $gigInterviewId = $input['interview_id'];
         Validator::make($input, [
-            'interview_date' => ['required', 'date', 'after:now',
-                Rule::unique('gig_interview_schedules', 'interview_date')->where(
+            'interview_start' => ['required', 'date_format:Y-m-d H:i:s', 'after:now',
+                Rule::unique('gig_interview_schedules', 'interview_start')->where(
                     function ($query) use ($gigInterviewId) {
                         return $query->where('gig_interview_id', $gigInterviewId);
                     })
                 ],
+            'interview_end' => ['required', 'date_format:Y-m-d H:i:s', 'after:interview_start'],
         ])->validateWithBag('gigInterviewScheduleError');
 
         if (!isset($input['schedule_id'])) {
             GigInterview::find($gigInterviewId)->schedules()->create([
                 'created_by' => $input['user_id'],
-                'interview_date' => $input['interview_date'],
+                'interview_start' => $input['interview_start'],
+                'interview_end' => $input['interview_end'],
                 'status' => 'Draft'
             ]);
         } else {
             GigInterviewSchedule::find($input['interview_id'])->update([
-                'interview_date' => $input['interview_date'],
+                'interview_start' => $input['interview_start'],
+                'interview_end' => $input['interview_end'],
             ]);
         }
     }
