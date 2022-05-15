@@ -64,12 +64,12 @@
                      :class="gigAd.status == 'Published' && gigApp.status === 'Shortlisted' && interview.status == 'Confirmed'
                         ? 'sm:rounded-tl-md sm:rounded-tr-md' : 'sm:rounded-md'">
                     <div v-if="gigApp.status === 'Shortlisted' && interview.status == 'Confirmed'">
-                        <jet-label value="Provide write-up about the interview" />
+                        <jet-label value="Provide write-up about the interview." />
                         <jet-rich-text-editor class="mt-1 block w-full" v-model="form.comment" />
                         <jet-input-error :message="form.errors.comment" class="mt-2" />
                     </div>
                     <div v-else>
-                        <jet-label value="Write-up about the interview" />
+                        <jet-label value="Write-up about the interview." />
                         <div v-html="form.comment" />
                     </div>
                 </div>
@@ -255,6 +255,7 @@
 
             acceptApplicant() {
                 this.form.post(route('gigHost.gigInterview.acceptApplicant'), {
+                    errorBag: 'gigInterviewError',
                     preserveScroll: true,
                     onSuccess: () => {
                         this.showSuccessMessage('Applicant accepted.')
@@ -264,6 +265,7 @@
 
             rejectApplicant() {
                 this.form.post(route('gigHost.gigInterview.rejectApplicant'), {
+                    errorBag: 'gigInterviewError',
                     preserveScroll: true,
                     onSuccess: () => {
                         this.showSuccessMessage('Applicant rejected.')

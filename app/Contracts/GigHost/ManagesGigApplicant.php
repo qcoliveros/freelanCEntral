@@ -8,5 +8,7 @@ interface ManagesGigApplicant
 
     public function reject($user, array $input);
 
-    public function accept($user, array $input);
+    public function rejectWithComment($user, array $input);
+
+    public function acceptWithComment($user, array $input);
 }
