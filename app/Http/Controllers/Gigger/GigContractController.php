@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\GigHost;
+namespace App\Http\Controllers\Gigger;
 
 use App\Contracts\GigHost\ManagesGigPlaybook;
 use App\Http\Controllers\Controller;
@@ -15,30 +15,32 @@ class GigContractController extends Controller
     public function view(Request $request)
     {
         $gigPlaybook = GigPlaybook::find($request['id']);
-        return Jetstream::inertia()->render($request, 'GigHost/ShowGigContractDetail', [
+        return Jetstream::inertia()->render($request, 'Gigger/ShowGigContractDetail', [
             'search' => $request['search'],
             'gigPlaybook' => $gigPlaybook,
             'gigContract' => $gigPlaybook->contract,
         ]);
     }
 
-    public function save(Request $request, ManagesGigPlaybook $updater)
+    public function accept(Request $request, ManagesGigPlaybook $updater)
     {
-        $updater->saveContract($request->all());
+        $updater->acceptContract($request->all());
 
         return $request->wantsJson()
             ? new JsonResponse('', 200)
-            : back()->with('status', 'gig-playbook-contract-save');
+            : Redirect::route('gigger.gigPlaybook.list', [
+                'search' => $request['search']
+            ])->with('status', 'gig-playbook-contract-accepted');
     }
 
-    public function send(Request $request, ManagesGigPlaybook $updater)
+    public function reject(Request $request, ManagesGigPlaybook $updater)
     {
-        $updater->sendContract($request->all());
+        $updater->rejectContract($request->all());
 
         return $request->wantsJson()
             ? new JsonResponse('', 200)
-            : Redirect::route('gigHost.gigPlaybook.list', [
+            : Redirect::route('gigger.gigPlaybook.list', [
                 'search' => $request['search']
-            ])->with('status', 'gig-playbook-contract-send');
+            ])->with('status', 'gig-playbook-contract-rejected');
     }
 }

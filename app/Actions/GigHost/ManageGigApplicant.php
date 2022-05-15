@@ -108,7 +108,7 @@ class ManageGigApplicant implements ManagesGigApplicant
 
         GigPlaybookContract::create([
             'gig_playbook_id' => $gigPlaybook->id,
-            'status' => 'Pending',
+            'status' => 'Draft',
         ]);
 
         return $gigPlaybook;

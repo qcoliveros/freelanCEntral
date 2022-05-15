@@ -137,6 +137,13 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
         Route::get('gig-playbook-list', [\App\Http\Controllers\Gigger\GigPlaybookController::class, 'index'])
             ->name('gigPlaybook.list');
+
+        Route::get('gig-playbook-view-contract', [\App\Http\Controllers\Gigger\GigContractController::class, 'view'])
+            ->name('gigPlaybook.viewContract');
+        Route::post('gig-playbook-accept-contract', [\App\Http\Controllers\Gigger\GigContractController::class, 'accept'])
+            ->name('gigPlaybook.acceptContract');
+        Route::post('gig-playbook-reject-contract', [\App\Http\Controllers\Gigger\GigContractController::class, 'reject'])
+            ->name('gigPlaybook.rejectContract');
     });
 
     Route::group(['middleware' => 'role:Gig Host', 'prefix' => 'gigHost', 'as' => 'gigHost.'], function() {
@@ -185,5 +192,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
         Route::get('gig-playbook-view-contract', [\App\Http\Controllers\GigHost\GigContractController::class, 'view'])
             ->name('gigPlaybook.viewContract');
+        Route::post('gig-playbook-save-contract', [\App\Http\Controllers\GigHost\GigContractController::class, 'save'])
+            ->name('gigPlaybook.saveContract');
+        Route::post('gig-playbook-send-contract', [\App\Http\Controllers\GigHost\GigContractController::class, 'send'])
+            ->name('gigPlaybook.sendContract');
     });
 });

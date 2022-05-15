@@ -47,7 +47,8 @@
                                 </jet-nav-link>
 
                                 <jet-nav-link :href="route('gigger.gigPlaybook.list')"
-                                              :active="route().current('gigger.gigPlaybook.list')"
+                                              :active="route().current('gigger.gigPlaybook.list')
+                                                || route().current('gigger.gigPlaybook.viewContract')"
                                               v-if="$page.props.user.roles.includes('Gigger')">
                                     <jet-icon name="playbook-icon" label="Playbook" />
                                 </jet-nav-link>

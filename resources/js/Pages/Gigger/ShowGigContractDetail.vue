@@ -9,27 +9,25 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6">
                 <div class="px-4 py-5 sm:p-6 bg-white shadow sm:rounded-tl-md sm:rounded-tr-md">
-                    <div v-if="gigContract.status == 'Draft'">
-                        <jet-label value="Provide contract clause." />
-                        <jet-rich-text-editor class="mt-1 block w-full" v-model="form.clause" />
-                        <jet-input-error :message="form.errors.clause" class="mt-2" />
+                    <div class="mb-4" v-if="gigContract.signed_date != null">
+                        <jet-label is-inline="true" value="Contract Signed Date" /> {{ moment(gigContract.signed_date).format("DD MMM YYYY")  }}
                     </div>
-                    <div v-else>
+                    <div>
                         <jet-label value="Contract clause." />
-                        <div v-html="form.clause" />
+                        <div v-html="gigContract.clause" />
                     </div>
                 </div>
                 <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
                     <jet-secondary-button @click="cancel">
                         Cancel
                     </jet-secondary-button>
-                    <jet-button class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
-                                @click="save" v-if="gigContract.status == 'Draft'">
-                        Save as Draft
+                    <jet-button v-if="gigContract.status == 'Pending'"
+                                class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="reject">
+                        Reject
                     </jet-button>
-                    <jet-button class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
-                                @click="send" v-if="!['Pending','Rejected','Accepted'].includes(gigContract.status)">
-                        Send
+                    <jet-button v-if="gigContract.status == 'Pending'"
+                                class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" @click="accept">
+                        Accept
                     </jet-button>
                 </div>
             </div>
@@ -46,6 +44,7 @@
     import JetLabel from '@/Jetstream/Label'
     import JetRichTextEditor from '@/Jetstream/RichTextEditor'
     import JetSecondaryButton from '@/Jetstream/SecondaryButton'
+    import moment from 'moment'
     import ToastMessage from "../../../mixins/toast-message"
 
     export default defineComponent({
@@ -69,36 +68,35 @@
 
         data() {
             return {
+                moment: moment,
+
                 form: this.$inertia.form({
                     search: this.search,
                     id: this.gigPlaybook.id,
                     contract_id: this.gigContract.id,
-                    clause: this.gigContract.clause,
                 })
             }
         },
 
         methods: {
             cancel() {
-                this.form.get(route('gigHost.gigPlaybook.list'));
+                this.form.get(route('gigger.gigPlaybook.list'));
             },
 
-            save() {
-                this.form.post(route('gigHost.gigPlaybook.saveContract'), {
-                    errorBag: 'gigContractError',
+            accept() {
+                this.form.post(route('gigger.gigPlaybook.acceptContract'), {
                     preserveScroll: true,
                     onSuccess: () => {
-                        this.showSuccessMessage('Saved')
+                        this.showSuccessMessage('Accepted')
                     }
                 });
             },
 
-            send() {
-                this.form.post(route('gigHost.gigPlaybook.sendContract'), {
-                    errorBag: 'gigContractError',
+            reject() {
+                this.form.post(route('gigger.gigPlaybook.rejectContract'), {
                     preserveScroll: true,
                     onSuccess: () => {
-                        this.showSuccessMessage('Sent to Gigger.')
+                        this.showSuccessMessage('Rejected')
                     }
                 });
             }
