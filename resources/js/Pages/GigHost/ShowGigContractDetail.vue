@@ -9,6 +9,9 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6">
                 <div class="px-4 py-5 sm:p-6 bg-white shadow sm:rounded-tl-md sm:rounded-tr-md">
+                    <div class="mb-4" v-if="gigContract.signed_date != null">
+                        <jet-label is-inline="true" value="Contract Signed Date" /> {{ moment(gigContract.signed_date).format("DD MMM YYYY")  }}
+                    </div>
                     <div v-if="gigContract.status == 'Draft'">
                         <jet-label value="Provide contract clause." />
                         <jet-rich-text-editor class="mt-1 block w-full" v-model="form.clause" />
@@ -46,6 +49,7 @@
     import JetLabel from '@/Jetstream/Label'
     import JetRichTextEditor from '@/Jetstream/RichTextEditor'
     import JetSecondaryButton from '@/Jetstream/SecondaryButton'
+    import moment from 'moment'
     import ToastMessage from "../../../mixins/toast-message"
 
     export default defineComponent({
@@ -69,6 +73,8 @@
 
         data() {
             return {
+                moment: moment,
+
                 form: this.$inertia.form({
                     search: this.search,
                     id: this.gigPlaybook.id,
