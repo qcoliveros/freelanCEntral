@@ -56,14 +56,12 @@ class GigInterviewController extends Controller
 
     public function acceptApplicant(Request $request, ManagesGigApplicant $updater)
     {
-        $updater->acceptWithComment($request->user(), $request->all());
+        $gigPlaybook = $updater->acceptWithComment($request->user(), $request->all());
 
         return $request->wantsJson()
             ? new JsonResponse('', 200)
-            : Redirect::route('gigHost.gigApp.list', [
-                'id' => $request['id'],
-                'gig_app_id' => $request['gig_app_id'],
-                'user_id' => $request['user_id'],
+            : Redirect::route('gigHost.gigPlaybook.viewContract', [
+                'id' => $gigPlaybook->id
             ])->with('status', 'gig-interview-accept-applicant');
     }
 

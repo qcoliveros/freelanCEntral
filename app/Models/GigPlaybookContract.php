@@ -15,4 +15,9 @@ class GigPlaybookContract extends Model
         'signed_date',
         'status',
     ];
+
+    public function gigPlaybook()
+    {
+        return $this->belongsTo(GigPlaybook::class, 'gig_playbook_id', 'id');
+    }
 }

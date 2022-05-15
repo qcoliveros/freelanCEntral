@@ -182,5 +182,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
         Route::get('gig-playbook-list', [\App\Http\Controllers\GigHost\GigPlaybookController::class, 'index'])
             ->name('gigPlaybook.list');
+
+        Route::get('gig-playbook-view-contract', [\App\Http\Controllers\GigHost\GigContractController::class, 'view'])
+            ->name('gigPlaybook.viewContract');
     });
 });

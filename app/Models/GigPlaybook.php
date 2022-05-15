@@ -17,4 +17,26 @@ class GigPlaybook extends Model
         'job_end_date',
         'status',
     ];
+
+    public function gigHost()
+    {
+        return $this->belongsTo(User::class, 'gig_host_id', 'id');
+    }
+
+    public function gigger()
+    {
+        return $this->belongsTo(User::class, 'gigger_id', 'id');
+    }
+
+    public function contract()
+    {
+        return $this->hasOne(GigPlaybookContract::class, 'gig_playbook_id', 'id');
+    }
+
+    public function scopeFilterByJobTitle($query, $filter)
+    {
+        $query->when($filter ?? null, function ($query, $search) {
+            $query->where('job_title', 'LIKE', '%'.$search.'%');
+        });
+    }
 }

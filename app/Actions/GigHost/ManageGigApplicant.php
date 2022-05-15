@@ -61,7 +61,7 @@ class ManageGigApplicant implements ManagesGigApplicant
 
             $this->updateInterview($gigApp, $input['comment']);
 
-            $this->createPlaybook($gigApp);
+            return $this->createPlaybook($gigApp);
         }
     }
 
@@ -110,5 +110,7 @@ class ManageGigApplicant implements ManagesGigApplicant
             'gig_playbook_id' => $gigPlaybook->id,
             'status' => 'Pending',
         ]);
+
+        return $gigPlaybook;
     }
 }
