@@ -196,5 +196,20 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
             ->name('gigPlaybook.saveContract');
         Route::post('gig-playbook-send-contract', [\App\Http\Controllers\GigHost\GigContractController::class, 'send'])
             ->name('gigPlaybook.sendContract');
+
+        Route::get('gig-playbook-task-list', [\App\Http\Controllers\GigHost\GigPlaybookTaskController::class, 'index'])
+            ->name('gigPlaybook.viewTasks');
+        Route::post('gig-playbook-submit-tasks', [\App\Http\Controllers\GigHost\GigPlaybookTaskController::class, 'submit'])
+            ->name('gigPlaybook.submitTasks');
+        Route::get('gig-playbook-create-task', [\App\Http\Controllers\GigHost\GigPlaybookTaskController::class, 'create'])
+            ->name('gigPlaybook.createTask');
+        Route::get('gig-playbook-edit-task', [\App\Http\Controllers\GigHost\GigPlaybookTaskController::class, 'edit'])
+            ->name('gigPlaybook.editTask');
+        Route::get('gig-playbook-view-task', [\App\Http\Controllers\GigHost\GigPlaybookTaskController::class, 'view'])
+            ->name('gigPlaybook.viewTask');
+        Route::delete('gig-playbook-delete-task', [\App\Http\Controllers\GigHost\GigPlaybookTaskController::class, 'delete'])
+            ->name('gigPlaybook.deleteTask');
+        Route::post('gig-playbook-save-task', [\App\Http\Controllers\GigHost\GigPlaybookTaskController::class, 'save'])
+            ->name('gigPlaybook.saveTask');
     });
 });

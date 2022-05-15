@@ -5,6 +5,7 @@ namespace App\Actions\GigHost;
 use App\Contracts\GigHost\ManagesGigPlaybook;
 use App\Models\GigPlaybook;
 use App\Models\GigPlaybookContract;
+use App\Models\GigPlaybookTask;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Validator;
 
@@ -59,5 +60,53 @@ class ManageGigPlaybook implements ManagesGigPlaybook
         Validator::make($input, [
             'clause' => ['required', 'string', 'max:4096'],
         ], [], $customAttributes)->validateWithBag('gigContractError');
+    }
+
+    public function saveTask(array $input)
+    {
+        $this->validateTask($input);
+        $this->createOrUpdateTask($input);
+    }
+
+    private function validateTask(array $input)
+    {
+        Validator::make($input, [
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:4096'],
+            'start_date' => ['required', 'date', 'after:now'],
+            'end_date' => ['required', 'date', 'after:start_date'],
+        ])->validateWithBag('gigPlaybookTaskError');
+    }
+
+    private function createOrUpdateTask(array $input)
+    {
+        if (!isset($input['task_id'])) {
+            $input['status'] = 'Draft';
+            GigPlaybook::find($input['id'])->tasks()->create($input);
+        } else {
+            GigPlaybookTask::find($input['task_id'])->update($input);
+        }
+    }
+
+    public function deleteTask(array $input)
+    {
+        if (isset($input['task_id'])) {
+            GigPlaybookTask::find($input['task_id'])->delete();
+        }
+    }
+
+    public function submitTasks(array $input)
+    {
+        $gigPlaybook = GigPlaybook::with('tasks')->find($input['id']);
+        $gigPlaybook->update(['status' => 'In Progress']);
+
+        $gigTasks = $gigPlaybook->tasks;
+        if ($gigTasks != null) {
+            foreach ($gigTasks as $gigTask) {
+                if ($gigTask->status == 'Draft') {
+                    $gigTask->update(['status' => 'Open']);
+                }
+            }
+        }
     }
 }

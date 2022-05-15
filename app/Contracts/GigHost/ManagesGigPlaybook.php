@@ -11,4 +11,10 @@ interface ManagesGigPlaybook
     public function rejectContract(array $input);
 
     public function acceptContract(array $input);
+
+    public function saveTask(array $input);
+
+    public function deleteTask(array $input);
+
+    public function submitTasks(array $input);
 }

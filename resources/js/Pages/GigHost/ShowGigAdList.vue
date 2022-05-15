@@ -90,13 +90,13 @@
 
 <script>
     import { defineComponent } from 'vue'
-    import AppLayout from '@/Layouts/AppLayout.vue'
-    import JetButton from '@/Jetstream/Button.vue'
-    import JetDialogModal from '@/Jetstream/DialogModal.vue'
+    import AppLayout from '@/Layouts/AppLayout'
+    import JetButton from '@/Jetstream/Button'
+    import JetDialogModal from '@/Jetstream/DialogModal'
     import JetIcon from '@/Jetstream/Icon'
     import JetPagination from '@/Jetstream/Pagination'
     import JetSearchBar from '@/Jetstream/SearchBar'
-    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton'
     import moment from "moment"
     import ToastMessage from "../../../mixins/toast-message"
 

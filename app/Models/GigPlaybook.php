@@ -33,6 +33,11 @@ class GigPlaybook extends Model
         return $this->hasOne(GigPlaybookContract::class, 'gig_playbook_id', 'id');
     }
 
+    public function tasks()
+    {
+        return $this->hasMany(GigPlaybookTask::class);
+    }
+
     public function scopeFilterByJobTitle($query, $filter)
     {
         $query->when($filter ?? null, function ($query, $search) {
