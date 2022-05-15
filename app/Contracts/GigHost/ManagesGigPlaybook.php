@@ -17,4 +17,12 @@ interface ManagesGigPlaybook
     public function deleteTask(array $input);
 
     public function submitTasks(array $input);
+
+    public function startTask(array $input);
+
+    public function holdTask(array $input);
+
+    public function completeTask(array $input);
+
+    public function closeTask(array $input);
 }

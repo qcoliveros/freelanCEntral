@@ -18,7 +18,7 @@
 <script>
     import { defineComponent } from 'vue'
     import EmbeddedMedia from '../../../mixins/embedded-media'
-    import JetLabel from '@/Jetstream/Label.vue'
+    import JetLabel from '@/Jetstream/Label'
 
     export default defineComponent({
         mixins: [

@@ -109,4 +109,58 @@ class ManageGigPlaybook implements ManagesGigPlaybook
             }
         }
     }
+
+    public function startTask(array $input)
+    {
+        if (isset($input['task_id'])) {
+            GigPlaybookTask::find($input['task_id'])->update([
+                'status' => 'In Progress'
+            ]);
+        }
+    }
+
+    public function holdTask(array $input)
+    {
+        if (isset($input['task_id'])) {
+            GigPlaybookTask::find($input['task_id'])->update([
+                'status' => 'On-hold'
+            ]);
+        }
+    }
+
+    public function completeTask(array $input)
+    {
+        if (isset($input['task_id'])) {
+            GigPlaybookTask::find($input['task_id'])->update([
+                'status' => 'Completed'
+            ]);
+        }
+
+        $gigPlaybook = GigPlaybook::with('tasks')->find($input['id']);
+        $notCompletedCount = $gigPlaybook->tasks->filter(function($gigTask){
+            return !in_array($gigTask->status, ['Completed','Closed']);
+        })->count();
+
+        if ($notCompletedCount == 0) {
+            $gigPlaybook->update(['status' => 'Completed']);
+        }
+    }
+
+    public function closeTask(array $input)
+    {
+        if (isset($input['task_id'])) {
+            GigPlaybookTask::find($input['task_id'])->update([
+                'status' => 'Closed'
+            ]);
+        }
+
+        $gigPlaybook = GigPlaybook::with('tasks')->find($input['id']);
+        $notCompletedCount = $gigPlaybook->tasks->filter(function($gigTask){
+            return $gigTask->status != 'Closed';
+        })->count();
+
+        if ($notCompletedCount == 0) {
+            $gigPlaybook->update(['status' => 'Closed']);
+        }
+    }
 }

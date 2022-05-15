@@ -64,7 +64,8 @@ class GigPlaybookTaskController extends Controller
             'gigPlaybook' => GigPlaybook::find($request['id']),
             'gigTask' => $gigTask,
             'gigTaskComments' => $gigTask != null
-                ? GigPlaybookTaskComment::where('gig_playbook_task_id', $gigTask->id)->with('comments')->get() : [],
+                ? GigPlaybookTaskComment::where('gig_playbook_task_id', $gigTask->id)
+                    ->whereNull('gig_playbook_task_comment_id')->with('comments')->get() : [],
         ]);
     }
 
@@ -97,5 +98,14 @@ class GigPlaybookTaskController extends Controller
             : Redirect::route('gigHost.gigPlaybook.list', [
                 'search' => $request['search']
             ])->with('status', 'gig-playbook-tasks-submitted');
+    }
+
+    public function close(Request $request, ManagesGigPlaybook $updater)
+    {
+        $updater->closeTask($request->all());
+
+        return $request->wantsJson()
+            ? new JsonResponse('', 200)
+            : back()->with('status', 'gig-playbook-task-closed');
     }
 }

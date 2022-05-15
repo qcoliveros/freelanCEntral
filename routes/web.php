@@ -147,6 +147,14 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
         Route::get('gig-playbook-task-list', [\App\Http\Controllers\Gigger\GigPlaybookTaskController::class, 'index'])
             ->name('gigPlaybook.viewTasks');
+        Route::get('gig-playbook-view-task', [\App\Http\Controllers\Gigger\GigPlaybookTaskController::class, 'view'])
+            ->name('gigPlaybook.viewTask');
+        Route::post('gig-playbook-start-task', [\App\Http\Controllers\Gigger\GigPlaybookTaskController::class, 'start'])
+            ->name('gigPlaybook.startTask');
+        Route::post('gig-playbook-hold-task', [\App\Http\Controllers\Gigger\GigPlaybookTaskController::class, 'hold'])
+            ->name('gigPlaybook.holdTask');
+        Route::post('gig-playbook-complete-task', [\App\Http\Controllers\Gigger\GigPlaybookTaskController::class, 'complete'])
+            ->name('gigPlaybook.completeTask');
     });
 
     Route::group(['middleware' => 'role:Gig Host', 'prefix' => 'gigHost', 'as' => 'gigHost.'], function() {
@@ -214,5 +222,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
             ->name('gigPlaybook.deleteTask');
         Route::post('gig-playbook-save-task', [\App\Http\Controllers\GigHost\GigPlaybookTaskController::class, 'save'])
             ->name('gigPlaybook.saveTask');
+        Route::post('gig-playbook-close-task', [\App\Http\Controllers\GigHost\GigPlaybookTaskController::class, 'close'])
+            ->name('gigPlaybook.closeTask');
     });
 });

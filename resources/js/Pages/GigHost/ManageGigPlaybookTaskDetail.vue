@@ -2,8 +2,8 @@
     <app-layout title="Gig Ads">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                <span v-if="isEdit">Update Task</span>
-                <span v-else>Add Task</span>
+                <span v-if="isEdit">Update Gig Playbook Task</span>
+                <span v-else>Add Gig Playbook Task</span>
                 for {{ gigPlaybook.job_title }}
             </h2>
         </template>
@@ -59,13 +59,12 @@
     import AppLayout from '@/Layouts/AppLayout'
     import DatePicker from 'vue-datepicker-next'
     import JetButton from '@/Jetstream/Button'
-    import JetCheckbox from "@/Jetstream/Checkbox"
     import JetInput from '@/Jetstream/Input'
     import JetInputError from '@/Jetstream/InputError'
     import JetLabel from '@/Jetstream/Label'
     import JetRichTextEditor from '@/Jetstream/RichTextEditor'
     import JetSecondaryButton from '@/Jetstream/SecondaryButton'
-    import ToastMessage from "../../../mixins/toast-message"
+    import ToastMessage from '../../../mixins/toast-message'
 
     export default defineComponent({
         mixins: [ ToastMessage ],
@@ -74,7 +73,6 @@
             AppLayout,
             DatePicker,
             JetButton,
-            JetCheckbox,
             JetInput,
             JetInputError,
             JetLabel,
@@ -111,7 +109,6 @@
             },
 
             save() {
-                console.log(this.form)
                 this.form.post(route('gigHost.gigPlaybook.saveTask'), {
                     errorBag: 'gigPlaybookTaskError',
                     preserveScroll: true,

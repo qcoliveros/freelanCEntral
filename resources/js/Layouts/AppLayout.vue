@@ -33,7 +33,8 @@
                                               :active="route().current('gigHost.gigPlaybook.list')
                                                 || route().current('gigHost.gigPlaybook.viewContract')
                                                 || route().current('gigHost.gigPlaybook.viewTasks')
-                                                || route().current('gigHost.gigPlaybook.createTask')"
+                                                || route().current('gigHost.gigPlaybook.createTask')
+                                                || route().current('gigHost.gigPlaybook.viewTask')"
                                               v-if="$page.props.user.roles.includes('Gig Host')">
                                     <jet-icon name="playbook-icon" label="Playbook" />
                                 </jet-nav-link>
@@ -50,7 +51,9 @@
 
                                 <jet-nav-link :href="route('gigger.gigPlaybook.list')"
                                               :active="route().current('gigger.gigPlaybook.list')
-                                                || route().current('gigger.gigPlaybook.viewContract')"
+                                                || route().current('gigger.gigPlaybook.viewContract')
+                                                || route().current('gigger.gigPlaybook.viewTasks')
+                                                || route().current('gigger.gigPlaybook.viewTask')"
                                               v-if="$page.props.user.roles.includes('Gigger')">
                                     <jet-icon name="playbook-icon" label="Playbook" />
                                 </jet-nav-link>
