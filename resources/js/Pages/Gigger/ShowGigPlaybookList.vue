@@ -55,6 +55,8 @@
                             <td class="py-3 px-6 text-center">
                                 <div class="flex item-center justify-center">
                                     <jet-icon name="contract-icon" tooltip="View Contract" @click="viewContract(row)" v-if="row.contract.status != 'Draft'" />
+                                    <jet-icon name="task-list-icon" tooltip="Manage Tasks" @click="viewTasks(row)"
+                                              v-if="!['Pending Contract Signing', 'Contract Rejected'].includes(row.status)" />
                                 </div>
                             </td>
                         </tr>
@@ -107,11 +109,6 @@
         },
 
         methods: {
-            viewContract(row) {
-                this.form.id = row.id
-                this.form.get(route('gigger.gigPlaybook.viewContract'))
-            },
-
             searchRecord() {
                 this.form.get(route('gigger.gigPlaybook.list'))
             },
@@ -124,6 +121,16 @@
             viewGigHost(row) {
                 this.form.user_id = row.gig_host.id
                 this.form.get(route('user-page.view'))
+            },
+
+            viewContract(row) {
+                this.form.id = row.id
+                this.form.get(route('gigger.gigPlaybook.viewContract'))
+            },
+
+            viewTasks(row) {
+                this.form.id = row.id
+                this.form.get(route('gigger.gigPlaybook.viewTasks'))
             }
         }
     })

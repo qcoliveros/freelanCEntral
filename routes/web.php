@@ -144,6 +144,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
             ->name('gigPlaybook.acceptContract');
         Route::post('gig-playbook-reject-contract', [\App\Http\Controllers\Gigger\GigContractController::class, 'reject'])
             ->name('gigPlaybook.rejectContract');
+
+        Route::get('gig-playbook-task-list', [\App\Http\Controllers\Gigger\GigPlaybookTaskController::class, 'index'])
+            ->name('gigPlaybook.viewTasks');
     });
 
     Route::group(['middleware' => 'role:Gig Host', 'prefix' => 'gigHost', 'as' => 'gigHost.'], function() {
