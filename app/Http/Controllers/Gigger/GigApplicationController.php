@@ -16,8 +16,10 @@ class GigApplicationController extends Controller
     public function index(Request $request)
     {
         return Jetstream::inertia()->render($request, 'Gigger/ShowGigApplicationList', [
+            'search' => $request['search'],
             'gigAppList' => GigApplication::where('user_id', $request->user()->id)
                 ->orderByRaw("FIELD(status, 'Shortlisted', 'Submitted', 'Withdrawn') ASC,  applied_date DESC")
+                ->filterByJobTitle($request['search'])
                 ->paginate(10)
                 ->withQueryString()
                 ->through(fn ($gigApp) => [
@@ -35,6 +37,7 @@ class GigApplicationController extends Controller
         $gigApp = GigApplication::where('id', $request['id'])->first();
         $gigAd = GigAd::where('id', $gigApp->gigAd->id)->with('jobFunction')->first();
         return Jetstream::inertia()->render($request, 'Gigger/ShowGigApplicationDetail', [
+            'search' => $request['search'],
             'gigApp' => $gigApp,
             'gigAd' => $gigAd,
             'gigHost' => $gigApp->gigAd->gigHost,

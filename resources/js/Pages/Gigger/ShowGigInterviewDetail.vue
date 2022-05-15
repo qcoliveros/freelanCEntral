@@ -86,6 +86,7 @@
         },
 
         props: [
+            'search',
             'gigAd',
             'gigApp',
             'applicant',

@@ -9,7 +9,9 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6">
                 <div class="px-4 py-5 sm:p-6 bg-white shadow sm:rounded-lg">
-                    <table class="w-full table-auto">
+                    <jet-search-bar v-model="form.search" placeholder="Search by job title"
+                                    @clickSearch="searchRecord" @clickClearSearch="clearSearchRecord" />
+                    <table class="w-full table-auto mt-4">
                         <thead>
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                             <th class="py-3 px-6 text-left">Job Title</th>
@@ -75,6 +77,7 @@
     import AppLayout from '@/Layouts/AppLayout'
     import JetIcon from '@/Jetstream/Icon'
     import JetPagination from '@/Jetstream/Pagination'
+    import JetSearchBar from '@/Jetstream/SearchBar'
     import JetResponsiveLink from '@/Jetstream/ResponsiveLink'
     import moment from 'moment'
 
@@ -83,16 +86,21 @@
             AppLayout,
             JetIcon,
             JetPagination,
+            JetSearchBar,
             JetResponsiveLink,
         },
 
-        props: [ 'gigAppList' ],
+        props: [
+            'search',
+            'gigAppList',
+        ],
 
         data() {
             return {
                 moment: moment,
 
                 form: this.$inertia.form({
+                    search: this.search,
                     id: null,
                     user_id: null,
                 })
@@ -100,6 +108,15 @@
         },
 
         methods: {
+            searchRecord() {
+                this.form.get(route('gigger.gigApp.list'))
+            },
+
+            clearSearchRecord() {
+                this.form.search = null
+                this.searchRecord()
+            },
+
             viewGigHost(row) {
                 this.form.user_id = row.gig_ad.gig_host.id
                 this.form.get(route('user-page.view'));

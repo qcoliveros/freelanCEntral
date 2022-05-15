@@ -51,6 +51,7 @@
         },
 
         props: [
+            'search',
             'gigApp',
             'gigAd',
             'gigHost',
@@ -59,6 +60,7 @@
         data() {
             return {
                 form: this.$inertia.form({
+                    search: this.search,
                     id: this.gigApp.id,
                     gig_ad_id: this.gigAd.id,
                 })

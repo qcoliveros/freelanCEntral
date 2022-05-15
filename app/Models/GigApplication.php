@@ -35,4 +35,13 @@ class GigApplication extends Model
     {
         return $this->hasMany(GigInterview::class);
     }
+
+    public function scopeFilterByJobTitle($query, $filter)
+    {
+        $query->when($filter ?? null, function ($query, $search) {
+            $query->whereHas('gigAd', function($query) use ($search) {
+                $query->where('job_title', 'LIKE', '%'.$search.'%');
+            });
+        });
+    }
 }

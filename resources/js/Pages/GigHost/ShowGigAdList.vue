@@ -11,7 +11,6 @@
                 <div class="px-4 py-5 sm:p-6 bg-white shadow sm:rounded-lg">
                     <jet-search-bar v-model="form.search" placeholder="Search by job title"
                                     @clickSearch="searchRecord" @clickClearSearch="clearSearchRecord" />
-
                     <div class="flex justify-end mb-2 mr-2">
                         <jet-icon name="add-icon" tooltip="Post Gig Ad" @click="addRecord" />
                     </div>
@@ -166,7 +165,7 @@
             },
 
             searchRecord() {
-                this.form.get('/gigHost/gig-ad-list')
+                this.form.get(route('gigHost.gigAd.list'))
             },
 
             clearSearchRecord() {

@@ -20,6 +20,7 @@ class GigInterviewController extends Controller
         $gigApp = GigApplication::find($request['id']);
         $gigInterview = GigInterview::where('gig_app_id', $gigApp->id)->whereNotIn('status', ['Pending'])->first();
         return Jetstream::inertia()->render($request, 'Gigger/ShowGigInterviewDetail', [
+            'search' => $request['search'],
             'gigAd' => GigAd::select('id', 'job_title', 'status')->where('id', $gigApp->gig_ad_id)->first(),
             'gigApp' => $gigApp,
             'applicant' => User::where('id', $gigApp->user_id)->first(),
