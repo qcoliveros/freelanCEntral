@@ -1,8 +1,8 @@
 <template>
-    <app-layout title="Gig Ads">
+    <app-layout title="Gig Playbook">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Gig Playbooks
+                Gig Playbook
             </h2>
         </template>
 

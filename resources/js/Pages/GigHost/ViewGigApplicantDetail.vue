@@ -1,5 +1,5 @@
 <template xmlns="http://www.w3.org/1999/html">
-    <app-layout title="Gig Applications">
+    <app-layout title="Gig Application">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Gig Applicant for {{ gigAd.job_title }}

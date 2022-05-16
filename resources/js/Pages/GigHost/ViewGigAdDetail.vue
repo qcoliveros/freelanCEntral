@@ -1,5 +1,5 @@
 <template>
-    <app-layout title="Gig Ads">
+    <app-layout title="Gig Ad">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 View Gig Ad
