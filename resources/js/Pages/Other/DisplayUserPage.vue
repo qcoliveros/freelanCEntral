@@ -15,7 +15,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
+                <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md mb-4">
                     <jet-secondary-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
                                           @click="unfollow" v-if="!isOwn && isFollowing">
                         Unfollow
