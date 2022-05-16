@@ -148,9 +148,9 @@
     import JetInputError from '@/Jetstream/InputError'
     import JetLabel from '@/Jetstream/Label'
     import JetSecondaryButton from '@/Jetstream/SecondaryButton'
-    import JetTextarea from "@/Jetstream/Textarea"
-    import Multiselect from "@vueform/multiselect"
-    import ToastMessage from "../../../../mixins/toast-message"
+    import JetTextarea from '@/Jetstream/Textarea'
+    import Multiselect from '@vueform/multiselect'
+    import ToastMessage from '../../../../mixins/toast-message'
 
     export default defineComponent({
         mixins: [ ToastMessage ],

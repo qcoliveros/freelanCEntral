@@ -107,7 +107,7 @@
     import JetLabel from '@/Jetstream/Label'
     import JetActionMessage from '@/Jetstream/ActionMessage'
     import JetIcon from '@/Jetstream/Icon'
-    import Multiselect from "@vueform/multiselect"
+    import Multiselect from '@vueform/multiselect'
 
     export default defineComponent({
         components: {
