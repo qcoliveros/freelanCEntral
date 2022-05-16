@@ -18,7 +18,6 @@
                         <jet-input-error :message="form.errors.clause" class="mt-2" />
                     </div>
                     <div v-else>
-                        <jet-label value="Contract clause." />
                         <div v-html="form.clause" />
                     </div>
                 </div>

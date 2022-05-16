@@ -28,6 +28,7 @@ class GigPlaybookController extends Controller
                     'status' => $gigPlaybook->status,
                     'gig_host' => $gigPlaybook->gigHost,
                     'contract' => $gigPlaybook->contract,
+                    'review' => $gigPlaybook->review,
                 ]),
         ]);
     }

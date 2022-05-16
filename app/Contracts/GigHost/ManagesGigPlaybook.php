@@ -26,5 +26,15 @@ interface ManagesGigPlaybook
 
     public function closeTask(array $input);
 
+    public function completePlaybook(array $input);
+
+    public function closePlaybook(array $input);
+
     public function publishComment($user, array $input);
+
+    public function createReview(array $input);
+
+    public function saveReview(array $input);
+
+    public function submitReview(array $input);
 }

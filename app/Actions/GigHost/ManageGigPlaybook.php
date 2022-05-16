@@ -5,6 +5,7 @@ namespace App\Actions\GigHost;
 use App\Contracts\GigHost\ManagesGigPlaybook;
 use App\Models\GigPlaybook;
 use App\Models\GigPlaybookContract;
+use App\Models\GigPlaybookReview;
 use App\Models\GigPlaybookTask;
 use App\Models\GigPlaybookTaskComment;
 use Illuminate\Support\Facades\Date;
@@ -137,6 +138,11 @@ class ManageGigPlaybook implements ManagesGigPlaybook
             ]);
         }
 
+        $this->completePlaybook($input);
+    }
+
+    public function completePlaybook(array $input)
+    {
         $gigPlaybook = GigPlaybook::with('tasks')->find($input['id']);
         $notCompletedCount = $gigPlaybook->tasks->filter(function($gigTask){
             return !in_array($gigTask->status, ['Completed','Closed']);
@@ -156,13 +162,23 @@ class ManageGigPlaybook implements ManagesGigPlaybook
         }
 
         $gigPlaybook = GigPlaybook::with('tasks')->find($input['id']);
-        $notCompletedCount = $gigPlaybook->tasks->filter(function($gigTask){
+        $notClosedCount = $gigPlaybook->tasks->filter(function($gigTask){
             return $gigTask->status != 'Closed';
         })->count();
 
-        if ($notCompletedCount == 0) {
-            $gigPlaybook->update(['status' => 'Closed']);
+        if ($notClosedCount == 0) {
+            $gigPlaybook->update(['status' => 'Pending Review']);
+            $this->createReview($input);
+
+            return true;
         }
+
+        return false;
+    }
+
+    public function closePlaybook(array $input)
+    {
+        GigPlaybook::find($input['id'])->update(['status' => 'Closed']);
     }
 
     public function publishComment($user, array $input)
@@ -185,5 +201,45 @@ class ManageGigPlaybook implements ManagesGigPlaybook
                 'message' => $input['message'],
             ]);
         }
+    }
+
+    public function createReview(array $input)
+    {
+        $gigPlaybook = GigPlaybook::find($input['id']);
+        GigPlaybookReview::create([
+            'gig_playbook_id' => $gigPlaybook->id,
+            'reviewer_id' => $gigPlaybook->gig_host_id,
+            'reviewee_id' => $gigPlaybook->gigger_id,
+            'status' => 'Draft',
+        ]);
+    }
+
+    public function saveReview(array $input)
+    {
+        $this->validateReview($input);
+
+        GigPlaybookReview::find($input['review_id'])->update([
+            'review' => $input['review'],
+        ]);
+    }
+
+    public function submitReview(array $input)
+    {
+        $this->validateReview($input);
+
+        GigPlaybookReview::find($input['review_id'])->update([
+            'review_date' => Date::now(),
+            'review' => $input['review'],
+            'status' => 'Completed',
+        ]);
+
+        $this->closePlaybook($input);
+    }
+
+    private function validateReview(array $input)
+    {
+        Validator::make($input, [
+            'review' => ['required', 'string', 'max:4096'],
+        ])->validateWithBag('gigPlaybookReviewError');
     }
 }

@@ -356,6 +356,16 @@
             <div class="w-3 h-3 -mt-2 rotate-45 bg-black"></div>
         </div>
     </div>
+
+    <div v-else-if="name === 'review-icon'" class="w-4 mr-2 transform hover:text-indigo-500 hover:scale-110 relative flex flex-col items-center group">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+        </svg>
+        <div v-if="!!tooltip" class="absolute bottom-0 flex flex-col items-center hidden mb-6 group-hover:flex">
+            <span class="relative z-10 p-2 text-xs leading-none text-white whitespace-nowrap bg-black rounded-md shadow-lg">{{ tooltip }}</span>
+            <div class="w-3 h-3 -mt-2 rotate-45 bg-black"></div>
+        </div>
+    </div>
 </template>
 
 <script>

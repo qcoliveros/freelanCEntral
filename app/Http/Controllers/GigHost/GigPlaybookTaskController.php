@@ -105,10 +105,15 @@ class GigPlaybookTaskController extends Controller
 
     public function close(Request $request, ManagesGigPlaybook $updater)
     {
-        $updater->closeTask($request->all());
+        $isAllClosed = $updater->closeTask($request->all());
 
         return $request->wantsJson()
             ? new JsonResponse('', 200)
-            : back()->with('status', 'gig-playbook-task-closed');
+            : (!$isAllClosed
+                ? back()->with('status', 'gig-playbook-task-closed')
+                : Redirect::route('gigHost.gigPlaybook.viewReview', [
+                    'search' => $request['search'],
+                    'id' => $request['id'],
+                ])->with('status', 'gig-playbook-tasks-closed'));
     }
 }

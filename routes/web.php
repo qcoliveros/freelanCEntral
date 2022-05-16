@@ -159,6 +159,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
             ->name('gigPlaybook.holdTask');
         Route::post('gig-playbook-complete-task', [\App\Http\Controllers\Gigger\GigPlaybookTaskController::class, 'complete'])
             ->name('gigPlaybook.completeTask');
+
+        Route::get('gig-playbook-view-review', [\App\Http\Controllers\Gigger\GigReviewController::class, 'view'])
+            ->name('gigPlaybook.viewReview');
     });
 
     Route::group(['middleware' => 'role:Gig Host', 'prefix' => 'gigHost', 'as' => 'gigHost.'], function() {
@@ -228,5 +231,12 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
             ->name('gigPlaybook.saveTask');
         Route::post('gig-playbook-close-task', [\App\Http\Controllers\GigHost\GigPlaybookTaskController::class, 'close'])
             ->name('gigPlaybook.closeTask');
+
+        Route::get('gig-playbook-view-review', [\App\Http\Controllers\GigHost\GigReviewController::class, 'view'])
+            ->name('gigPlaybook.viewReview');
+        Route::post('gig-playbook-save-contract', [\App\Http\Controllers\GigHost\GigReviewController::class, 'save'])
+            ->name('gigPlaybook.saveReview');
+        Route::post('gig-playbook-submit-contract', [\App\Http\Controllers\GigHost\GigReviewController::class, 'submit'])
+            ->name('gigPlaybook.submitReview');
     });
 });
