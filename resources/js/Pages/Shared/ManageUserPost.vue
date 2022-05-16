@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg mt-4" v-for="post in postList.data">
+    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg mb-4" v-for="post in postList.data">
         <div>
             <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                 <div class="mt-2 flex flex-row">
@@ -42,7 +42,7 @@
             </div>
         </div>
     </div>
-    <jet-pagination :links="postList.links" />
+    <jet-pagination :links="postList.links" class="mt-4" />
 
     <jet-dialog-modal :show="isOpenCommentModal" @close="closeCommentModal">
         <template #title>
