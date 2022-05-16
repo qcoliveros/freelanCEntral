@@ -12,7 +12,17 @@ class UserController extends Controller
     public function index(Request $request)
     {
         return Jetstream::inertia()->render($request, 'Admin/UserList', [
-            'userList' => User::with('roles')->get(),
+            'search' => $request['search'],
+            'userList' => User::with('roles')
+                ->orderByRaw('name ASC')
+                ->filterByName($request['search'])
+                ->paginate(10)
+                ->withQueryString()
+                ->through(fn ($user) => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'roles' => $user->roles,
+                ]),
         ]);
     }
 }

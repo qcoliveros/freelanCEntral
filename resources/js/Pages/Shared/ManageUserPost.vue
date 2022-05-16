@@ -17,7 +17,7 @@
 
                 <jet-section-border />
 
-                <div class="flex">
+                <div class="flex" v-if="!$page.props.user.roles.includes('Administrator')">
                     <jet-responsive-nav-link as="button" @click="likePost(post)" v-if="!post.like_indicator">
                         <span class="inline-flex align-middle"><jet-icon name="like-icon" />&nbsp;Like</span>
                     </jet-responsive-nav-link>

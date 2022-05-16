@@ -21,13 +21,17 @@
                         Unfollow
                     </jet-secondary-button>
                     <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
-                                @click="follow" v-else-if="!isOwn && !isFollowing">
+                                @click="follow" v-else-if="!$page.props.user.roles.includes('Administrator') && !isOwn && !isFollowing">
                         Follow
                     </jet-button>
                     <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
-                                @click="openPostModal" v-else>
+                                @click="openPostModal" v-else-if="!$page.props.user.roles.includes('Administrator')">
                         Post
                     </jet-button>
+                    <jet-secondary-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
+                                          @click="cancel" v-else>
+                        Cancel
+                    </jet-secondary-button>
                 </div>
 
                 <manage-user-post :post-list="postList" />
@@ -91,6 +95,7 @@
         },
 
         props: [
+            'search',
             'isOwn',
             'isFollowing',
             'gigHost',
@@ -102,6 +107,7 @@
                 isOpenPostModal: false,
 
                 form: this.$inertia.form({
+                    search: null,
                     id: null,
                     post_id: null,
                     message: null,
@@ -154,6 +160,11 @@
                         this.showErrorMessage(errors.unfollowUserError)
                     }
                 })
+            },
+
+            cancel() {
+                this.form.search = this.search;
+                this.form.get(route('admin.user.list'))
             }
         }
     })

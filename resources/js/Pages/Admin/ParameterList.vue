@@ -1,42 +1,34 @@
 <template>
-    <app-layout title="User List">
+    <app-layout title="Parameter List">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                User List
+                Parameter List
             </h2>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6">
                 <div class="px-4 py-5 sm:p-6 bg-white shadow sm:rounded-lg">
-                    <jet-search-bar v-model="form.search" placeholder="Search by name"
-                                    @clickSearch="searchRecord" @clickClearSearch="clearSearchRecord" />
-                    <table class="w-full table-auto mt-4">
+                    <table class="w-full table-auto">
                         <thead>
                         <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                            <th class="py-3 px-6 text-left">Name</th>
-                            <th class="py-3 px-6 text-left">Roles</th>
+                            <th class="py-3 px-6 text-left">Parameter Name</th>
                             <th class="py-3 px-6 text-center">Actions</th>
                         </tr>
                         </thead>
                         <tbody class="text-gray-600 text-sm font-light">
-                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-if="!!userList.data && !userList.data.length">
+                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-if="!!parameterList && !parameterList.length">
                             <td class="py-3 px-6 text-left whitespace-nowrap">No records found.</td>
                         </tr>
-                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-for="row in userList.data">
+                        <tr class="border-b border-gray-200 hover:bg-gray-100" v-for="row in parameterList">
                             <td class="py-3 px-6 text-left whitespace-nowrap">
                                 <div class="flex items-center">
                                     <span class="font-medium">{{ row.name }}</span>
                                 </div>
                             </td>
-                            <td class="py-3 px-6 text-left whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <span class="font-medium" v-for="role in row.roles">{{ role.name }}</span>
-                                </div>
-                            </td>
                             <td class="py-3 px-6 text-center">
                                 <div class="flex item-center justify-center">
-                                    <jet-icon name="view-icon" tooltip="View User Detail" @click="viewRecord(row)" />
+                                    <jet-icon name="view-icon" tooltip="View Parameter Detail" @click="viewRecord(row)" />
                                 </div>
                             </td>
                         </tr>
@@ -45,52 +37,36 @@
                 </div>
             </div>
         </div>
-        <jet-pagination :links="userList.links" />
     </app-layout>
 </template>
 
 <script>
     import { defineComponent } from 'vue'
-    import AppLayout from '@/Layouts/AppLayout'
+    import AppLayout from '@/Layouts/AppLayout.vue'
     import JetIcon from '@/Jetstream/Icon'
-    import JetPagination from '@/Jetstream/Pagination'
-    import JetSearchBar from '@/Jetstream/SearchBar'
 
     export default defineComponent({
         components: {
             AppLayout,
             JetIcon,
-            JetPagination,
-            JetSearchBar,
         },
 
         props: [
-            'search',
-            'userList',
+            'parameterList'
         ],
 
         data() {
             return {
                 form: this.$inertia.form({
-                    search: this.search,
-                    user_id: null,
+                    id: null,
                 })
             }
         },
 
         methods: {
-            searchRecord() {
-                this.form.get(route('admin.user.list'))
-            },
-
-            clearSearchRecord() {
-                this.form.search = null
-                this.searchRecord()
-            },
-
             viewRecord(row) {
-                this.form.user_id = row.id
-                this.form.get(route('user-page.view'))
+                this.form.id = row.id
+                this.form.get(route('parameter-page.view'))
             },
         }
     })

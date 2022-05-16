@@ -35,6 +35,7 @@ class UserPageController extends PostController
         ])->first();
 
         return Jetstream::inertia()->render($request, 'Other/DisplayUserPage', [
+            'search' => $request['search'],
             'isOwn' => false,
             'isFollowing' => $userCircle != null,
             'gigHost' => User::find($request['user_id']),

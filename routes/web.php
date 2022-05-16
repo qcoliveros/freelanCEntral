@@ -113,6 +113,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::group(['middleware' => 'role:Administrator', 'prefix' => 'admin', 'as' => 'admin.'], function() {
         Route::get('user-list', [\App\Http\Controllers\Admin\UserController::class, 'index'])
             ->name('user.list');
+
+        Route::get('parameter-list', [\App\Http\Controllers\Admin\ParameterController::class, 'index'])
+            ->name('parameter.list');
     });
 
     Route::group(['middleware' => 'role:Gigger', 'prefix' => 'gigger', 'as' => 'gigger.'], function() {

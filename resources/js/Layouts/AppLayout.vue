@@ -28,6 +28,11 @@
                                               v-if="$page.props.user.roles.includes('Administrator')">
                                     <jet-icon name="users-icon" label="Users" />
                                 </jet-nav-link>
+                                <jet-nav-link :href="route('admin.parameter.list')"
+                                              :active="route().current('admin.parameter.list')"
+                                              v-if="$page.props.user.roles.includes('Administrator')">
+                                    <jet-icon name="parameters-icon" label="Parameters" />
+                                </jet-nav-link>
 
                                 <jet-nav-link :href="route('gigHost.gigPlaybook.list')"
                                               :active="route().current('gigHost.gigPlaybook.list')
