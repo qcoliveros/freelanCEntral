@@ -152,14 +152,14 @@
 <script>
     import { defineComponent } from 'vue'
     import DatePicker from 'vue-datepicker-next'
-    import JetActionSection from '@/Jetstream/ActionSection.vue'
-    import JetButton from '@/Jetstream/Button.vue'
-    import JetDialogModal from '@/Jetstream/DialogModal.vue'
+    import JetActionSection from '@/Jetstream/ActionSection'
+    import JetButton from '@/Jetstream/Button'
+    import JetDialogModal from '@/Jetstream/DialogModal'
     import JetIcon from '@/Jetstream/Icon'
-    import JetInput from '@/Jetstream/Input.vue'
-    import JetInputError from '@/Jetstream/InputError.vue'
-    import JetLabel from '@/Jetstream/Label.vue'
-    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+    import JetInput from '@/Jetstream/Input'
+    import JetInputError from '@/Jetstream/InputError'
+    import JetLabel from '@/Jetstream/Label'
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton'
     import JetTextarea from "@/Jetstream/Textarea"
     import moment from "moment"
     import ToastMessage from "../../../../mixins/toast-message"
