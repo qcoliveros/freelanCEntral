@@ -20,7 +20,7 @@
 
                         <!-- Navigation Links -->
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <div v-if="canLogin" class="hidden px-6 py-4 sm:block grid-cols-1">
+                            <div v-if="canLogin" class="hidden px-6 py-3 sm:block grid-cols-1">
                                 <Link v-if="$page.props.user" :href="route('dashboard')" class="text-sm">Dashboard</Link>
 
                                 <template v-else>
@@ -42,8 +42,8 @@
             <footer class="grow-0 bg-black border-t border-gray-100">
                 <div class="max-w-7xl mx-auto lg:px-8">
                     <div class="flex justify-between h-12">
-                        <div class="mt-4 text-xs sm:ml-0 text-white">© 2022 freelanCEntral Inc.</div>
-                        <div class="mt-4 text-xs sm:ml-0 text-white">
+                        <div class="mt-3 text-xs sm:ml-0 text-white">© 2022 freelanCEntral Inc.</div>
+                        <div class="mt-3 text-xs sm:ml-0 text-white">
                             Terms of Service&nbsp;&nbsp;|&nbsp;&nbsp;Privacy Policy
                         </div>
                     </div>
