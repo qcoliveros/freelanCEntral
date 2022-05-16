@@ -44,7 +44,10 @@ class GigPlaybookTaskController extends Controller
             'gigTask' => $gigTask,
             'gigTaskComments' => $gigTask != null
                 ? GigPlaybookTaskComment::where('gig_playbook_task_id', $gigTask->id)
-                    ->whereNull('gig_playbook_task_comment_id')->with('comments')->get() : [],
+                    ->whereNull('gig_playbook_task_comment_id')
+                    ->with('user', 'comments', 'comments.user')
+                    ->get()
+                : [],
         ]);
     }
 

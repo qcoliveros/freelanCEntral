@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Other\UserPageController;
+use App\Http\Controllers\Shared\GigPlaybookTaskCommentController;
 use App\Http\Controllers\Shared\PostController;
 use App\Http\Controllers\Profile\UserAboutInformationController;
 use App\Http\Controllers\Profile\UserEducationController;
@@ -105,6 +106,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         ->name('user-language.update');
     Route::delete('/user/delete-soft-skill', [UserLanguageController::class, 'delete'])
         ->name('user-language.delete');
+
+    Route::post('/task-comment', [GigPlaybookTaskCommentController::class, 'publishComment'])
+        ->name('gig-task-comment.publish');
 
     Route::group(['middleware' => 'role:Administrator', 'prefix' => 'admin', 'as' => 'admin.'], function() {
         Route::get('user-list', [\App\Http\Controllers\Admin\UserController::class, 'index'])

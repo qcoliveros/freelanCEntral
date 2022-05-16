@@ -15,7 +15,6 @@ class GigPlaybookTaskComment extends Model
         'user_id',
         'message',
         'publish_date',
-        'status',
     ];
 
     public function user()

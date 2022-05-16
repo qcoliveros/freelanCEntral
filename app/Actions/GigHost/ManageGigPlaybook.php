@@ -6,6 +6,7 @@ use App\Contracts\GigHost\ManagesGigPlaybook;
 use App\Models\GigPlaybook;
 use App\Models\GigPlaybookContract;
 use App\Models\GigPlaybookTask;
+use App\Models\GigPlaybookTaskComment;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Validator;
 
@@ -161,6 +162,28 @@ class ManageGigPlaybook implements ManagesGigPlaybook
 
         if ($notCompletedCount == 0) {
             $gigPlaybook->update(['status' => 'Closed']);
+        }
+    }
+
+    public function publishComment($user, array $input)
+    {
+        Validator::make($input, [
+            'message' => ['required', 'string', 'max:2048'],
+        ])->validateWithBag('gigPlaybookTaskCommentError');
+
+        if (!isset($input['comment_id'])) {
+            GigPlaybookTask::find($input['task_id'])->comments()->create([
+                'user_id' => $user->id,
+                'publish_date' => Date::now(),
+                'message' => $input['message'],
+            ]);
+        } else {
+            GigPlaybookTaskComment::find($input['comment_id'])->comments()->create([
+                'gig_playbook_task_id' => $input['task_id'],
+                'user_id' => $user->id,
+                'publish_date' => Date::now(),
+                'message' => $input['message'],
+            ]);
         }
     }
 }

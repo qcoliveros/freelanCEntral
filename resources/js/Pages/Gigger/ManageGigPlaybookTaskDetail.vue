@@ -29,6 +29,8 @@
                         Complete
                     </jet-button>
                 </div>
+
+                <manage-gig-task-comment :gigPlaybook="gigPlaybook" :gigTask="gigTask" :gigTaskComments="gigTaskComments" />
             </div>
         </div>
     </app-layout>
@@ -39,6 +41,7 @@
     import AppLayout from '@/Layouts/AppLayout'
     import JetButton from '@/Jetstream/Button'
     import JetSecondaryButton from '@/Jetstream/SecondaryButton'
+    import ManageGigTaskComment from '@/Pages/Shared/ManageGigTaskComment'
     import ToastMessage from '../../../mixins/toast-message'
     import ViewGigTaskDetail from '@/Pages/Shared/ViewGigTaskDetail'
 
@@ -49,6 +52,7 @@
             AppLayout,
             JetButton,
             JetSecondaryButton,
+            ManageGigTaskComment,
             ViewGigTaskDetail,
         },
 
