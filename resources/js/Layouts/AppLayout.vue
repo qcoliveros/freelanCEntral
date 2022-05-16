@@ -24,15 +24,41 @@
                                 </jet-nav-link>
 
                                 <jet-nav-link :href="route('admin.user.list')"
-                                              :active="route().current('admin.user.list')"
+                                              :active="route().current('admin.user.list')
+                                                || route().current('user-page.view')"
                                               v-if="$page.props.user.roles.includes('Administrator')">
                                     <jet-icon name="users-icon" label="Users" />
                                 </jet-nav-link>
-                                <jet-nav-link :href="route('admin.parameter.list')"
-                                              :active="route().current('admin.parameter.list')"
-                                              v-if="$page.props.user.roles.includes('Administrator')">
-                                    <jet-icon name="parameters-icon" label="Parameters" />
-                                </jet-nav-link>
+                                <div :class="route().current('admin.parameter.list')
+                                        ? 'inline-flex items-center px-1 pt-1 border-b-2 border-green-400 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-green-700 transition'
+                                        : 'inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition'"
+                                     v-if="$page.props.user.roles.includes('Administrator')">
+                                    <jet-dropdown>
+                                        <template #trigger>
+                                            <jet-icon name="parameters-icon" label="Parameters" />
+                                        </template>
+                                        <template #content>
+                                            <jet-dropdown-link :href="'/admin/parameter-list?idx=0'">
+                                                Industry
+                                            </jet-dropdown-link>
+                                            <jet-dropdown-link :href="'/admin/parameter-list?idx=1'">
+                                                Job Function
+                                            </jet-dropdown-link>
+                                            <jet-dropdown-link :href="'/admin/parameter-list?idx=2'">
+                                                Messenger Type
+                                            </jet-dropdown-link>
+                                            <jet-dropdown-link :href="'/admin/parameter-list?idx=3'">
+                                                Phone Type
+                                            </jet-dropdown-link>
+                                            <jet-dropdown-link :href="'/admin/parameter-list?idx=4'">
+                                                Soft Skill
+                                            </jet-dropdown-link>
+                                            <jet-dropdown-link :href="'/admin/parameter-list?idx=5'">
+                                                Technical Skill
+                                            </jet-dropdown-link>
+                                        </template>
+                                    </jet-dropdown>
+                                </div>
 
                                 <jet-nav-link :href="route('gigHost.gigPlaybook.list')"
                                               :active="route().current('gigHost.gigPlaybook.list')

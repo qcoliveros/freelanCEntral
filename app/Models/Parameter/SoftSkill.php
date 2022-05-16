@@ -13,4 +13,11 @@ class SoftSkill extends Model
         'name',
         'description',
     ];
+
+    public function scopeFilterByName($query, $filter)
+    {
+        $query->when($filter ?? null, function ($query, $search) {
+            $query->where('name', 'LIKE', '%'.$search.'%');
+        });
+    }
 }

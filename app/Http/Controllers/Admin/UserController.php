@@ -14,7 +14,7 @@ class UserController extends Controller
         return Jetstream::inertia()->render($request, 'Admin/UserList', [
             'search' => $request['search'],
             'userList' => User::with('roles')
-                ->orderByRaw('name ASC')
+                ->orderBy('name')
                 ->filterByName($request['search'])
                 ->paginate(10)
                 ->withQueryString()

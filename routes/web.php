@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Admin\ParameterController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Other\UserPageController;
 use App\Http\Controllers\Shared\GigPlaybookTaskCommentController;
 use App\Http\Controllers\Shared\PostController;
@@ -111,11 +113,13 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         ->name('gig-task-comment.publish');
 
     Route::group(['middleware' => 'role:Administrator', 'prefix' => 'admin', 'as' => 'admin.'], function() {
-        Route::get('user-list', [\App\Http\Controllers\Admin\UserController::class, 'index'])
+        Route::get('user-list', [UserController::class, 'index'])
             ->name('user.list');
 
-        Route::get('parameter-list', [\App\Http\Controllers\Admin\ParameterController::class, 'index'])
+        Route::get('parameter-list', [ParameterController::class, 'index'])
             ->name('parameter.list');
+        Route::post('save-parameter', [ParameterController::class, 'save'])
+            ->name('parameter.save');
     });
 
     Route::group(['middleware' => 'role:Gigger', 'prefix' => 'gigger', 'as' => 'gigger.'], function() {
