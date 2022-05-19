@@ -55,11 +55,11 @@
                             <td class="py-3 px-6 text-center">
                                 <div class="flex item-center justify-center">
                                     <jet-icon name="contract-icon" tooltip="View Contract" @click="viewContract(row)"
-                                              v-if="row.contract.status != 'Draft'" />
+                                              v-if="row.contract != null && row.contract.status != 'Draft'" />
                                     <jet-icon name="task-list-icon" tooltip="View Tasks" @click="viewTasks(row)"
                                               v-if="!['Pending Contract Signing', 'Contract Rejected'].includes(row.status)" />
                                     <jet-icon name="review-icon" tooltip="View Review Write-up" @click="viewReview(row)"
-                                              v-if="row.review.status != 'Draft'" />
+                                              v-if="row.review != null && row.review.status != 'Draft'" />
                                 </div>
                             </td>
                         </tr>
